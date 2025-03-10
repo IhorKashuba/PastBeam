@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PastBeam.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e6aea3dc18436cf93ffe113ce9e963a0956084d")]
 [assembly: System.Reflection.AssemblyProductAttribute("PastBeam.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PastBeam.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

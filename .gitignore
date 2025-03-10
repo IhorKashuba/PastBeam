@@ -1,6 +1,6 @@
 # Ignore build results and temporary files
-/bin/
-/obj/
+**/bin/
+**/obj/
 
 # Ignore environment variable files
 .env
