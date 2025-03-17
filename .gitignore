@@ -12,3 +12,4 @@
 
 # Ignore .vs config
 .vs/
+/PastBeam.Infrastructure/obj/Debug/net8.0

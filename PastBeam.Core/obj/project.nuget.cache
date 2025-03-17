@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "oD7XeHukydM=",
+  "dgSpecHash": "MWVYyJJXgE8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\olexi\\OneDrive\\Робочий стіл\\PastBeam\\PastBeam\\PastBeam.Core\\PastBeam.Core.csproj",
+  "projectFilePath": "D:\\Лабки\\PastBeam\\PastBeam.Core\\PastBeam.Core.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\olexi\\.nuget\\packages\\roslynator.analyzers\\4.13.1\\roslynator.analyzers.4.13.1.nupkg.sha512",
-    "C:\\Users\\olexi\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512"
+    "C:\\Users\\user\\.nuget\\packages\\roslynator.analyzers\\4.13.1\\roslynator.analyzers.4.13.1.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512"
   ],
   "logs": []
 }
