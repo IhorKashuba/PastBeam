@@ -1,8 +1,7 @@
-﻿
+﻿namespace Infrastructure.Data;
+
 using Microsoft.EntityFrameworkCore;
 using Core.Entities;
-
-namespace Infrastructure.Data;
 
 public class ApplicationDbContext : DbContext
 {
@@ -10,14 +9,23 @@ public class ApplicationDbContext : DbContext
         : base(options) { }
 
     public DbSet<User> Users { get; set; }
+
     public DbSet<Article> Articles { get; set; }
+
     public DbSet<Bookmark> Bookmarks { get; set; }
+
     public DbSet<Favorite> Favorites { get; set; }
+
     public DbSet<Folder> Folders { get; set; }
+
     public DbSet<FolderArticle> FolderArticles { get; set; }
+
     public DbSet<Tag> Tags { get; set; }
+
     public DbSet<ArticleTag> ArticleTags { get; set; }
+
     public DbSet<UserCourse> UserCourses { get; set; }
+
     public DbSet<Course> Courses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
