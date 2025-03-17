@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PastBeam.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32c59d4f145d543d431e826f3180d059d2d6673f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eba6bc167c2c602e59feff9c4ee01d962d9354af")]
 [assembly: System.Reflection.AssemblyProductAttribute("PastBeam.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PastBeam.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

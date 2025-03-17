@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4Dm/kUw5Zu8=",
+  "dgSpecHash": "64U+S85S2EU=",
   "success": true,
   "projectFilePath": "D:\\Лабки\\PastBeam\\PastBeam.Tests\\PastBeam.Tests.csproj",
   "expectedPackageFiles": [
@@ -16,6 +16,9 @@
     "C:\\Users\\user\\.nuget\\packages\\nunit\\3.14.0\\nunit.3.14.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\nunit.analyzers\\3.9.0\\nunit.analyzers.3.9.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\nunit3testadapter\\4.5.0\\nunit3testadapter.4.5.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\roslynator.analyzers\\4.13.1\\roslynator.analyzers.4.13.1.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\serilog\\4.2.0\\serilog.4.2.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512"
   ],
   "logs": []

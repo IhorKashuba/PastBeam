@@ -1,0 +1,14 @@
+# Ignore build results and temporary files
+/bin/
+/obj/
+/PastBeam.Application/obj/
+/PastBeam.Core/obj/
+/PastBeam.Infrastucture/obj/
+/PastBeam.Presentation/obj/
+/PastBeam.Tests/obj/
+
+# Ignore environment variable files
+.env
+
+# Ignore .vs config
+.vs/
