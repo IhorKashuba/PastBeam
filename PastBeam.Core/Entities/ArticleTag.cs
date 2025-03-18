@@ -1,4 +1,4 @@
-﻿using PastBeam.Core.Entities;
+﻿using Core.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

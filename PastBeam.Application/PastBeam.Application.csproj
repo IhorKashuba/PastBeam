@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PastBeam.Core\PastBeam.Core.csproj" />
+  </ItemGroup>
+
 </Project>
