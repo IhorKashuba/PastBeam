@@ -1,7 +1,7 @@
-﻿namespace Infrastructure.Data;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Core.Entities;
+
+namespace PastBeam.Infrastructure.DataBase;
 
 public class ApplicationDbContext : DbContext
 {

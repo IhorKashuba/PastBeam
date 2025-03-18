@@ -1,4 +1,4 @@
-using Infrastructure.Data;
+using PastBeam.Infrastructure.DataBase;
 using Microsoft.EntityFrameworkCore;
 using PastBeam.Core.Interfaces;
 using PastBeam.Infrastructure.Repositories;
