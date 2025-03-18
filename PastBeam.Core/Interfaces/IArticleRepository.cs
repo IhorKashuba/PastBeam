@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Entities;
-using PastBeam.Core.Entities;
 
 namespace PastBeam.Core.Interfaces
 {
