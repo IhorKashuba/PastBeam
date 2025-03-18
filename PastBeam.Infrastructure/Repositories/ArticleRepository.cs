@@ -1,5 +1,7 @@
 using Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using PastBeam.Core.Interfaces;
+using PastBeam.Infrastructure.DataBase;
 
 namespace PastBeam.Infrastructure.Repositories
 {
