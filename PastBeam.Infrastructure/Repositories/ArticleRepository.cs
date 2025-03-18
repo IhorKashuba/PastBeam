@@ -1,5 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using PastBeam.Core.Entities;
+using Core.Entities;
 using PastBeam.Core.Interfaces;
 
 namespace PastBeam.Infrastructure.Repositories
