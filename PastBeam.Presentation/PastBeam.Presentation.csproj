@@ -130,7 +130,16 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PastBeam.Application\PastBeam.Application.csproj">
+      <Project>{e2f05256-d058-49b7-83e7-a01591eca85e}</Project>
+      <Name>PastBeam.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PastBeam.Core\PastBeam.Core.csproj">
+      <Project>{e138c10c-797b-4146-a0c4-6bf018fc00f8}</Project>
+      <Name>PastBeam.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <StartArguments />
   </PropertyGroup>
