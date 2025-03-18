@@ -1,37 +1,40 @@
-﻿namespace Presentation.Controllers
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using PastBeam.Application.Services;
+using Microsoft.AspNetCore.Mvc;
+using PastBeam.Application.Services;
+using Core.Entities;
 
-    [ApiController]
-    [Route("/article/[controller]")]
-    public class ArticleController
+namespace PastBeam.Presentation.Controllers
+{
+    public class ArticleController : Controller
     {
-        public ArticleController(IArticleService articleService)
+        private readonly ArticleService _articleService;
+
+        public ArticleController(ArticleService articleService)
         {
             _articleService = articleService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateArticle([FromBody] CreateArticleRequest request)
+        public async Task Index()
         {
-            var article = await _articleService.CreateArticleAsync(request);
-            return CreatedAtAction(nameof(GetArticleById), new { id = article.Id }, article);
+            var articles = await _articleService.GetAllArticlesAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetArticleById(int id)
+        public async Task Details(int id)
         {
-            var publication = await _articleService.GetArticleByIdAsync(id);
-            if (publication == null)
-                return NotFound();
+            var article = await _articleService.GetArticleByIdAsync(id);
+        }
 
-            return Ok(publication);
+        public async Task CreateArticle(string title, string content, List<string> tags)
+        {
+            Article article = new Article
+            {
+                Title = title,
+                Content = content,
+                Tags = tags,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+
+            await _articleService.CreateArticle(article);
         }
     }
 }

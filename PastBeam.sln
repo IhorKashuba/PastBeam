@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastBeam.Tests", "PastBeam.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastBeam.Core", "PastBeam.Core\PastBeam.Core.csproj", "{E138C10C-797B-4146-A0C4-6BF018FC00F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastBeam.Presentation", "PastBeam.Presentation1\PastBeam.Presentation.csproj", "{BDC61762-4626-4BB2-BFBE-7961ADFD34F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastBeam.Presentation", "PastBeam.Presentation\PastBeam.Presentation.csproj", "{BDC61762-4626-4BB2-BFBE-7961ADFD34F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

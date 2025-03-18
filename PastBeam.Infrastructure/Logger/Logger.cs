@@ -3,7 +3,13 @@ using Serilog;
 
 namespace PastBeam.Infrastructure.Logger
 {
-    public static class Logger
+    public interface ILogger
+    {
+        void LogToFile(string message);
+    }
+
+
+    public class Logger : ILogger
     {
         static Logger()
         {
@@ -12,7 +18,7 @@ namespace PastBeam.Infrastructure.Logger
                 .CreateLogger();
         }
 
-        public static void LogToFile(string message)
+        public void LogToFile(string message)
         {
             Log.Information(message);
             Log.CloseAndFlush(); // Забезпечує коректний запис у файл

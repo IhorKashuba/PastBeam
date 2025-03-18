@@ -1,0 +1,12 @@
+@model IEnumerable<PastBeam.Core.Entities.Article>
+
+    <h2>Articles</h2>
+
+    <ul>
+        @foreach (var article in Model)
+    {
+        <li>
+            <a asp-action="Details" asp-route-id="@article.Id">@article.Title</a> - @article.PublishedDate.ToShortDateString()
+        </li>
+    }
+    </ul>
