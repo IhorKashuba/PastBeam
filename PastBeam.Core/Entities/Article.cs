@@ -10,18 +10,14 @@ public class Article
     public int Id { get; set; }
 
     [Required]
-    public string Title { get; set; } = string.Empty;
+    public string Title { get; set; }
 
     [Required]
-    public string Content { get; set; } = string.Empty;
+    public string Content { get; set; }
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; }
 
-    public List<ArticleTag> ArticleTags { get; set; } = new();
-
-    public List<Bookmark> Bookmarks { get; set; } = new();
-
-    public List<Favorite> Favorites { get; set; } = new();
+    public List<string> Tags { get; set; }
 }

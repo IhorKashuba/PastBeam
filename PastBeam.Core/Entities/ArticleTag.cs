@@ -14,5 +14,6 @@ public class ArticleTag
 
     //needed to include when searching via entity core
     public Article Article { get; set; } = null!;
+
     public Tag Tag { get; set; } = null!;
 }
