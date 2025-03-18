@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PastBeam.Core\PastBeam.Core.csproj" />
+    <ProjectReference Include="..\PastBeam.Infrastructure\PastBeam.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

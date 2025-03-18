@@ -16,10 +16,12 @@ public class Article
     public string Content { get; set; } = string.Empty;
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public List<ArticleTag> ArticleTags { get; set; } = new();
+
     public List<Bookmark> Bookmarks { get; set; } = new();
+
     public List<Favorite> Favorites { get; set; } = new();
 }
-

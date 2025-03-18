@@ -25,5 +25,10 @@ namespace PastBeam.Presentation.Controllers
             if (article == null) return NotFound();
             return View(article);
         }
+
+        public async Task CreateArticle()
+        {
+
+        }
     }
 }

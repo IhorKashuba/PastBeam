@@ -23,5 +23,17 @@ namespace PastBeam.Infrastructure.Repositories
         {
             return await _context.Articles.FindAsync(id);
         }
+
+        public async Task CreateArticleAsync(Article newArticle)
+        {
+            _context.Articles.Add(newArticle);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateArticleAsync( Article updatedArticle)
+        {
+            _context.Articles.Update(updatedArticle);
+            await _context.SaveChangesAsync();
+        }
     }
 }

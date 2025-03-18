@@ -9,5 +9,9 @@ namespace PastBeam.Core.Interfaces
         Task<IEnumerable<Article>> GetAllAsync();
 
         Task<Article> GetByIdAsync(int id);
+
+        Task CreateArticleAsync(Article article);
+
+        Task UpdateArticleAsync(Article article);
     }
 }
