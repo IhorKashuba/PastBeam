@@ -36,5 +36,12 @@ namespace PastBeam.Presentation.Controllers
 
             await _articleService.CreateArticle(article);
         }
+
+        public async Task UpdateArticle(int id, string? title = null, string? content = null, [FromBody] List<string>? tags = null)
+        {
+            var updatedArticle = await _articleService.UpdateArticleAsync(id, title, content, tags);
+
+
+        }
     }
 }

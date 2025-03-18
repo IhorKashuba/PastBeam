@@ -1,4 +1,5 @@
 using Core.Entities;
+using Microsoft.AspNetCore.Mvc;
 using PastBeam.Core.Interfaces;
 using ILogger = PastBeam.Infrastructure.Logger.ILogger;
 
@@ -39,15 +40,26 @@ namespace PastBeam.Application.Services
             }
         }
 
-        public async Task<Article?> UpdateArticle(int id, Article updatedArticle)
+        public async Task<Article?> UpdateArticleAsync(int id, string? title = null, string? content = null, List<string>? tags = null)
         {
             var article = await repository.GetByIdAsync(id);
 
             if (article == null)
                 return null;
 
-            article.Title = updatedArticle.Title;
-            article.Content = updatedArticle.Content;
+            if (title != null)
+            {
+                article.Title = title;
+            }
+            if (content != null)
+            {
+                article.Content = content;
+            }
+            if (tags != null)
+            {
+                article.Tags = tags;
+            }
+
             article.UpdatedAt = DateTime.UtcNow;
 
             try
