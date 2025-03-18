@@ -1,6 +1,6 @@
 using Moq;
 using PastBeam.Application.Services;
-using PastBeam.Core.Entities;
+using Core.Entities;
 using PastBeam.Core.Interfaces;
 using Xunit;
 
@@ -23,6 +23,6 @@ public class ArticleServiceTests
 
         var result = await _service.GetAllArticlesAsync();
 
-        Assert.Single(result);
+        Xunit.Assert.Single(result);
     }
 }

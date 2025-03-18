@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PastBeam.Application.Services;
-using PastBeam.Core.Entities;
+using Core.Entities;
 
 namespace PastBeam.Presentation.Controllers
 {
