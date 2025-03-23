@@ -1,7 +1,7 @@
 using Moq;
-using PastBeam.Application.Services;
-using Core.Entities;
-using PastBeam.Core.Interfaces;
+using PastBeam.Application.Library.Services;
+using PastBeam.Core.Library.Entities;
+using PastBeam.Core.Library.Interfaces;
 using Xunit;
 
 public class ArticleServiceTests

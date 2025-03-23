@@ -35,6 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PastBeam.Application.Library\PastBeam.Application.Library.csproj" />
+    <ProjectReference Include="..\PastBeam.Core.Library\PastBeam.Core.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 

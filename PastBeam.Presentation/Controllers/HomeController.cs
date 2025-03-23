@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using PastBeam.Presentation1.Models;
+using PastBeam.Presentation.Models;
 
-namespace PastBeam.Presentation1.Controllers;
+namespace PastBeam.Presentation.Controllers;
 
 public class HomeController : Controller
 {

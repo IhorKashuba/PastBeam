@@ -1,6 +1,6 @@
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
-using ILogger = PastBeam.Infrastructure.Library.Logger;
+using PastBeam.Infrastructure.Library.Logger;
 
 namespace PastBeam.Application.Library.Services
 {

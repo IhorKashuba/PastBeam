@@ -1,16 +1,18 @@
+using Xunit;
+
 namespace PastBeam.Tests
 {
     public class Tests
     {
-        [SetUp]
-        public void Setup()
+        public Tests()
         {
+            // Використовуй конструктор для ініціалізації (аналог [SetUp] в NUnit)
         }
 
-        [Test]
+        [Fact] // В Xunit замість [Test] використовується [Fact]
         public void Test1()
         {
-            Assert.Pass();
+            Assert.True(true); // В Xunit немає Assert.Pass(), використовуй Assert.True()
         }
     }
 }

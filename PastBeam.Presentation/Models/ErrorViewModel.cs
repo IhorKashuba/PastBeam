@@ -1,4 +1,4 @@
-namespace PastBeam.Presentation1.Models
+namespace PastBeam.Presentation.Models
 {
     public class ErrorViewModel
     {

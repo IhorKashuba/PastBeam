@@ -1,8 +1,8 @@
-using PastBeam.Infrastructure.DataBase;
 using Microsoft.EntityFrameworkCore;
-using PastBeam.Core.Interfaces;
-using PastBeam.Infrastructure.Repositories;
-using PastBeam.Application.Services;
+using PastBeam.Infrastructure.DataBase;
+using PastBeam.Core.Library.Interfaces;
+using PastBeam.Infrastructure.Library.Repositories;
+using PastBeam.Application.Library.Services;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +40,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
     .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
