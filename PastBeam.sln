@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastBeam.Core", "PastBeam.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastBeam.Presentation", "PastBeam.Presentation\PastBeam.Presentation.csproj", "{BDC61762-4626-4BB2-BFBE-7961ADFD34F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PastBeam.Application1", "PastBeam.Application1\PastBeam.Application1.csproj", "{27F62CD7-F43F-42C2-8A24-087432DA9528}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{BDC61762-4626-4BB2-BFBE-7961ADFD34F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDC61762-4626-4BB2-BFBE-7961ADFD34F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDC61762-4626-4BB2-BFBE-7961ADFD34F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F62CD7-F43F-42C2-8A24-087432DA9528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F62CD7-F43F-42C2-8A24-087432DA9528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F62CD7-F43F-42C2-8A24-087432DA9528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F62CD7-F43F-42C2-8A24-087432DA9528}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
