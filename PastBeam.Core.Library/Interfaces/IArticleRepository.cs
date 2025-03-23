@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Core.Entities;
+using PastBeam.Core.Library.Entities;
 
-namespace PastBeam.Core.Interfaces
+namespace PastBeam.Core.Library.Interfaces
 {
     public interface IArticleRepository
     {

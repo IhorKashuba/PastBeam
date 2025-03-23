@@ -1,7 +1,6 @@
-using Core.Entities;
-using Microsoft.AspNetCore.Mvc;
-using PastBeam.Core.Interfaces;
-using ILogger = PastBeam.Infrastructure.Logger.ILogger;
+using PastBeam.Core.Library.Entities;
+using PastBeam.Core.Library.Interfaces;
+using ILogger = PastBeam.Infrastructure.Library.Logger;
 
 namespace PastBeam.Application.Services
 {

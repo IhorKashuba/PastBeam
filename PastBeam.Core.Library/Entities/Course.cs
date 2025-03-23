@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.Entities;
+namespace PastBeam.Core.Library.Entities;
 
 public class Course
 {

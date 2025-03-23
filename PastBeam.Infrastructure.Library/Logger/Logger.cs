@@ -1,7 +1,6 @@
-﻿using System;
-using Serilog;
+﻿using Serilog;
 
-namespace PastBeam.Infrastructure.Logger
+namespace PastBeam.Infrastructure.Library.Logger
 {
     public interface ILogger
     {

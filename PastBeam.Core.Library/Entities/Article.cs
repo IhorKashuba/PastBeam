@@ -1,8 +1,6 @@
-﻿using Core.Entities;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.Entities;
+namespace PastBeam.Core.Library.Entities;
 
 public class Article
 {

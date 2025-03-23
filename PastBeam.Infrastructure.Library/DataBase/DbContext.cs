@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Core.Entities;
+using PastBeam.Core.Library.Entities;
 
 namespace PastBeam.Infrastructure.DataBase;
 

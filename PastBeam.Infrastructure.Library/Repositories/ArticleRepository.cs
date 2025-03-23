@@ -1,9 +1,9 @@
-using Core.Entities;
+using PastBeam.Core.Library.Entities;
 using Microsoft.EntityFrameworkCore;
-using PastBeam.Core.Interfaces;
+using PastBeam.Core.Library.Interfaces;
 using PastBeam.Infrastructure.DataBase;
 
-namespace PastBeam.Infrastructure.Repositories
+namespace PastBeam.Infrastructure.Library.Repositories
 {
     public class ArticleRepository : IArticleRepository
     {
