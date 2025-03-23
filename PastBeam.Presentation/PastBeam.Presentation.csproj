@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\PastBeam.Application\PastBeam.Application.csproj" />
     <ProjectReference Include="..\PastBeam.Infrastructure\PastBeam.Infrastructure.csproj" />
   </ItemGroup>
 

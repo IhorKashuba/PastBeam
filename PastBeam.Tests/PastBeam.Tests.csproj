@@ -35,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PastBeam.Application\PastBeam.Application.csproj" />
     <ProjectReference Include="..\PastBeam.Core\PastBeam.Core.csproj" />
   </ItemGroup>
 
