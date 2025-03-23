@@ -1,7 +1,6 @@
-﻿namespace PastBeam.Application1
-{
-    public class Class1
-    {
+﻿namespace PastBeam.Application;
 
-    }
+public class Class1
+{
+
 }
