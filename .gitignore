@@ -18,3 +18,5 @@
 # ignore doc folder
 /Documentation
 /PastBeam.Application1/obj
+/PastBeam.Application.Library/obj/Debug/net8.0
+/PastBeam.Application.Library/obj
