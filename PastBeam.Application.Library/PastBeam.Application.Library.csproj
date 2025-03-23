@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PastBeam.Core.Library\PastBeam.Core.Library.csproj" />
-    <ProjectReference Include="..\PastBeam.Infrastructure.Library\PastBeam.Infrastructure.Library.csproj" />
     <ProjectReference Include="..\PastBeam.Presentation\PastBeam.Presentation.csproj" />
   </ItemGroup>
 
