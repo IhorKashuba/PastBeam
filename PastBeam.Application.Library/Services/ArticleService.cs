@@ -1,10 +1,11 @@
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Infrastructure.Library.Logger;
+using PastBeam.Application.Library.Interfaces;
 
 namespace PastBeam.Application.Library.Services
 {
-    public class ArticleService
+    public class ArticleService : IArticleService
     {
         private readonly IArticleRepository repository;
 
