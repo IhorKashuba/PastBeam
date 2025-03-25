@@ -1,4 +1,4 @@
-@model IEnumerable<PastBeam.Core.Entities.Article>
+@model IEnumerable<PastBeam.Core.Library.Entities.Article>
 
     <h2>Articles</h2>
 
@@ -6,7 +6,7 @@
         @foreach (var article in Model)
     {
         <li>
-            <a asp-action="Details" asp-route-id="@article.Id">@article.Title</a> - @article.PublishedDate.ToShortDateString()
+            <a asp-action="Details" asp-route-id="@article.Id">@article.Title</a> - @article.CreatedAt.ToShortDateString()
         </li>
     }
     </ul>

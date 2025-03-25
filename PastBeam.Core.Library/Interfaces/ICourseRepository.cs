@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PastBeam.Core.Library.Entities;
 
 namespace PastBeam.Core.Library.Interfaces
 {
-    internal interface ICourseRepository
+    public interface ICourseRepository
     {
+        Task<IEnumerable<Course>> GetAllAsync();
+        Task<Course?> GetByIdAsync(int id);
+        Task AddUserToCourseAsync(int userId, int courseId);
+        Task<bool> IsUserEnrolledAsync(int userId, int courseId);
     }
 }

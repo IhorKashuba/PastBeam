@@ -1,0 +1,62 @@
+2025-03-25 14:30:19.388 +02:00 [INF] User profile is available. Using 'C:\Users\Admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-03-25 14:30:19.463 +02:00 [INF] Creating key {44ab60e4-69a6-40d8-aabb-715ecdefd28b} with creation date 2025-03-25 12:30:19Z, activation date 2025-03-25 12:30:19Z, and expiration date 2025-06-23 12:30:19Z.
+2025-03-25 14:30:19.560 +02:00 [INF] Writing data to file 'C:\Users\Admin\AppData\Local\ASP.NET\DataProtection-Keys\key-44ab60e4-69a6-40d8-aabb-715ecdefd28b.xml'.
+2025-03-25 14:30:21.095 +02:00 [INF] Now listening on: https://localhost:7111
+2025-03-25 14:30:21.096 +02:00 [INF] Now listening on: http://localhost:5008
+2025-03-25 14:30:21.216 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-25 14:30:21.217 +02:00 [INF] Hosting environment: Development
+2025-03-25 14:30:21.217 +02:00 [INF] Content root path: D:\PastBeam_17\PastBeam.Presentation
+2025-03-25 14:30:23.384 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/ - null null
+2025-03-25 14:30:23.840 +02:00 [INF] Executing endpoint 'PastBeam.Presentation.Controllers.HomeController.Index (PastBeam.Presentation)'
+2025-03-25 14:30:23.997 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PastBeam.Presentation.Controllers.HomeController (PastBeam.Presentation).
+2025-03-25 14:30:24.045 +02:00 [INF] Executing ViewResult, running view Index.
+2025-03-25 14:30:24.353 +02:00 [INF] Executed ViewResult - view Index executed in 340.1655ms.
+2025-03-25 14:30:24.355 +02:00 [INF] Executed action PastBeam.Presentation.Controllers.HomeController.Index (PastBeam.Presentation) in 356.8924ms
+2025-03-25 14:30:24.355 +02:00 [INF] Executed endpoint 'PastBeam.Presentation.Controllers.HomeController.Index (PastBeam.Presentation)'
+2025-03-25 14:30:24.365 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/ - 200 null text/html; charset=utf-8 992.4775ms
+2025-03-25 14:30:24.535 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2025-03-25 14:30:24.547 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0 - null null
+2025-03-25 14:30:24.579 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/lib/jquery/dist/jquery.min.js - null null
+2025-03-25 14:30:24.579 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/PastBeam.Presentation1.styles.css - null null
+2025-03-25 14:30:24.583 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/PastBeam.Presentation1.styles.css - 404 0 null 4.0826ms
+2025-03-25 14:30:24.584 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7111/PastBeam.Presentation1.styles.css, Response status code: 404
+2025-03-25 14:30:24.594 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2025-03-25 14:30:24.601 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - null null
+2025-03-25 14:30:24.603 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-25 14:30:24.662 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'D:\PastBeam_17\PastBeam.Presentation\wwwroot\css\site.css'
+2025-03-25 14:30:24.663 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0 - 200 362 text/css 116.0155ms
+2025-03-25 14:30:24.673 +02:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: 'D:\PastBeam_17\PastBeam.Presentation\wwwroot\js\site.js'
+2025-03-25 14:30:24.673 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo - 200 231 text/javascript 72.3658ms
+2025-03-25 14:30:24.716 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'D:\PastBeam_17\PastBeam.Presentation\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js'
+2025-03-25 14:30:24.716 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 78474 text/javascript 122.5782ms
+2025-03-25 14:30:24.800 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/_framework/aspnetcore-browser-refresh.js - 200 13778 application/javascript; charset=utf-8 197.2037ms
+2025-03-25 14:30:24.804 +02:00 [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: 'D:\PastBeam_17\PastBeam.Presentation\wwwroot\lib\jquery\dist\jquery.min.js'
+2025-03-25 14:30:24.804 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/lib/jquery/dist/jquery.min.js - 200 89503 text/javascript 224.911ms
+2025-03-25 14:30:24.804 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'D:\PastBeam_17\PastBeam.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2025-03-25 14:30:24.805 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/lib/bootstrap/dist/css/bootstrap.min.css - 200 162726 text/css 269.2569ms
+2025-03-25 14:30:27.057 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/_vs/browserLink - null null
+2025-03-25 14:30:27.264 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/_vs/browserLink - 200 null text/javascript; charset=UTF-8 206.8158ms
+2025-03-25 14:30:29.024 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/favicon.ico - null null
+2025-03-25 14:30:29.031 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'D:\PastBeam_17\PastBeam.Presentation\wwwroot\favicon.ico'
+2025-03-25 14:30:29.031 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/favicon.ico - 200 5430 image/x-icon 6.8599ms
+2025-03-25 14:30:48.009 +02:00 [INF] User profile is available. Using 'C:\Users\Admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-03-25 14:30:48.600 +02:00 [INF] Now listening on: https://localhost:7111
+2025-03-25 14:30:48.601 +02:00 [INF] Now listening on: http://localhost:5008
+2025-03-25 14:30:48.660 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-03-25 14:30:48.661 +02:00 [INF] Hosting environment: Development
+2025-03-25 14:30:48.661 +02:00 [INF] Content root path: D:\PastBeam_17\PastBeam.Presentation
+2025-03-25 14:30:49.751 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/ - null null
+2025-03-25 14:30:50.127 +02:00 [INF] Executing endpoint 'PastBeam.Presentation.Controllers.HomeController.Index (PastBeam.Presentation)'
+2025-03-25 14:30:50.248 +02:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller PastBeam.Presentation.Controllers.HomeController (PastBeam.Presentation).
+2025-03-25 14:30:50.300 +02:00 [INF] Executing ViewResult, running view Index.
+2025-03-25 14:30:50.587 +02:00 [INF] Executed ViewResult - view Index executed in 297.8058ms.
+2025-03-25 14:30:50.588 +02:00 [INF] Executed action PastBeam.Presentation.Controllers.HomeController.Index (PastBeam.Presentation) in 338.9299ms
+2025-03-25 14:30:50.588 +02:00 [INF] Executed endpoint 'PastBeam.Presentation.Controllers.HomeController.Index (PastBeam.Presentation)'
+2025-03-25 14:30:50.596 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/ - 200 null text/html; charset=utf-8 858.6657ms
+2025-03-25 14:30:50.684 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/_framework/aspnetcore-browser-refresh.js - null null
+2025-03-25 14:30:50.684 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/PastBeam.Presentation1.styles.css - null null
+2025-03-25 14:30:50.688 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/PastBeam.Presentation1.styles.css - 404 0 null 3.8893ms
+2025-03-25 14:30:50.689 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7111/PastBeam.Presentation1.styles.css, Response status code: 404
+2025-03-25 14:30:50.702 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/_framework/aspnetcore-browser-refresh.js - 200 13778 application/javascript; charset=utf-8 17.2223ms
+2025-03-25 14:30:52.893 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7111/_vs/browserLink - null null
+2025-03-25 14:30:53.034 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7111/_vs/browserLink - 200 null text/javascript; charset=UTF-8 140.5493ms

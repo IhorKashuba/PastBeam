@@ -5,6 +5,10 @@ using PastBeam.Infrastructure.Library.Repositories;
 using PastBeam.Application.Library.Services;
 using Serilog;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -14,11 +18,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 // Реєстрація сервісів і репозиторіїв
+builder.Services.AddScoped<PastBeam.Infrastructure.Library.Logger.ILogger, PastBeam.Infrastructure.Library.Logger.Logger>();
+
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<ArticleService>();
 
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<CourseService>();
+
 // Додаємо MVC
 builder.Services.AddControllersWithViews();
+
+builder.Host.UseSerilog();
+
 
 var app = builder.Build();
 
@@ -38,11 +50,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-
-builder.Host.UseSerilog();
 
 app.Run();

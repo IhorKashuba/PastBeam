@@ -1,8 +1,8 @@
-@model PastBeam.Core.Entities.Article
+@model PastBeam.Core.Library.Entities.Article
 
 <h2>@Model.Title</h2>
 <p>@Model.Content</p>
-<p><strong>Published:</strong> @Model.PublishedDate.ToShortDateString()</p>
+<p><strong>Published:</strong> @Model.CreatedAt.ToShortDateString()</p>
 <p><strong>Tags:</strong> @Model.Tags</p>
 
 <a asp-action="Index">Back to list</a>
