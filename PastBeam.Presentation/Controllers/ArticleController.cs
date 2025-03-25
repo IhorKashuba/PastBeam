@@ -1,26 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
-using PastBeam.Application.Library.Services;
+using PastBeam.Application.Library.Interfaces;
 using PastBeam.Core.Library.Entities;
 
 namespace PastBeam.Presentation.Controllers
 {
     public class ArticleController : Controller
     {
-        private readonly ArticleService _articleService;
+        private readonly IArticleService _articleService;
 
-        public ArticleController(ArticleService articleService)
+        public ArticleController(IArticleService articleService)
         {
             _articleService = articleService;
         }
 
-        public async Task Index()
+        public async Task<IActionResult> GetAllArticles()
         {
             var articles = await _articleService.GetAllArticlesAsync();
+            return View("ArticleList", articles);
         }
 
-        public async Task Details(int id)
+        public async Task<IActionResult> GetArticleDetails(int id)
         {
-            var article = await _articleService.GetArticleByIdAsync(id);
+            Article? article = await _articleService.GetArticleByIdAsync(id);
+            return View("Details", article);
         }
 
         public async Task CreateArticle(string title, string content, List<string> tags)
@@ -37,11 +39,9 @@ namespace PastBeam.Presentation.Controllers
             await _articleService.CreateArticle(article);
         }
 
-        public async Task UpdateArticle(int id, string? title = null, string? content = null, [FromBody] List<string>? tags = null)
+        public async Task UpdateArticle(int id, [FromBody] string? title = null, [FromBody] string? content = null, [FromBody] List<string>? tags = null)
         {
-            var updatedArticle = await _articleService.UpdateArticleAsync(id, title, content, tags);
-
-
+            await _articleService.UpdateArticleAsync(id, title, content, tags);
         }
     }
 }

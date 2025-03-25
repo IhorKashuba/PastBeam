@@ -1,8 +1,17 @@
 @model PastBeam.Core.Library.Entities.Article
 
+@{
+    ViewData["tagString"] = "";
+    foreach(string tag in Model.Tags)
+    {
+        ViewData["tagString"] += " | " + tag;
+    }
+}
+
 <h2>@Model.Title</h2>
 <p>@Model.Content</p>
 <p><strong>Published:</strong> @Model.CreatedAt.ToShortDateString()</p>
-<p><strong>Tags:</strong> @Model.Tags</p>
+
+<p><strong>Tags:</strong> @ViewData["tagString"]</p>
 
 <a asp-action="Index">Back to list</a>
