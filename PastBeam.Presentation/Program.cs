@@ -4,6 +4,7 @@ using PastBeam.Core.Library.Interfaces;
 using PastBeam.Infrastructure.Library.Repositories;
 using PastBeam.Application.Library.Services;
 using Serilog;
+using PastBeam.Application.Library.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Реєстрація сервісів і репозиторіїв
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
-builder.Services.AddScoped<ArticleService>();
+builder.Services.AddScoped<IArticleService,ArticleService>();
+builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Додаємо MVC
 builder.Services.AddControllersWithViews();

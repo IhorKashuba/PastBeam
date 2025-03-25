@@ -4,7 +4,7 @@ using PastBeam.Core.Library.Entities;
 
 namespace PastBeam.Presentation.Controllers
 {
-    public class UserController
+    public class UserController : Controller
     {
         private IUserService _userService;
 
@@ -23,9 +23,10 @@ namespace PastBeam.Presentation.Controllers
             await _userService.DeleteFolderAsync(folderId);
         }
 
-        public async Task<IEnumerable<Folder>> GetUserFolders(int userId)
+        public async Task<IActionResult> GetUserFolders(int userId)
         {
-            return await _userService.GetUserFoldersAsync(userId);
+            var folders = await _userService.GetUserFoldersAsync(userId);
+            return View("FolderList",folders);
         }
 
     }

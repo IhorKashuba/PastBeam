@@ -5,7 +5,7 @@ using PastBeam.Infrastructure.DataBase;
 
 namespace PastBeam.Infrastructure.Library.Repositories
 {
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
 

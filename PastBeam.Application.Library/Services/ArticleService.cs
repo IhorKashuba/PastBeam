@@ -30,7 +30,7 @@ namespace PastBeam.Application.Library.Services
         {
             try
             {
-                this.repository.CreateArticleAsync(article);
+                await this.repository.CreateArticleAsync(article);
                 return article;
             }
             catch (Exception ex)
