@@ -13,14 +13,16 @@ namespace PastBeam.Presentation.Controllers
             _articleService = articleService;
         }
 
-        public async Task GetAllArticles()
+        public async Task<IActionResult> GetAllArticles()
         {
             var articles = await _articleService.GetAllArticlesAsync();
+            return View("ArticleList", articles);
         }
 
-        public async Task GetArticleDetails(int id)
+        public async Task<IActionResult> GetArticleDetails(int id)
         {
-            var article = await _articleService.GetArticleByIdAsync(id);
+            Article? article = await _articleService.GetArticleByIdAsync(id);
+            return View("Details", article);
         }
 
         public async Task CreateArticle(string title, string content, List<string> tags)
