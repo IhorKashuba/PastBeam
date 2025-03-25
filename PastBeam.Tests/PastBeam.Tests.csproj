@@ -40,5 +40,5 @@
     <ProjectReference Include="..\PastBeam.Core.Library\PastBeam.Core.Library.csproj" />
   </ItemGroup>
 
- 
+
 </Project>
