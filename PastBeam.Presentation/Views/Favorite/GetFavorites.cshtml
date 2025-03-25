@@ -1,0 +1,21 @@
+﻿@model List<PastBeam.Core.Library.Entities.Article>
+
+@{
+    ViewData["Title"] = "Мої уподобані статті";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null && Model.Any())
+{
+        <ul>
+        @foreach (var article in Model)
+        {
+                    <li>@article.Title</li> <!-- Виводимо заголовок статті -->
+        }
+        </ul>
+}
+else
+{
+        <p>У вас немає уподобаних статей.</p>
+}

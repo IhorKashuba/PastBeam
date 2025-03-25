@@ -18,4 +18,7 @@ public class Article
     public DateTime UpdatedAt { get; set; }
 
     public List<string> Tags { get; set; }
+
+    public ICollection<FavoriteArticle> FavoriteArticles { get; set; } = new List<FavoriteArticle>();
+
 }

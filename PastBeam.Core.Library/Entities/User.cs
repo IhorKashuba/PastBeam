@@ -25,4 +25,7 @@ public class User
     public List<Bookmark> Bookmarks { get; set; } = new();
     public List<Favorite> Favorites { get; set; } = new();
     public List<Folder> Folders { get; set; } = new();
+
+    public ICollection<FavoriteArticle> FavoriteArticles { get; set; } = new List<FavoriteArticle>();
+
 }

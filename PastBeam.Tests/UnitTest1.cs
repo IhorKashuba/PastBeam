@@ -12,7 +12,7 @@ namespace PastBeam.Tests
         [Fact] // В Xunit замість [Test] використовується [Fact]
         public void Test1()
         {
-            Assert.True(true); // В Xunit немає Assert.Pass(), використовуй Assert.True()
+            Xunit.Assert.True(true); // В Xunit немає Assert.Pass(), використовуй Assert.True()
         }
     }
 }
