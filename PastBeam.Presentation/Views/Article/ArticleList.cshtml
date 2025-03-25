@@ -1,0 +1,23 @@
+﻿@model List<PastBeam.Core.Library.Entities.Article>
+
+<h2>All Articles</h2>
+
+@if (Model != null && Model.Any())
+{
+    <ul>
+        @foreach (var article in Model)
+        {
+            <li>
+                <h3>@article.Title</h3>
+                <p>@article.Content</p>
+                <p><strong>Published:</strong> @article.CreatedAt.ToShortDateString()</p>
+                <p><strong>Tags:</strong> @(article.Tags != null ? string.Join(", ", article.Tags) : "No tags")</p>
+                <a asp-action="GetArticleDetails" asp-route-id="@article.Id">Read More</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No articles available.</p>
+}
