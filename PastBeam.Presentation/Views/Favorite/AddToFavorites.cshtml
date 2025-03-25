@@ -1,0 +1,19 @@
+﻿@model PastBeam.Core.Library.Entities.Favorite
+
+@{
+    ViewData["Title"] = "Додати в уподобані";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" action="@Url.Action("AddToFavorites", "Favorite")">
+    <div class="form-group">
+        <label for="userId">ID користувача</label>
+        <input type="text" class="form-control" id="userId" name="userId" required />
+    </div>
+    <div class="form-group">
+        <label for="articleId">ID статті</label>
+        <input type="text" class="form-control" id="articleId" name="articleId" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Додати в уподобані</button>
+</form>
