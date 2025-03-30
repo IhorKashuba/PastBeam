@@ -2,15 +2,17 @@
 
 namespace PastBeam.Core.Library.Entities;
 
+[Table("article_tags")]
 public class ArticleTag
 {
     [ForeignKey("Article")]
+    [Column("article_id")]
     public int ArticleId { get; set; }
 
     [ForeignKey("Tag")]
+    [Column("tag_id")]
     public int TagId { get; set; }
 
-    //needed to include when searching via entity core
     public Article Article { get; set; } = null!;
 
     public Tag Tag { get; set; } = null!;

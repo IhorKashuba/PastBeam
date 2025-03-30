@@ -15,6 +15,6 @@ namespace PastBeam.Application.Library.Interfaces
 
         Task<Article?> CreateArticle(Article article);
 
-        Task<Article?> UpdateArticleAsync(int id, string? title = null, string? content = null, List<string>? tags = null);
+        Task<Article?> UpdateArticleAsync(int id, string? title = null, string? content = null);
     }
 }

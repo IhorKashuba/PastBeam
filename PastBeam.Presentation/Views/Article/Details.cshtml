@@ -2,10 +2,6 @@
 
 @{
     ViewData["tagString"] = "";
-    foreach(string tag in Model.Tags)
-    {
-        ViewData["tagString"] += " | " + tag;
-    }
 }
 
 <h2>@Model.Title</h2>

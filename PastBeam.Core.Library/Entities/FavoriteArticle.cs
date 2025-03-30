@@ -9,12 +9,15 @@ namespace PastBeam.Core.Library.Entities;
 public class FavoriteArticle
 {
     [Key]
+    [Column("id")]
     public int Id { get; set; }
 
     [Required]
+    [Column("user_id")]
     public int UserId { get; set; }
 
     [Required]
+    [Column("article_id")]
     public int ArticleId { get; set; }
 
     [ForeignKey("UserId")]

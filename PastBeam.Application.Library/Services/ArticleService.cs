@@ -40,7 +40,7 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task<Article?> UpdateArticleAsync(int id, string? title = null, string? content = null, List<string>? tags = null)
+        public async Task<Article?> UpdateArticleAsync(int id, string? title = null, string? content = null)
         {
             var article = await repository.GetByIdAsync(id);
 
@@ -54,10 +54,6 @@ namespace PastBeam.Application.Library.Services
             if (content != null)
             {
                 article.Content = content;
-            }
-            if (tags != null)
-            {
-                article.Tags = tags;
             }
 
             article.UpdatedAt = DateTime.UtcNow;

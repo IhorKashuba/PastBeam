@@ -3,15 +3,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PastBeam.Core.Library.Entities;
 
+[Table("favorites")]
 public class Favorite
 {
     [Key]
+    [Column("id")]
     public int Id { get; set; }
 
     [ForeignKey("User")]
+    [Column("user_id")]
     public int UserId { get; set; }
 
     [ForeignKey("Article")]
+    [Column("article_id")]
     public int ArticleId { get; set; }
 
     //needed to include when searching via entity core

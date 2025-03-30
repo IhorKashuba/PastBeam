@@ -4,6 +4,7 @@ using PastBeam.Core.Library.Entities;
 
 namespace PastBeam.Presentation.Controllers
 {
+    [Route("article")]
     public class ArticleController : Controller
     {
         private readonly IArticleService _articleService;
@@ -13,6 +14,7 @@ namespace PastBeam.Presentation.Controllers
             _articleService = articleService;
         }
 
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllArticles()
         {
             var articles = await _articleService.GetAllArticlesAsync();
@@ -31,7 +33,6 @@ namespace PastBeam.Presentation.Controllers
             {
                 Title = title,
                 Content = content,
-                Tags = tags,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
@@ -39,9 +40,9 @@ namespace PastBeam.Presentation.Controllers
             await _articleService.CreateArticle(article);
         }
 
-        public async Task UpdateArticle(int id, [FromBody] string? title = null, [FromBody] string? content = null, [FromBody] List<string>? tags = null)
+        public async Task UpdateArticle(int id, [FromBody] string? title = null, [FromBody] string? content = null)
         {
-            await _articleService.UpdateArticleAsync(id, title, content, tags);
+            await _articleService.UpdateArticleAsync(id, title, content);
         }
     }
 }
