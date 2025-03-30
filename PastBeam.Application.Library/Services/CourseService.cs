@@ -1,4 +1,5 @@
-﻿using PastBeam.Core.Library.Entities;
+﻿using PastBeam.Application.Library.Interfaces;
+using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Infrastructure.Library.Logger;
 

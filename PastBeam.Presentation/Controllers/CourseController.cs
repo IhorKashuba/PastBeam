@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PastBeam.Application.Library.Services;
+using PastBeam.Application.Library.Interfaces;
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 
@@ -8,7 +9,7 @@ namespace PastBeam.Presentation.Controllers
     [Route("courses")]
     public class CourseController : Controller
     {
-        private readonly ICourseService _courseService;
+        private ICourseService _courseService;
 
         public CourseController(ICourseService courseService)
         {
