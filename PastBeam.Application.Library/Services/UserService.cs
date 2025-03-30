@@ -42,5 +42,38 @@ namespace PastBeam.Application.Library.Services
         {
             return _userRepository.DeleteFolderAsync(folderId);
         }
+
+        public async Task<User?> UpdateUserProfileAsync(int userId, string? username = null, string? email = null, string? passwordHash = null)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+
+            if (user == null)
+                return null;
+
+            if (username != null)
+            {
+                user.Username = username;
+            }
+            if (email != null)
+            {
+                user.Email = email;
+            }
+            if (passwordHash != null)
+            {
+                user.PasswordHash = passwordHash;
+            }
+
+            try
+            {
+                await _userRepository.UpdateUserProfileAsync(user);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogToFile($"Error while updating user profile {ex}");
+                throw;
+            }
+        }
+
     }
 }

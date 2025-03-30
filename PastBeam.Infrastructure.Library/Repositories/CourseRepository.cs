@@ -39,5 +39,12 @@ namespace PastBeam.Infrastructure.Library.Repositories
         {
             return await _context.UserCourses.AnyAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
         }
+
+        public async Task UpdateCourseAsync(Course updatedCourse)
+        {
+            _context.Courses.Update(updatedCourse);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
