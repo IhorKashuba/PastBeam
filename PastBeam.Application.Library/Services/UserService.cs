@@ -9,7 +9,7 @@ namespace PastBeam.Application.Library.Services
     {
 
         private readonly IUserRepository _userRepository;
-        private readonly Infrastructure.Library.Logger.ILogger _logger;
+        private Infrastructure.Library.Logger.ILogger _logger;
 
         public UserService(IUserRepository userRepository, Infrastructure.Library.Logger.ILogger logger)
         {

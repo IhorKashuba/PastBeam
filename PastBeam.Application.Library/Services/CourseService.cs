@@ -4,10 +4,10 @@ using PastBeam.Infrastructure.Library.Logger;
 
 namespace PastBeam.Application.Library.Services
 {
-    public class CourseService :ICourseService
+    public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
-        private readonly ILogger _logger;
+        private ILogger _logger;
 
         public CourseService(ICourseRepository courseRepository, ILogger logger)
         {

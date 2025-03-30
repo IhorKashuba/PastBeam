@@ -9,7 +9,7 @@ namespace PastBeam.Application.Library.Services
     {
         private readonly IArticleRepository repository;
 
-        private readonly ILogger _logger;
+        private ILogger _logger;
 
         public ArticleService(IArticleRepository repository)
         {
