@@ -19,6 +19,12 @@ namespace PastBeam.Infrastructure.Library.Repositories
             return await _context.Users.FindAsync(userId);
         }
 
+        public async Task<IEnumerable<User>> GetAllAsync()
+        {
+            return await _context.Users
+                                 .ToListAsync();
+        }
+
         public async Task DeleteAsync(int userId)
         {
             var userToDelete = await _context.Users.FindAsync(userId);

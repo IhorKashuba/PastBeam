@@ -1,6 +1,7 @@
 ﻿using PastBeam.Application.Library.Interfaces;
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
+using PastBeam.Application.Library.Dtos;
 
 
 namespace PastBeam.Application.Library.Services
@@ -15,6 +16,32 @@ namespace PastBeam.Application.Library.Services
         {
             _userRepository = userRepository;
             _logger = logger;
+        }
+
+        public async Task<IEnumerable<UserListItemDto>> GetAllUsersAsync()
+        {
+            _logger.LogToFile("Attempting to retrieve all users.");
+            try
+            {
+                var users = await _userRepository.GetAllAsync();
+
+                var userDtos = users.Select(user => new UserListItemDto
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Role = user.Role,
+                    CreatedAt = user.CreatedAt
+                }).ToList();
+
+                _logger.LogToFile($"Successfully retrieved {userDtos.Count()} users.");
+                return userDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogToFile($"Error occurred while retrieving users: {ex.GetType().Name} - {ex.Message}");
+                throw;
+            }
         }
 
         public async Task DeleteUserAsync(int userId)

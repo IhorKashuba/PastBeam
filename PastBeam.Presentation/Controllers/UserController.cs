@@ -39,9 +39,20 @@ namespace PastBeam.Presentation.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public IActionResult UserList()
+        public async Task<IActionResult> UserList()
         {
-            return View();
+            try
+            {
+                var users = await _userService.GetAllUsersAsync();
+                return View(users); // Pass the list of UserListItemDto to the View
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while retrieving the user list.";
+                // Return the view without data, or redirect to an error page
+                return View(new List<PastBeam.Application.Library.Dtos.UserListItemDto>()); // Return empty list to avoid View error
+                // Or return View("Error", new ErrorViewModel { /* ... */ });
+            }
         }
 
         public async Task CreateFolder(int userId, string folderName)

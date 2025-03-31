@@ -1,4 +1,5 @@
 ﻿using PastBeam.Core.Library.Entities;
+using PastBeam.Application.Library.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace PastBeam.Application.Library.Interfaces
 {
     public interface IUserService
     {
+        Task<IEnumerable<UserListItemDto>> GetAllUsersAsync();
         Task DeleteUserAsync(int userId);
 
         Task<Folder?> CreateFolderAsync(int userId, string name);

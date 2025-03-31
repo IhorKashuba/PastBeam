@@ -12,6 +12,8 @@ namespace PastBeam.Core.Library.Interfaces
         // User related methods
         Task<User?> GetByIdAsync(int userId);
 
+        Task<IEnumerable<User>> GetAllAsync();
+
         Task DeleteAsync(int userId);
 
 

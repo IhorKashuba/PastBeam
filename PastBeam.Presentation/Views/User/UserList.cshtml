@@ -1,0 +1,83 @@
+﻿@* Specify the model type passed from the controller *@
+@model IEnumerable<PastBeam.Application.Library.Dtos.UserListItemDto>
+
+@{
+    ViewData["Title"] = "User List";
+    // You might have a specific layout for admin pages
+    // Layout = "_AdminLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@* Display success or error messages from TempData (optional) *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CreatedAt)
+            </th>
+            <th>Actions</th> @* Column for action buttons *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @* Form for the Delete action *@
+                    <form asp-action="DeleteUser" asp-controller="User" method="post" asp-route-id="@item.Id" style="display:inline;">
+                        @Html.AntiForgeryToken() @* Important for security *@
+                        <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Are you sure you want to delete user @item.Username (ID: @item.Id)?');">
+                            Delete
+                        </button>
+                    </form>
+                    @* You could add other action links here like Edit, Details, etc. *@
+                    @* <a asp-action="EditUser" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a> *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* Add pagination controls here if needed *@
