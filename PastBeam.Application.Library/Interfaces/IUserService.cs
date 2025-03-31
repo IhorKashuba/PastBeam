@@ -15,5 +15,6 @@ namespace PastBeam.Application.Library.Interfaces
         Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId);
 
         Task<Folder?> DeleteFolderAsync(int folderId);
+        Task<User?> UpdateUserProfileAsync(int userId, string? username = null, string? email = null, string? passwordHash = null);
     }
 }

@@ -39,5 +39,24 @@ namespace PastBeam.Infrastructure.Library.Repositories
         {
             return await _context.UserCourses.AnyAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
         }
+
+        public async Task UpdateCourseAsync(Course updatedCourse)
+        {
+            _context.Courses.Update(updatedCourse);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> CreateCourseAsync(Course course)
+        {
+            var existingCourse = await _context.Courses.FirstOrDefaultAsync(c => c.Title == course.Title);
+            if (existingCourse == null)
+            {
+                _context.Courses.Add(course);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
     }
 }

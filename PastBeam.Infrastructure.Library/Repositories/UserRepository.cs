@@ -63,5 +63,16 @@ namespace PastBeam.Infrastructure.Library.Repositories
                 throw new KeyNotFoundException("there is no folder with this id");
             }
         }
+
+        public async Task<User?> GetUserByIdAsync(int userId)
+        {
+            return await _context.Users.FindAsync(userId);
+        }
+
+        public async Task UpdateUserProfileAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }

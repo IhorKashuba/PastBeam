@@ -16,5 +16,8 @@ namespace PastBeam.Core.Library.Interfaces
         Task CreateFolderAsync(Folder folder);
 
         Folder? GetFolderById(int folderId);
+        Task<User?> GetUserByIdAsync(int userId);
+
+        Task UpdateUserProfileAsync(User user);
     }
 }
