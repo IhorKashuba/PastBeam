@@ -69,10 +69,19 @@ namespace PastBeam.Infrastructure.Library.Repositories
             return await _context.Users.FindAsync(userId);
         }
 
-        public async Task UpdateUserProfileAsync(User user)
+        public async Task<bool> UpdateUserProfileAsync(User user)
         {
-            _context.Users.Update(user);
+            var existingUser = await _context.Users.FindAsync(user.Id);
+
+            if (existingUser == null)
+            {
+                return false; // Користувач не знайдений
+            }
+
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
             await _context.SaveChangesAsync();
+
+            return true; // Оновлення успішне
         }
     }
 }

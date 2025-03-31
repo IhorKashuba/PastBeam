@@ -75,5 +75,14 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
+        public async Task<bool> AssignUserRole(int userId, string userRole)
+        {
+            User user = await _userRepository.GetUserByIdAsync(userId);
+
+            user.Role = userRole;
+
+            return await _userRepository.UpdateUserProfileAsync(user);
+        }
+
     }
 }
