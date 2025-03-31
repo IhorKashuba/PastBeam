@@ -1,4 +1,6 @@
 ﻿using PastBeam.Core.Library.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PastBeam.Core.Library.Interfaces
 {
@@ -9,5 +11,7 @@ namespace PastBeam.Core.Library.Interfaces
         Task AddUserToCourseAsync(int userId, int courseId);
         Task<bool> IsUserEnrolledAsync(int userId, int courseId);
         Task<UserCourse?> GetUserCourseDetailsAsync(int userId, int courseId);
+        Task UpdateCourseAsync(Course updatedCourse);
+        Task<bool> CreateCourseAsync(Course course);
     }
 }

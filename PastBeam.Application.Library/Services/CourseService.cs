@@ -67,5 +67,51 @@ namespace PastBeam.Application.Library.Services
                 throw;
             }
         }
+
+        public async Task<Course?> UpdateCourseAsync(int id, string? title = null, string? description = null)
+        {
+            var course = await _courseRepository.GetByIdAsync(id);
+
+            if (course == null)
+                return null;
+
+            if (title != null)
+            {
+                course.Title = title;
+            }
+            if (description != null)
+            {
+                course.Description = description;
+            }
+
+            course.UpdatedAt = DateTime.UtcNow;
+
+            try
+            {
+                await _courseRepository.UpdateCourseAsync(course);
+                return course;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogToFile($"Error while updating course {ex}");
+                throw;
+            }
+        }
+
+        public async Task<bool> CreateCourseAsync(Course course)
+        {
+            course.CreatedAt = DateTime.UtcNow;
+            course.UpdatedAt = DateTime.UtcNow;
+            try
+            {
+                await _courseRepository.CreateCourseAsync(course);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogToFile($"Error while creating course {ex}");
+                throw ex;
+            }
+        }
     }
 }

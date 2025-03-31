@@ -84,5 +84,25 @@ namespace PastBeam.Infrastructure.Library.Repositories
                 throw new KeyNotFoundException("there is no folder with this id");
             }
         }
+
+        public async Task<User?> GetUserByIdAsync(int userId)
+        {
+            return await _context.Users.FindAsync(userId);
+        }
+
+        public async Task<bool> UpdateUserProfileAsync(User user)
+        {
+            var existingUser = await _context.Users.FindAsync(user.Id);
+
+            if (existingUser == null)
+            {
+                return false; // Користувач не знайдений
+            }
+
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
+            await _context.SaveChangesAsync();
+
+            return true; // Оновлення успішне
+        }
     }
 }
