@@ -75,19 +75,19 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task<Course?> CreateCourseAsync(Course course)
+        public async Task<bool> CreateCourseAsync(Course course)
         {
             course.CreatedAt = DateTime.UtcNow;
             course.UpdatedAt = DateTime.UtcNow;
             try
             {
                 await _courseRepository.CreateCourseAsync(course);
-                return course;
+                return true;
             }
             catch (Exception ex)
             {
                 _logger.LogToFile($"Error while creating course {ex}");
-                throw;
+                return false;
             }
         }
     }

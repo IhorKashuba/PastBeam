@@ -9,7 +9,7 @@ namespace PastBeam.Core.Library.Interfaces
         Task AddUserToCourseAsync(int userId, int courseId);
         Task<bool> IsUserEnrolledAsync(int userId, int courseId);
         Task UpdateCourseAsync(Course updatedCourse);
-        Task<Course?> CreateCourseAsync(Course course);
+        Task<bool> CreateCourseAsync(Course course);
 
     }
 }

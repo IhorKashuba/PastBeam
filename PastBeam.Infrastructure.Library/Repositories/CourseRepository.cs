@@ -46,16 +46,16 @@ namespace PastBeam.Infrastructure.Library.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Course?> CreateCourseAsync(Course course)
+        public async Task<bool> CreateCourseAsync(Course course)
         {
             var existingCourse = await _context.Courses.FirstOrDefaultAsync(c => c.Title == course.Title);
             if (existingCourse == null)
             {
                 _context.Courses.Add(course);
                 await _context.SaveChangesAsync();
-                return course;
+                return true;
             }
-            return null;
+            return false;
         }
 
     }
