@@ -2,6 +2,8 @@
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Infrastructure.DataBase;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PastBeam.Infrastructure.Library.Repositories
 {
@@ -40,6 +42,12 @@ namespace PastBeam.Infrastructure.Library.Repositories
             return await _context.UserCourses.AnyAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
         }
 
+        public async Task<UserCourse?> GetUserCourseDetailsAsync(int userId, int courseId)
+        {
+            return await _context.UserCourses
+                                 .FirstOrDefaultAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
+        }
+
         public async Task UpdateCourseAsync(Course updatedCourse)
         {
             _context.Courses.Update(updatedCourse);
@@ -57,6 +65,5 @@ namespace PastBeam.Infrastructure.Library.Repositories
             }
             return false;
         }
-
     }
 }

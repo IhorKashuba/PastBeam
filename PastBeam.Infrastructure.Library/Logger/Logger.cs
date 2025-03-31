@@ -20,7 +20,7 @@ namespace PastBeam.Infrastructure.Library.Logger
         public void LogToFile(string message)
         {
             Log.Information(message);
-            Log.CloseAndFlush(); // Забезпечує коректний запис у файл
+            Log.CloseAndFlush(); // Ensures correct file writing
         }
     }
 }

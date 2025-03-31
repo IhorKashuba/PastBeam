@@ -3,6 +3,7 @@ using PastBeam.Application.Library.Services;
 using PastBeam.Application.Library.Interfaces;
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
+using System.Security.Claims;
 
 namespace PastBeam.Presentation.Controllers
 {
@@ -37,6 +38,32 @@ namespace PastBeam.Presentation.Controllers
             bool enrolled = await _courseService.EnrollUserInCourseAsync(userId, courseId);
             if (!enrolled) return BadRequest("User is already enrolled.");
             return Ok("User enrolled successfully.");
+        }
+
+        [HttpGet("{courseId:int}/progress")]
+        public async Task<IActionResult> GetProgress(int courseId)
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
+            {
+                return Unauthorized("User ID claim not found or invalid.");
+            }
+
+            try
+            {
+                var progress = await _courseService.GetCourseProgressAsync(userId, courseId);
+
+                if (progress == null)
+                {
+                    return NotFound(new { message = "Progress not found. User might not be enrolled in this course." });
+                }
+
+                return Ok(new { courseId = courseId, userId = userId, progress = progress });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An internal server error occurred while retrieving course progress.");
+            }
         }
     }
 }

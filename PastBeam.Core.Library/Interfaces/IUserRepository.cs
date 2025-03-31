@@ -9,6 +9,15 @@ namespace PastBeam.Core.Library.Interfaces
 {
     public interface IUserRepository
     {
+        // User related methods
+        Task<User?> GetByIdAsync(int userId);
+
+        Task<IEnumerable<User>> GetAllAsync();
+
+        Task DeleteAsync(int userId);
+
+
+        // Folder related methods
         Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId);
 
         Task<Folder?> DeleteFolderAsync(int folderId);
