@@ -16,6 +16,7 @@ namespace PastBeam.Application.Library.Interfaces
         Task<bool> EnrollUserInCourseAsync(int userId, int courseId);
 
         Task<Course?> UpdateCourseAsync(int id, string? title = null, string? description = null);
+        Task<Course?> CreateCourseAsync(Course course);
 
     }
 }
