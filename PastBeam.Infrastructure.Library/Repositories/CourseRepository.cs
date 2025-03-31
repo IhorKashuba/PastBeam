@@ -39,5 +39,11 @@ namespace PastBeam.Infrastructure.Library.Repositories
         {
             return await _context.UserCourses.AnyAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
         }
+
+        public async Task<UserCourse?> GetUserCourseDetailsAsync(int userId, int courseId)
+        {
+            return await _context.UserCourses
+                                 .FirstOrDefaultAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
+        }
     }
 }

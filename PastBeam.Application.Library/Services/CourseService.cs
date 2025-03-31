@@ -8,12 +8,35 @@ namespace PastBeam.Application.Library.Services
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
-        private ILogger _logger;
+        private readonly ILogger _logger;
 
         public CourseService(ICourseRepository courseRepository, ILogger logger)
         {
             _courseRepository = courseRepository;
             _logger = logger;
+        }
+
+        public async Task<float?> GetCourseProgressAsync(int userId, int courseId)
+        {
+            _logger.LogToFile($"Attempting to get progress for user {userId} on course {courseId}.");
+            try
+            {
+                var userCourseDetails = await _courseRepository.GetUserCourseDetailsAsync(userId, courseId);
+
+                if (userCourseDetails == null)
+                {
+                    _logger.LogToFile($"User {userId} is not enrolled in course {courseId}, cannot get progress.");
+                    return null; // Return null if user is not enrolled or details not found
+                }
+
+                _logger.LogToFile($"Progress for user {userId} on course {courseId} is {userCourseDetails.Progress}.");
+                return userCourseDetails.Progress;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogToFile($"Error getting progress for user {userId} on course {courseId}: {ex.GetType().Name} - {ex.Message}");
+                throw; // Re-throwing is often preferred for controller handling
+            }
         }
 
         public async Task<IEnumerable<Course>> GetAllCoursesAsync()
