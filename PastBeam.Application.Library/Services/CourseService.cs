@@ -87,7 +87,7 @@ namespace PastBeam.Application.Library.Services
             catch (Exception ex)
             {
                 _logger.LogToFile($"Error while creating course {ex}");
-                return false;
+                throw ex;
             }
         }
     }
