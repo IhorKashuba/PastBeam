@@ -9,6 +9,8 @@ namespace PastBeam.Application.Library.Interfaces
 {
     public interface IUserService
     {
+        Task DeleteUserAsync(int userId);
+
         Task<Folder?> CreateFolderAsync(int userId, string name);
 
         //temporary userId because user will be saved in session
