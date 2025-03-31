@@ -29,5 +29,11 @@ namespace PastBeam.Presentation.Controllers
             return View("FolderList",folders);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SuspendUser(int userId, bool isSuspended)
+        {
+            await _userService.SuspendUserAsync(userId, isSuspended);
+            return RedirectToAction("UserList");
+        }
     }
 }

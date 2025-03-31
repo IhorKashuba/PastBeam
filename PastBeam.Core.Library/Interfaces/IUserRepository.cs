@@ -16,5 +16,7 @@ namespace PastBeam.Core.Library.Interfaces
         Task CreateFolderAsync(Folder folder);
 
         Folder? GetFolderById(int folderId);
+
+        Task SuspendUserAsync(int userId, bool isSuspended);
     }
 }

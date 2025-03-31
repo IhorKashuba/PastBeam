@@ -63,5 +63,17 @@ namespace PastBeam.Infrastructure.Library.Repositories
                 throw new KeyNotFoundException("there is no folder with this id");
             }
         }
+
+        public async Task SuspendUserAsync(int userId, bool isSuspended)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+
+            user.IsSuspended = isSuspended;
+            await _context.SaveChangesAsync();
+        }
     }
 }

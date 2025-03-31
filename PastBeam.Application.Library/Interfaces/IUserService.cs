@@ -15,5 +15,7 @@ namespace PastBeam.Application.Library.Interfaces
         Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId);
 
         Task<Folder?> DeleteFolderAsync(int folderId);
+
+        Task SuspendUserAsync(int userId, bool isSuspended);
     }
 }

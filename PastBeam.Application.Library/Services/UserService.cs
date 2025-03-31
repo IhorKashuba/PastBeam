@@ -42,5 +42,12 @@ namespace PastBeam.Application.Library.Services
         {
             return _userRepository.DeleteFolderAsync(folderId);
         }
+
+        public async Task SuspendUserAsync(int userId, bool isSuspended)
+        {
+            await _userRepository.SuspendUserAsync(userId, isSuspended);
+            string status = isSuspended ? "suspended" : "unsuspended";
+            _logger.LogInfo($"User {userId} has been {status}.");
+        }
     }
 }
