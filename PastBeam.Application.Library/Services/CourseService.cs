@@ -55,7 +55,7 @@ namespace PastBeam.Application.Library.Services
             {
                 if (await _courseRepository.IsUserEnrolledAsync(userId, courseId))
                 {
-                    return false; // Користувач уже записаний
+                    return false; // User already registered
                 }
 
                 await _courseRepository.AddUserToCourseAsync(userId, courseId);

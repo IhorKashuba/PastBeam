@@ -15,7 +15,6 @@ namespace PastBeam.Application.Library.Services
             _favoriteRepository = favoriteRepository;
         }
 
-        // Додати статтю в уподобані
         public async Task AddFavoriteAsync(int userId, int articleId)
         {
             if (!await _favoriteRepository.IsArticleFavoriteAsync(userId, articleId))
@@ -24,7 +23,6 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        // Видалити статтю з уподобаних
         public async Task RemoveFavoriteAsync(int userId, int articleId)
         {
             if (await _favoriteRepository.IsArticleFavoriteAsync(userId, articleId))
@@ -33,13 +31,11 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        // Перевірити, чи стаття вже в уподобаних
         public async Task<bool> IsArticleFavoriteAsync(int userId, int articleId)
         {
             return await _favoriteRepository.IsArticleFavoriteAsync(userId, articleId);
         }
 
-        // Отримати всі уподобані статті користувача
         public async Task<List<Article>> GetFavoritesByUserAsync(int userId)
         {
             return await _favoriteRepository.GetFavoritesByUserAsync(userId);
