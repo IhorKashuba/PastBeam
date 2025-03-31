@@ -29,5 +29,11 @@ namespace PastBeam.Presentation.Controllers
             return View("FolderList",folders);
         }
 
+        public async Task AssignUserRole(int userId, string userRole)
+        {
+            bool result = await _userService.AssignUserRole(userId, userRole);
+
+        }
+
     }
 }

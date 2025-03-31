@@ -18,6 +18,6 @@ namespace PastBeam.Core.Library.Interfaces
         Folder? GetFolderById(int folderId);
         Task<User?> GetUserByIdAsync(int userId);
 
-        Task UpdateUserProfileAsync(User user);
+        Task<bool> UpdateUserProfileAsync(User user);
     }
 }
