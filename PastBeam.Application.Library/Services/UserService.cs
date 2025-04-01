@@ -85,7 +85,7 @@ namespace PastBeam.Application.Library.Services
 
         public async Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId)
         {
-            return await _userRepository.GetUserFoldersAsync(userId); ;
+            return await _userRepository.GetUserFoldersAsync(userId);
         }
 
 

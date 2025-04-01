@@ -14,7 +14,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Article>> GetAllAsync()
+        public async Task<IEnumerable<Article?>> GetAllAsync()
         {
             return await _context.Articles.ToListAsync();
         }

@@ -25,7 +25,7 @@ namespace PastBeam.Controllers
 
                 return RedirectToAction("Index"); // Направляє назад на головну сторінку (або іншу)
             }
-            catch (Exception ex)
+            catch
             {
                 // Обробка помилок
                 ModelState.AddModelError("", "Не вдалося додати в уподобані.");
@@ -42,7 +42,7 @@ namespace PastBeam.Controllers
                 await _favoriteService.RemoveFavoriteAsync(userId, articleId);
                 return RedirectToAction("Index"); // Направляє назад на головну сторінку (або іншу)
             }
-            catch (Exception ex)
+            catch
             {
                 // Обробка помилок
                 ModelState.AddModelError("", "Не вдалося видалити з уподобаних.");
@@ -59,7 +59,7 @@ namespace PastBeam.Controllers
                 var favorites = await _favoriteService.GetFavoritesByUserAsync(userId);
                 return View(favorites); // Повертаємо список статей в View
             }
-            catch (Exception ex)
+            catch
             {
                 ModelState.AddModelError("", "Не вдалося отримати уподобані статті.");
                 return View();
