@@ -85,6 +85,18 @@ namespace PastBeam.Infrastructure.Library.Repositories
             }
         }
 
+
+        public async Task SuspendUserAsync(int userId, bool isSuspended)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+
+            user.IsSuspended = isSuspended;
+            await _context.SaveChangesAsync();
+
         public async Task<User?> GetUserByIdAsync(int userId)
         {
             return await _context.Users.FindAsync(userId);

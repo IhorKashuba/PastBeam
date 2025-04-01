@@ -29,6 +29,9 @@ public class User
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    [Column("is_suspended")]
+    public bool IsSuspended { get; set; } = false;
+
 
     public ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
     public ICollection<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
