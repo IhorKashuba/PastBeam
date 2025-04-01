@@ -9,7 +9,7 @@ namespace PastBeam.Application.Library.Services
     {
         private readonly IArticleRepository repository;
 
-        private ILogger _logger;
+        private PastBeam.Infrastructure.Library.Logger.ILogger _logger;
 
         public ArticleService(IArticleRepository repository)
         {
@@ -22,7 +22,7 @@ namespace PastBeam.Application.Library.Services
         }
 
         public async Task<Article?> GetArticleByIdAsync(int id)
-        {
+        { 
             return await this.repository.GetByIdAsync(id);
         }
 
@@ -45,7 +45,9 @@ namespace PastBeam.Application.Library.Services
             var article = await repository.GetByIdAsync(id);
 
             if (article == null)
+            {
                 return null;
+            }
 
             if (title != null)
             {

@@ -29,3 +29,8 @@
 /PastBeam.Presentation/bin/Debug/net8.0
 *.txt
 /PastBeam.Presentation/appsettings.json
+/PastBeam.Application.Library/TestResults
+/PastBeam.Core.Library/TestResults/test_results.trx
+/PastBeam.Infrastructure.Library/TestResults
+/PastBeam.Tests/TestResults
+/build.log

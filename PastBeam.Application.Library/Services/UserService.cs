@@ -34,7 +34,7 @@ namespace PastBeam.Application.Library.Services
         //Get all folders for specific user
         public async Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId)
         {
-            return await _userRepository.GetUserFoldersAsync(userId); ;
+            return await _userRepository.GetUserFoldersAsync(userId);
         }
 
         //Delete folders
