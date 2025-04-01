@@ -85,13 +85,20 @@ namespace PastBeam.Application.Library.Services
 
         public async Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId)
         {
-            return await _userRepository.GetUserFoldersAsync(userId); ;
+            return await _userRepository.GetUserFoldersAsync(userId);
         }
 
 
         public Task<Folder?> DeleteFolderAsync(int folderId)
         {
             return _userRepository.DeleteFolderAsync(folderId);
+        }
+
+        public async Task SuspendUserAsync(int userId, bool isSuspended)
+        {
+            await _userRepository.SuspendUserAsync(userId, isSuspended);
+            string status = isSuspended ? "suspended" : "unsuspended";
+            _logger.LogToFile($"User {userId} has been {status}.");
         }
 
         public async Task<User?> UpdateUserProfileAsync(int userId, string? username = null, string? email = null, string? passwordHash = null)
@@ -134,6 +141,5 @@ namespace PastBeam.Application.Library.Services
 
             return await _userRepository.UpdateUserProfileAsync(user);
         }
-
     }
 }
