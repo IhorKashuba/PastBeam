@@ -2,6 +2,8 @@
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Infrastructure.DataBase;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PastBeam.Infrastructure.Library.Repositories
 {
@@ -38,6 +40,30 @@ namespace PastBeam.Infrastructure.Library.Repositories
         public async Task<bool> IsUserEnrolledAsync(int userId, int courseId)
         {
             return await _context.UserCourses.AnyAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
+        }
+
+        public async Task<UserCourse?> GetUserCourseDetailsAsync(int userId, int courseId)
+        {
+            return await _context.UserCourses
+                                 .FirstOrDefaultAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
+        }
+
+        public async Task UpdateCourseAsync(Course updatedCourse)
+        {
+            _context.Courses.Update(updatedCourse);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> CreateCourseAsync(Course course)
+        {
+            var existingCourse = await _context.Courses.FirstOrDefaultAsync(c => c.Title == course.Title);
+            if (existingCourse == null)
+            {
+                _context.Courses.Add(course);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
     }
 }
