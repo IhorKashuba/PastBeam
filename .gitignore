@@ -29,3 +29,5 @@
 /PastBeam.Presentation/bin/Debug/net8.0
 *.txt
 /PastBeam.Presentation/appsettings.json
+*.trx
+/build.log
