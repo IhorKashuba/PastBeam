@@ -8,7 +8,7 @@ using PastBeam.Core.Library.Interfaces;
 using PastBeam.Infrastructure.Library.Logger;
 using Xunit;
 
-namespace PastBeam.Tests
+namespace PastBeam.Tests.Services
 {
     public class UserServiceFolderTests
     {
@@ -19,9 +19,9 @@ namespace PastBeam.Tests
 
         public UserServiceFolderTests()
         {
-            this.loggerMock = new Mock<ILogger>();
-            this.userRepositoryMock = new Mock<IUserRepository>();
-            this.userService = new UserService(this.userRepositoryMock.Object, this.loggerMock.Object);
+            loggerMock = new Mock<ILogger>();
+            userRepositoryMock = new Mock<IUserRepository>();
+            userService = new UserService(userRepositoryMock.Object, loggerMock.Object);
         }
 
         [Fact]

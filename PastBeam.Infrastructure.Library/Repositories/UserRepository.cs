@@ -96,6 +96,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
 
             user.IsSuspended = isSuspended;
             await _context.SaveChangesAsync();
+        }
 
         public async Task<User?> GetUserByIdAsync(int userId)
         {
