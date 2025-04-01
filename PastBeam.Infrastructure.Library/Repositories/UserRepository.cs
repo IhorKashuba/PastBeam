@@ -14,6 +14,27 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
+        public async Task<User?> GetByIdAsync(int userId)
+        {
+            return await _context.Users.FindAsync(userId);
+        }
+
+        public async Task<IEnumerable<User>> GetAllAsync()
+        {
+            return await _context.Users
+                                 .ToListAsync();
+        }
+
+        public async Task DeleteAsync(int userId)
+        {
+            var userToDelete = await _context.Users.FindAsync(userId);
+            if (userToDelete != null)
+            {
+                _context.Users.Remove(userToDelete);
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId)
         {
             return await _context.Folders.Where(f => f.UserId == userId).ToListAsync();
@@ -64,15 +85,36 @@ namespace PastBeam.Infrastructure.Library.Repositories
             }
         }
 
+
+        public async Task SuspendUserAsync(int userId, bool isSuspended)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+
+            user.IsSuspended = isSuspended;
+            await _context.SaveChangesAsync();
+
         public async Task<User?> GetUserByIdAsync(int userId)
         {
             return await _context.Users.FindAsync(userId);
         }
 
-        public async Task UpdateUserProfileAsync(User user)
+        public async Task<bool> UpdateUserProfileAsync(User user)
         {
-            _context.Users.Update(user);
+            var existingUser = await _context.Users.FindAsync(user.Id);
+
+            if (existingUser == null)
+            {
+                return false; // Користувач не знайдений
+            }
+
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
             await _context.SaveChangesAsync();
+
+            return true; // Оновлення успішне
         }
     }
 }

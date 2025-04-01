@@ -17,6 +17,13 @@
     <ProjectReference Include="..\PastBeam.Application.Library\PastBeam.Application.Library.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\User\UserList.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>

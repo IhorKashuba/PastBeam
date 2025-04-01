@@ -20,14 +20,12 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
-        // Перевірка, чи є стаття в уподобаних
         public async Task<bool> IsArticleFavoriteAsync(int userId, int articleId)
         {
             return await _context.Favorites
                 .AnyAsync(f => f.UserId == userId && f.ArticleId == articleId);
         }
 
-        // Додавання статті в уподобані
         public async Task AddFavoriteAsync(int userId, int articleId)
         {
             var favorite = new Favorite
@@ -40,7 +38,6 @@ namespace PastBeam.Infrastructure.Library.Repositories
             await _context.SaveChangesAsync();
         }
 
-        // Видалення статті з уподобаних
         public async Task RemoveFavoriteAsync(int userId, int articleId)
         {
             var favorite = await _context.Favorites
@@ -53,7 +50,6 @@ namespace PastBeam.Infrastructure.Library.Repositories
             }
         }
 
-        // Отримання всіх уподобаних статей користувача
         public async Task<List<Article>> GetFavoritesByUserAsync(int userId)
         {
             return await _context.Favorites
