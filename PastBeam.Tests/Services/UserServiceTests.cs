@@ -1,4 +1,5 @@
 ﻿using Moq;
+using PastBeam.Application.Library.Interfaces;
 using PastBeam.Application.Library.Services;
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
@@ -159,4 +160,25 @@ public class UserServiceTests
         _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Warning:"))), Times.Never);
         _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Successfully initiated deletion"))), Times.Never);
     }
+
+    [Fact]
+    public async Task AssignUserRole_ShouldUpdateUserRole_WhenUserExists()
+    {
+        int userId = 1;
+        string newRole = "Admin";
+        var user = new User { Id = userId, Role = "User" };
+
+        _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId)).ReturnsAsync(user);
+
+        _mockUserRepository.Setup(repo => repo.UpdateUserProfileAsync(It.IsAny<User>())).ReturnsAsync(true);
+
+        bool result = await _userService.AssignUserRole(userId, newRole);
+
+        Assert.True(result);
+        Assert.Equal(newRole, user.Role);
+
+        _mockUserRepository.Verify(repo => repo.UpdateUserProfileAsync(It.Is<User>(u => u.Id == userId && u.Role == newRole)), Times.Once);
+    }
+
+
 }

@@ -98,7 +98,7 @@ namespace PastBeam.Application.Library.Services
         {
             await _userRepository.SuspendUserAsync(userId, isSuspended);
             string status = isSuspended ? "suspended" : "unsuspended";
-            _logger.LogInfo($"User {userId} has been {status}.");
+            _logger.LogToFile($"User {userId} has been {status}.");
         }
 
         public async Task<User?> UpdateUserProfileAsync(int userId, string? username = null, string? email = null, string? passwordHash = null)

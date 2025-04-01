@@ -26,11 +26,11 @@ public class User
     [Column("status")]
     public string Role { get; set; } = "User"; // Guest, User, Admin
 
+    [Column("is_suspended")]
+    public bool IsSuspended;
+
     [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    [Column("is_suspended")]
-    public bool IsSuspended { get; set; } = false;
 
 
     public ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
