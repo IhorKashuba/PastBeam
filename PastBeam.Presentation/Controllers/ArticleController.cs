@@ -21,12 +21,14 @@ namespace PastBeam.Presentation.Controllers
             return View("ArticleList", articles);
         }
 
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetArticleDetails(int id)
         {
             Article? article = await _articleService.GetArticleByIdAsync(id);
             return View("Details", article);
         }
 
+        [HttpPost("create")]
         public async Task CreateArticle(string title, string content, List<string> tags)
         {
             Article article = new Article
@@ -40,6 +42,7 @@ namespace PastBeam.Presentation.Controllers
             await _articleService.CreateArticle(article);
         }
 
+        [HttpPut("update")]
         public async Task UpdateArticle(int id, [FromBody] string? title = null, [FromBody] string? content = null)
         {
             await _articleService.UpdateArticleAsync(id, title, content);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PastBeam.Controllers
 {
+    [Route("favorite")]
     public class FavoriteController : Controller
     {
         private readonly IFavoriteService _favoriteService;
@@ -15,8 +16,7 @@ namespace PastBeam.Controllers
             _favoriteService = favoriteService;
         }
 
-        // Додати статтю в уподобані
-        [HttpPost]
+        [HttpPost("add/{articleId}")]
         public async Task<IActionResult> AddToFavorites(int userId, int articleId)
         {
             try
@@ -34,7 +34,7 @@ namespace PastBeam.Controllers
         }
 
         // Видалити статтю з уподобаних
-        [HttpPost]
+        [HttpPost("remove/{articleId}")]
         public async Task<IActionResult> RemoveFromFavorites(int userId, int articleId)
         {
             try
@@ -51,7 +51,7 @@ namespace PastBeam.Controllers
         }
 
         // Отримати всі уподобані статті
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetFavorites(int userId)
         {
             try

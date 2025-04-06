@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PastBeam.Application.Library.Interfaces;
-using PastBeam.Core.Library.Entities;
 
 namespace PastBeam.Presentation.Controllers
 {
+    [Route("users")]
     public class UserController : Controller
     {
         private IUserService _userService;
@@ -14,14 +14,14 @@ namespace PastBeam.Presentation.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
+        [HttpDelete("delete/{userId}")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int userId)
         {
             try
             {
-                await _userService.DeleteUserAsync(id);
+                await _userService.DeleteUserAsync(userId);
                 TempData["SuccessMessage"] = "User deleted successfully.";
             }
             catch (KeyNotFoundException ex)
@@ -37,7 +37,7 @@ namespace PastBeam.Presentation.Controllers
             return RedirectToAction(nameof(UserList));
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UserList()
         {
@@ -55,30 +55,14 @@ namespace PastBeam.Presentation.Controllers
             }
         }
 
-        public async Task CreateFolder(int userId, string folderName)
-        {
-            await _userService.CreateFolderAsync(userId, folderName);
-        }
-
-        public async Task DeleteFolder(int folderId)
-        {
-            await _userService.DeleteFolderAsync(folderId);
-        }
-
-        public async Task<IActionResult> GetUserFolders(int userId)
-        {
-            var folders = await _userService.GetUserFoldersAsync(userId);
-            return View("FolderList",folders);
-        }
-
-
-        [HttpPost]
+        [HttpPut("suspend/{userId}")]
         public async Task<IActionResult> SuspendUser(int userId, bool isSuspended)
         {
             await _userService.SuspendUserAsync(userId, isSuspended);
             return RedirectToAction("UserList");
         }
 
+        [HttpPut("assign/{userId}/{userRole}")]
         public async Task AssignUserRole(int userId, string userRole)
         {
             bool result = await _userService.AssignUserRole(userId, userRole);

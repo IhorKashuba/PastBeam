@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PastBeam.Application.Library.Services;
 using PastBeam.Application.Library.Interfaces;
-using PastBeam.Core.Library.Entities;
-using PastBeam.Core.Library.Interfaces;
 using System.Security.Claims;
 
 namespace PastBeam.Presentation.Controllers
@@ -17,7 +14,7 @@ namespace PastBeam.Presentation.Controllers
             _courseService = courseService;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> Index()
         {
             var courses = await _courseService.GetAllCoursesAsync();
