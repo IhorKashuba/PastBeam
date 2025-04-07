@@ -6,17 +6,40 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/PastBeam.Presentation1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 </head>
 <body>
+
+    <div id="sidebar" class="sidebar">
+
+        <div class="p-3 d-flex align-items-center justify-content-between border-bottom">
+            <button id="menu-close" aria-label="Закрити меню" class="btn btn-light text-primary fs-4 p-0">☰</button>
+            <span class="text-primary fw-bold">PastBeam</span>
+        </div>
+
+        <div class="p-3">
+            <ul class="list-unstyled">
+                <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2">Main Page</a></li>
+                <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2">Your Folders</a></li>
+                <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2">Favorite</a></li>
+                <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2">Courses</a></li>
+            </ul>
+        </div>
+
+    </div>
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
+
+                <button id="menu-toggle" aria-label="Відкрити меню">☰</button>
+
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PastBeam</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -27,10 +50,17 @@
                         </li>
                     </ul>
                 </div>
+
+                <div class="search-bar d-flex align-items-center ms-auto">
+                    <input type="text" class="form-control me-2" placeholder="Пошук..." />
+                    <button class="btn btn-outline-primary" type="button">Search</button>
+                </div>
+
             </div>
         </nav>
     </header>
     <div class="container">
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
