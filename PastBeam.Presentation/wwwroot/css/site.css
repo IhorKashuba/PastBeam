@@ -1,28 +1,33 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    background: linear-gradient(-10deg, white, #7bbaff);
 }
 
 .navbar {
     display: block;
+}
+
+footer {
+    height: 10vh;
+    background-color: white;
 }
 
 .sidebar {
@@ -75,9 +80,11 @@ body {
     text-decoration: none;
 }
 
-.article-item-container {
-    border: 2px black solid;
-    border-radius: 3px;
+.article-item-container, .article-details-container {
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border: 2px white solid;
+    border-radius: 5px;
 }
 
 .article-list {
@@ -87,9 +94,8 @@ body {
 
 .article-list ul {
     align-self: center;
-    width: 95%;
     list-style-type: none; /* Видаляє маркери для списку */
-    margin: auto;
+    margin: 0px 15px 0px 15px;
     padding: 0;
 }
 
@@ -101,4 +107,14 @@ body {
 .article-list-text {
     padding-left: 15px;
     padding-bottom: 10px
+}
+
+.article-details-container {
+    height: 98%;
+    margin: 5px 15px 5px 15px;
+    padding: 5px 5px 5px 5px;
+}
+
+main {
+    height: 100%;
 }

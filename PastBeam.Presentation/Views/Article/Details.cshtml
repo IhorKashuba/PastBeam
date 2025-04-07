@@ -3,12 +3,16 @@
 @{
     ViewData["tagString"] = "";
 }
+<div class="article-details-container">
+    <header>
+        <h2>@Model.Title</h2>
+    </header>
+    <p>@Model.Content</p>
+    <p><strong>Published:</strong> @Model.CreatedAt.ToShortDateString()</p>
 
-<h2>@Model.Title</h2>
-<p>@Model.Content</p>
-<p><strong>Published:</strong> @Model.CreatedAt.ToShortDateString()</p>
+    <p><strong>Tags:</strong> @ViewData["tagString"]</p>
 
-<p><strong>Tags:</strong> @ViewData["tagString"]</p>
+    <a asp-route-id="all">Back to list</a>
+</div>
 
-<a asp-route-id="all">Back to list</a>
 
