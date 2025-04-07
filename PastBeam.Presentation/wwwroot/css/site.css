@@ -1,28 +1,33 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    background: linear-gradient(-10deg, white, #7bbaff);
 }
 
 .navbar {
     display: block;
+}
+
+footer {
+    height: 10vh;
+    background-color: white;
 }
 
 .sidebar {
@@ -40,9 +45,9 @@ body {
     border-right: 1px solid #dee2e6;
 }
 
-    .sidebar.open {
-        left: 0;
-    }
+.sidebar.open {
+    left: 0;
+}
 
 #menu-toggle {
     background: none;
@@ -50,6 +55,11 @@ body {
     font-size: 1.5rem;
     color: #0d6efd;
     margin-right: 10px;
+}
+
+.main-container {
+    height: 80vh;
+    min-height: 80%;
 }
 
 .sidebar ul li i {
@@ -68,4 +78,43 @@ body {
     outline: none;
     box-shadow: none;
     text-decoration: none;
+}
+
+.article-item-container, .article-details-container {
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border: 2px white solid;
+    border-radius: 5px;
+}
+
+.article-list {
+    justify-content: center;
+    width: 100%;
+}
+
+.article-list ul {
+    align-self: center;
+    list-style-type: none; /* Видаляє маркери для списку */
+    margin: 0px 15px 0px 15px;
+    padding: 0;
+}
+
+.article-item {
+    margin-bottom: 10px; /* Додає відступ між елементами списку */
+    padding: 0;
+}
+
+.article-list-text {
+    padding-left: 15px;
+    padding-bottom: 10px
+}
+
+.article-details-container {
+    height: 98%;
+    margin: 5px 15px 5px 15px;
+    padding: 5px 5px 5px 5px;
+}
+
+main {
+    height: 100%;
 }
