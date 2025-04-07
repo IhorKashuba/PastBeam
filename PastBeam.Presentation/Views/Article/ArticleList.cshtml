@@ -1,20 +1,25 @@
 ﻿@model List<PastBeam.Core.Library.Entities.Article>
 
-<h2>All Articles</h2>
+<h3 class="article-list-text">All Articles</h3>
 
 @if (Model != null && Model.Any())
 {
-    <ul>
-        @foreach (var article in Model)
-        {
-            <li>
-                <h3>@article.Title</h3>
-                <p>@article.Content</p>
-                <p><strong>Published:</strong> @article.CreatedAt.ToShortDateString()</p>
-                <a asp-action="GetArticleDetails" asp-route-id="@article.Id">Read More</a>
-            </li>
-        }
-    </ul>
+    <div class="article-list">
+        <ul>
+            @foreach (var article in Model)
+            {
+                <li class="article-item">
+                    <div class="d-flex flex-row justify-content-between align-items-center article-item-container p-2 flex-grow-1 text-center">
+                        <h4>@article.Title</h4>
+                        <div><strong>Published:</strong> @article.CreatedAt.ToShortDateString()</div>
+                        <div><strong>Updated At:</strong> @article.UpdatedAt.ToShortDateString()</div>
+                        <a class="text-center" asp-action="GetArticleDetails" asp-route-id="@article.Id">Read More</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
 }
 else
 {

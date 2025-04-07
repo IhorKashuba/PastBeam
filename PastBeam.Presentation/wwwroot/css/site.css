@@ -40,9 +40,9 @@ body {
     border-right: 1px solid #dee2e6;
 }
 
-    .sidebar.open {
-        left: 0;
-    }
+.sidebar.open {
+    left: 0;
+}
 
 #menu-toggle {
     background: none;
@@ -50,6 +50,11 @@ body {
     font-size: 1.5rem;
     color: #0d6efd;
     margin-right: 10px;
+}
+
+.main-container {
+    height: 80vh;
+    min-height: 80%;
 }
 
 .sidebar ul li i {
@@ -68,4 +73,32 @@ body {
     outline: none;
     box-shadow: none;
     text-decoration: none;
+}
+
+.article-item-container {
+    border: 2px black solid;
+    border-radius: 3px;
+}
+
+.article-list {
+    justify-content: center;
+    width: 100%;
+}
+
+.article-list ul {
+    align-self: center;
+    width: 95%;
+    list-style-type: none; /* Видаляє маркери для списку */
+    margin: auto;
+    padding: 0;
+}
+
+.article-item {
+    margin-bottom: 10px; /* Додає відступ між елементами списку */
+    padding: 0;
+}
+
+.article-list-text {
+    padding-left: 15px;
+    padding-bottom: 10px
 }
