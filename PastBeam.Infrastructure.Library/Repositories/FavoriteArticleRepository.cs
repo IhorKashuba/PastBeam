@@ -57,6 +57,13 @@ namespace PastBeam.Infrastructure.Library.Repositories
                 .Select(f => f.Article)
                 .ToListAsync();
         }
+
+        public async Task DeleteFavoritesByUserAsync(int userId)
+        {
+            var favorites = _context.Favorites.Where(f => f.UserId == userId);
+            _context.Favorites.RemoveRange(favorites);
+            await _context.SaveChangesAsync();
+        }
     }
 }
 
