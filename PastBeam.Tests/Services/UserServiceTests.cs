@@ -1,4 +1,5 @@
 ﻿using Moq;
+using PastBeam.Application.Library.Dtos;
 using PastBeam.Application.Library.Interfaces;
 using PastBeam.Application.Library.Services;
 using PastBeam.Core.Library.Entities;
@@ -159,6 +160,120 @@ public class UserServiceTests
         _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Error occurred during deletion"))), Times.Once);
         _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Warning:"))), Times.Never);
         _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Successfully initiated deletion"))), Times.Never);
+    }
+
+    [Fact]
+    public async Task GetUserForUpdateAsync_UserExists_ReturnsCorrectDto()
+    {
+        var userId = 5;
+        var userEntity = new User { Id = userId, Username = "ExistingUser", Email = "exist@test.com", Role = "User" };
+        _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync(userEntity);
+
+        var resultDto = await _userService.GetUserForUpdateAsync(userId);
+
+        Assert.NotNull(resultDto);
+        Assert.Equal(userEntity.Id, resultDto.Id);
+        Assert.Equal(userEntity.Username, resultDto.Username);
+        Assert.Equal(userEntity.Email, resultDto.Email);
+        Assert.Equal(userEntity.Role, resultDto.Role);
+        _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains($"Attempting to get user data for update, ID: {userId}"))), Times.Once);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains($"Successfully retrieved user data for update, ID: {userId}"))), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetUserForUpdateAsync_UserNotFound_ReturnsNull()
+    {
+        var userId = 99;
+        _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync((User?)null);
+
+        var resultDto = await _userService.GetUserForUpdateAsync(userId);
+
+        Assert.Null(resultDto);
+        _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains($"User not found for update, ID: {userId}"))), Times.Once);
+    }
+
+    [Fact]
+    public async Task UpdateUserAsync_UserExists_UpdatesPropertiesAndCallsRepository_ReturnsTrue()
+    {
+        var userId = 7;
+        var updateUserDto = new UpdateUserDto { Id = userId, Username = "UpdatedName", Email = "updated@test.com", Role = "Admin" };
+        var existingUserEntity = new User { Id = userId, Username = "OldName", Email = "old@test.com", Role = "User" };
+
+        _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync(existingUserEntity);
+        _mockUserRepository.Setup(repo => repo.UpdateUserProfileAsync(It.IsAny<User>()))
+                           .ReturnsAsync(true);
+
+        var result = await _userService.UpdateUserAsync(updateUserDto);
+
+        Assert.True(result);
+        _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+        _mockUserRepository.Verify(repo => repo.UpdateUserProfileAsync(It.Is<User>(u =>
+            u.Id == userId &&
+            u.Username == updateUserDto.Username &&
+            u.Email == updateUserDto.Email &&
+            u.Role == updateUserDto.Role
+        )), Times.Once);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains($"Attempting to update user, ID: {userId}"))), Times.Once);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains($"Successfully updated user, ID: {userId}"))), Times.Once);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("User not found"))), Times.Never);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Update failed"))), Times.Never);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Error occurred"))), Times.Never);
+    }
+
+    [Fact]
+    public async Task UpdateUserAsync_UserNotFound_ReturnsFalse()
+    {
+        var userId = 99;
+        var updateUserDto = new UpdateUserDto { Id = userId, Username = "NonExistent", Email = "a@b.com", Role = "User" };
+        _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync((User?)null);
+
+        var result = await _userService.UpdateUserAsync(updateUserDto);
+
+        Assert.False(result);
+        _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+        _mockUserRepository.Verify(repo => repo.UpdateUserProfileAsync(It.IsAny<User>()), Times.Never);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains($"User not found for update, ID: {userId}"))), Times.Once);
+    }
+
+    [Fact]
+    public async Task UpdateUserAsync_RepositoryUpdateFails_ReturnsFalse()
+    {
+        var userId = 8;
+        var updateUserDto = new UpdateUserDto { Id = userId, Username = "UpdateFail", Email = "fail@test.com", Role = "User" };
+        var existingUserEntity = new User { Id = userId, Username = "Original", Email = "orig@test.com", Role = "User" };
+
+        _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync(existingUserEntity);
+        _mockUserRepository.Setup(repo => repo.UpdateUserProfileAsync(It.IsAny<User>()))
+                           .ReturnsAsync(false);
+
+        var result = await _userService.UpdateUserAsync(updateUserDto);
+
+        Assert.False(result);
+        _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+        _mockUserRepository.Verify(repo => repo.UpdateUserProfileAsync(It.IsAny<User>()), Times.Once);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains($"Update failed for user ID: {userId}"))), Times.Once);
+    }
+
+    [Fact]
+    public async Task UpdateUserAsync_RepositoryThrowsException_RethrowsAndLogsError()
+    {
+        var userId = 9;
+        var updateUserDto = new UpdateUserDto { Id = userId, Username = "ExceptionUser", Email = "ex@test.com", Role = "User" };
+        var existingUserEntity = new User { Id = userId, Username = "OrigEx", Email = "origex@test.com", Role = "User" };
+        var repositoryException = new Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException("Concurrency conflict"); // Use specific exception if known
+
+        _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync(existingUserEntity);
+        _mockUserRepository.Setup(repo => repo.UpdateUserProfileAsync(It.IsAny<User>()))
+                           .ThrowsAsync(repositoryException);
+
+        var actualException = await Assert.ThrowsAsync<Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException>(() => _userService.UpdateUserAsync(updateUserDto));
+
+        Assert.Same(repositoryException, actualException);
+        _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+        _mockUserRepository.Verify(repo => repo.UpdateUserProfileAsync(It.IsAny<User>()), Times.Once);
+        _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains($"Error occurred while updating user ID: {userId}"))), Times.Once);
     }
 
     [Fact]

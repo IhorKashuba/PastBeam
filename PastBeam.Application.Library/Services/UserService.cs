@@ -101,6 +101,64 @@ namespace PastBeam.Application.Library.Services
             _logger.LogToFile($"User {userId} has been {status}.");
         }
 
+        public async Task<UpdateUserDto?> GetUserForUpdateAsync(int userId)
+        {
+            _logger.LogToFile($"Attempting to get user data for update, ID: {userId}");
+            var user = await _userRepository.GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                _logger.LogToFile($"User not found for update, ID: {userId}");
+                return null;
+            }
+
+            var userDto = new UpdateUserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role
+            };
+
+            _logger.LogToFile($"Successfully retrieved user data for update, ID: {userId}");
+            return userDto;
+        }
+
+        public async Task<bool> UpdateUserAsync(UpdateUserDto userDto)
+        {
+            _logger.LogToFile($"Attempting to update user, ID: {userDto.Id}");
+            var existingUser = await _userRepository.GetByIdAsync(userDto.Id);
+
+            if (existingUser == null)
+            {
+                _logger.LogToFile($"User not found for update, ID: {userDto.Id}");
+                return false;
+            }
+
+            existingUser.Username = userDto.Username;
+            existingUser.Email = userDto.Email;
+            existingUser.Role = userDto.Role;
+
+            try
+            {
+                bool success = await _userRepository.UpdateUserProfileAsync(existingUser);
+                if (success)
+                {
+                    _logger.LogToFile($"Successfully updated user, ID: {userDto.Id}");
+                }
+                else
+                {
+                    _logger.LogToFile($"Update failed for user ID: {userDto.Id} (repository returned false).");
+                }
+                return success;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogToFile($"Error occurred while updating user ID: {userDto.Id}. Exception: {ex.GetType().Name} - {ex.Message}");
+                throw;
+            }
+        }
+
         public async Task<User?> UpdateUserProfileAsync(int userId, string? username = null, string? email = null, string? passwordHash = null)
         {
             var user = await _userRepository.GetUserByIdAsync(userId);

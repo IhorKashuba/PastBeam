@@ -21,7 +21,11 @@ namespace PastBeam.Application.Library.Interfaces
         Task<Folder?> DeleteFolderAsync(int folderId);
 
         Task SuspendUserAsync(int userId, bool isSuspended);
-      
+        
+        Task<UpdateUserDto?> GetUserForUpdateAsync(int userId); // For loading edit form
+        
+        Task<bool> UpdateUserAsync(UpdateUserDto userDto);
+
         Task<User?> UpdateUserProfileAsync(int userId, string? username = null, string? email = null, string? passwordHash = null);
 
         Task<bool> AssignUserRole(int userId, string userRole);
