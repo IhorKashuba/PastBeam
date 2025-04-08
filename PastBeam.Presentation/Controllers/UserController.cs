@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PastBeam.Application.Library.Dtos;
 using PastBeam.Application.Library.Interfaces;
 
 namespace PastBeam.Presentation.Controllers
@@ -60,6 +61,50 @@ namespace PastBeam.Presentation.Controllers
         {
             await _userService.SuspendUserAsync(userId, isSuspended);
             return RedirectToAction("UserList");
+        }
+
+        [HttpGet("{id:int}/edit")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditUser(int id)
+        {
+            var userDto = await _userService.GetUserForUpdateAsync(id);
+            if (userDto == null)
+            {
+                TempData["ErrorMessage"] = $"User with ID {id} not found.";
+                return NotFound();
+            }
+            return View(userDto);
+        }
+
+        [HttpPost("edit")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditUser(UpdateUserDto userDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(userDto);
+            }
+
+            try
+            {
+                bool success = await _userService.UpdateUserAsync(userDto);
+                if (success)
+                {
+                    TempData["SuccessMessage"] = $"User '{userDto.Username}' (ID: {userDto.Id}) updated successfully.";
+                    return RedirectToAction(nameof(UserList));
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = $"Could not update user with ID {userDto.Id}. User might not exist anymore.";
+                    return View(userDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while updating the user.";
+                return View(userDto);
+            }
         }
 
         [HttpPut("assign/{userId}/{userRole}")]

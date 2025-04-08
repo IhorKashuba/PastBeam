@@ -1,0 +1,66 @@
+﻿@model PastBeam.Application.Library.Dtos.UpdateUserDto
+
+@{
+    ViewData["Title"] = "Edit User";
+    // Layout = "_AdminLayout";
+
+    // Define available roles for the dropdown
+    var availableRoles = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "User", Text = "User" },
+        new SelectListItem { Value = "Admin", Text = "Admin" }
+    };
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>User: @Model.Username (ID: @Model.Id)</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-6"> @* Limit form width *@
+        <form asp-action="EditUser" method="post">
+            @Html.AntiForgeryToken()
+
+            @* Display validation errors summary (optional but helpful) *@
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            @* Hidden field to store and submit the User ID *@
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group mb-3"> @* Added mb-3 for spacing *@
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" type="email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Role" class="control-label"></label>
+                @* Use a dropdown select for roles *@
+                <select asp-for="Role" class="form-control" asp-items="availableRoles">
+                    <option value="">-- Select Role --</option> @* Optional default prompt *@
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+
+            @* Add other editable fields here if they are in UpdateUserDto *@
+
+            <div class="form-group mt-4"> @* Added mt-4 for spacing *@
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="UserList" class="btn btn-secondary ms-2">Cancel / Back to List</a> @* Added ms-2 for spacing *@
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
