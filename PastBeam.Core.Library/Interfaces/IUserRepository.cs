@@ -31,5 +31,7 @@ namespace PastBeam.Core.Library.Interfaces
         Task<User?> GetUserByIdAsync(int userId);
 
         Task<bool> UpdateUserProfileAsync(User user);
+
+        Task DeleteUserAsync(int userId);
     }
 }

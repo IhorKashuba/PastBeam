@@ -295,5 +295,25 @@ public class UserServiceTests
         _mockUserRepository.Verify(repo => repo.UpdateUserProfileAsync(It.Is<User>(u => u.Id == userId && u.Role == newRole)), Times.Once);
     }
 
+    [Fact]
+    public async Task DeleteUserAccountAsync_ShouldDeleteUser_WhenUserExists()
+        {
+            // Arrange
+            var mockRepo = new Mock<IUserRepository>();
+            mockRepo.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
+                    .ReturnsAsync(new User { Id = 1 });
+
+            mockRepo.Setup(r => r.DeleteUserAsync(It.IsAny<int>()))
+                    .Returns(Task.CompletedTask);
+
+            var service = new UserService(mockRepo.Object);
+
+            // Act
+            var result = await service.DeleteUserAccountAsync(1);
+
+            // Assert
+            Assert.True(result);
+            mockRepo.Verify(r => r.DeleteUserAsync(1), Times.Once);
+        }
 
 }

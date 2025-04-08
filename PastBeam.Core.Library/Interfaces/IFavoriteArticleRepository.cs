@@ -10,5 +10,6 @@ namespace PastBeam.Core.Library.Interfaces
         Task RemoveFavoriteAsync(int userId, int articleId);
         Task<List<Article>> GetFavoritesByUserAsync(int userId);
         Task<bool> IsArticleFavoriteAsync(int userId, int articleId);
+        Task DeleteFavoritesByUserAsync(int userId);
     }
 }

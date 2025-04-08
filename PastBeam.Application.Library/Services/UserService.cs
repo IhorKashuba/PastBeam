@@ -3,18 +3,30 @@ using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Application.Library.Dtos;
 
-
 namespace PastBeam.Application.Library.Services
 {
     public class UserService : IUserService
     {
-
         private readonly IUserRepository _userRepository;
-        private Infrastructure.Library.Logger.ILogger _logger;
+        private readonly IFavoriteRepository _favoriteRepository;
+        private readonly IBookmarkRepository _bookmarkRepository;
+        private readonly IFolderRepository _folderRepository;
+        private readonly IUserCourseRepository _userCourseRepository;
+        private readonly Infrastructure.Library.Logger.ILogger _logger;
 
-        public UserService(IUserRepository userRepository, Infrastructure.Library.Logger.ILogger logger)
+        public UserService(
+            IUserRepository userRepository,
+            IFavoriteRepository favoriteRepository,
+            IBookmarkRepository bookmarkRepository,
+            IFolderRepository folderRepository,
+            IUserCourseRepository userCourseRepository,
+            Infrastructure.Library.Logger.ILogger logger)
         {
             _userRepository = userRepository;
+            _favoriteRepository = favoriteRepository;
+            _bookmarkRepository = bookmarkRepository;
+            _folderRepository = folderRepository;
+            _userCourseRepository = userCourseRepository;
             _logger = logger;
         }
 
@@ -34,7 +46,7 @@ namespace PastBeam.Application.Library.Services
                     CreatedAt = user.CreatedAt
                 }).ToList();
 
-                _logger.LogToFile($"Successfully retrieved {userDtos.Count()} users.");
+                _logger.LogToFile($"Successfully retrieved {userDtos.Count} users.");
                 return userDtos;
             }
             catch (Exception ex)
@@ -55,7 +67,6 @@ namespace PastBeam.Application.Library.Services
                 throw new KeyNotFoundException($"User with ID {userId} not found.");
             }
 
-
             try
             {
                 await _userRepository.DeleteAsync(userId);
@@ -63,7 +74,6 @@ namespace PastBeam.Application.Library.Services
             }
             catch (Exception ex)
             {
-                // Combine error message and exception details into one string for LogToFile
                 _logger.LogToFile($"Error occurred during deletion process for user ID: {userId}. Exception: {ex.GetType().Name} - {ex.Message}");
                 throw;
             }
@@ -82,12 +92,10 @@ namespace PastBeam.Application.Library.Services
             return folder;
         }
 
-
         public async Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId)
         {
             return await _userRepository.GetUserFoldersAsync(userId);
         }
-
 
         public Task<Folder?> DeleteFolderAsync(int folderId)
         {
@@ -166,18 +174,9 @@ namespace PastBeam.Application.Library.Services
             if (user == null)
                 return null;
 
-            if (username != null)
-            {
-                user.Username = username;
-            }
-            if (email != null)
-            {
-                user.Email = email;
-            }
-            if (passwordHash != null)
-            {
-                user.PasswordHash = passwordHash;
-            }
+            if (username != null) user.Username = username;
+            if (email != null) user.Email = email;
+            if (passwordHash != null) user.PasswordHash = passwordHash;
 
             try
             {
@@ -193,11 +192,25 @@ namespace PastBeam.Application.Library.Services
 
         public async Task<bool> AssignUserRole(int userId, string userRole)
         {
-            User user = await _userRepository.GetUserByIdAsync(userId);
-
+            var user = await _userRepository.GetUserByIdAsync(userId);
             user.Role = userRole;
-
             return await _userRepository.UpdateUserProfileAsync(user);
+        }
+
+        public async Task<bool> DeleteUserAccountAsync(int userId)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+            if (user == null)
+                return false;
+
+            await _favoriteRepository.DeleteFavoritesByUserAsync(userId);
+            await _bookmarkRepository.DeleteBookmarksByUserAsync(userId);
+            await _folderRepository.DeleteFoldersByUserAsync(userId);
+            await _userCourseRepository.DeleteUserCoursesByUserAsync(userId);
+            await _userRepository.DeleteUserAsync(userId);
+
+            _logger.LogToFile($"User {userId} has deleted their account.");
+            return true;
         }
     }
 }

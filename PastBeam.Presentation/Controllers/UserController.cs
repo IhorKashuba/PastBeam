@@ -113,5 +113,12 @@ namespace PastBeam.Presentation.Controllers
             bool result = await _userService.AssignUserRole(userId, userRole);
 
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAccount(int id)
+        {
+            var result = await _userService.DeleteUserAccountAsync(id);
+            return result ? Ok("Account deleted.") : NotFound();
+        }
     }
 }
