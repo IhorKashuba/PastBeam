@@ -14,6 +14,10 @@ namespace PastBeam.Tests.Services
     {
 
         private readonly Mock<IUserRepository> userRepositoryMock;
+        private readonly Mock<IFavoriteRepository> favoriteRepositoryMock;
+        private readonly Mock<IBookmarkRepository> bookmarkRepositoryMock;
+        private readonly Mock<IFolderRepository> folderRepositoryMock;
+        private readonly Mock<IUserCourseRepository> userCourseRepositoryMock;
         private readonly UserService userService;
         private readonly Mock<ILogger> loggerMock;
 
@@ -21,7 +25,18 @@ namespace PastBeam.Tests.Services
         {
             loggerMock = new Mock<ILogger>();
             userRepositoryMock = new Mock<IUserRepository>();
-            userService = new UserService(userRepositoryMock.Object, loggerMock.Object);
+            favoriteRepositoryMock = new Mock<IFavoriteRepository>();
+            bookmarkRepositoryMock = new Mock<IBookmarkRepository>();
+            folderRepositoryMock = new Mock<IFolderRepository>();
+            userCourseRepositoryMock = new Mock<IUserCourseRepository>();
+
+            userService = new UserService(
+                userRepositoryMock.Object,
+                favoriteRepositoryMock.Object,
+                bookmarkRepositoryMock.Object, 
+                folderRepositoryMock.Object,
+                userCourseRepositoryMock.Object, 
+                loggerMock.Object);
         }
 
         [Fact]

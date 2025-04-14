@@ -11,6 +11,10 @@ using Xunit;
 public class UserServiceTests
 {
     private readonly Mock<IUserRepository> _mockUserRepository;
+    private readonly Mock<IFavoriteRepository> _favoriteRepositoryMock;
+    private readonly Mock<IBookmarkRepository> _bookmarkRepositoryMock;
+    private readonly Mock<IFolderRepository> _folderRepositoryMock;
+    private readonly Mock<IUserCourseRepository> _userCourseRepositoryMock;
     private readonly Mock<ILogger> _mockLogger;
     private readonly UserService _userService;
 
@@ -18,7 +22,18 @@ public class UserServiceTests
     {
         _mockUserRepository = new Mock<IUserRepository>();
         _mockLogger = new Mock<ILogger>();
-        _userService = new UserService(_mockUserRepository.Object, _mockLogger.Object);
+        _favoriteRepositoryMock = new Mock<IFavoriteRepository>();
+        _bookmarkRepositoryMock = new Mock<IBookmarkRepository>();
+        _folderRepositoryMock = new Mock<IFolderRepository>();
+        _userCourseRepositoryMock = new Mock<IUserCourseRepository>();
+
+        _userService = new UserService(
+            _mockUserRepository.Object,
+            _favoriteRepositoryMock.Object,
+            _bookmarkRepositoryMock.Object,
+            _folderRepositoryMock.Object,
+            _userCourseRepositoryMock.Object,
+            _mockLogger.Object);
     }
 
     [Fact]
@@ -306,7 +321,7 @@ public class UserServiceTests
             mockRepo.Setup(r => r.DeleteUserAsync(It.IsAny<int>()))
                     .Returns(Task.CompletedTask);
 
-            var service = new UserService(mockRepo.Object);
+            var service = new UserService(mockRepo.Object, _favoriteRepositoryMock.Object, _bookmarkRepositoryMock.Object, _folderRepositoryMock.Object, _userCourseRepositoryMock.Object, _mockLogger.Object);
 
             // Act
             var result = await service.DeleteUserAccountAsync(1);
