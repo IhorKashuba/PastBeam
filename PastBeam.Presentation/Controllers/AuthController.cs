@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PastBeam.Application.Library.Services;
 using PastBeam.Application.Library.Dtos;
-using System.Threading.Tasks;
 using PastBeam.Application.Library.Interfaces;
 
 namespace PastBeam.Presentation.Controllers

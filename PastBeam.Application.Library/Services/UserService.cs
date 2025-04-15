@@ -225,7 +225,7 @@ namespace PastBeam.Application.Library.Services
             user.PasswordResetTokenExpiration = DateTime.UtcNow.AddHours(1);
             await _userRepository.UpdateUserAsync(user);
 
-            string resetLink = $"https://yourdomain.com/Auth/ResetPassword?token={token}";
+            string resetLink = $"https://localhost:7111/Auth/ResetPassword?token={token}";
 
             _logger.LogToFile($"[PasswordReset] Link for {email}: {resetLink}");
             return true;
