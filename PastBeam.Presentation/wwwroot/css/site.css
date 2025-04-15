@@ -118,3 +118,16 @@ footer {
 main {
     height: 100%;
 }
+
+.btn-purple {
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-purple:hover {
+        background-color: #5936a2;
+    }
