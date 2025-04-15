@@ -1,10 +1,6 @@
 ﻿using PastBeam.Core.Library.Entities;
 using PastBeam.Application.Library.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PastBeam.Application.Library.Interfaces
 {
@@ -31,5 +27,8 @@ namespace PastBeam.Application.Library.Interfaces
         Task<bool> AssignUserRole(int userId, string userRole);
 
         Task<bool> DeleteUserAccountAsync(int userId);
+
+        Task SendPasswordResetEmailAsync(string email);
+        Task<(bool Succeeded, List<string> Errors)> ResetPasswordAsync(ResetPasswordDto model);
     }
 }

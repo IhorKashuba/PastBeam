@@ -2,6 +2,8 @@
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Application.Library.Dtos;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace PastBeam.Application.Library.Services
 {
@@ -211,6 +213,74 @@ namespace PastBeam.Application.Library.Services
 
             _logger.LogToFile($"User {userId} has deleted their account.");
             return true;
+        }
+
+        public async Task<bool> SendPasswordResetEmailAsync(string email)
+        {
+            var user = await _userRepository.GetUserByEmailAsync(email);
+            if (user == null) return false;
+
+            var token = Guid.NewGuid().ToString();
+            user.PasswordResetToken = token;
+            user.PasswordResetTokenExpiration = DateTime.UtcNow.AddHours(1);
+            await _userRepository.UpdateUserAsync(user);
+
+            string resetLink = $"https://yourdomain.com/Auth/ResetPassword?token={token}";
+
+            _logger.LogToFile($"[PasswordReset] Link for {email}: {resetLink}");
+            return true;
+        }
+
+        Task IUserService.SendPasswordResetEmailAsync(string email)
+        {
+            return SendPasswordResetEmailAsync(email);
+        }
+
+        public async Task<(bool Succeeded, List<string> Errors)> ResetPasswordAsync(ResetPasswordDto model)
+        {
+            var errors = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(model.Token))
+            {
+                errors.Add("Token is required.");
+                return (false, errors);
+            }
+
+            if (string.IsNullOrWhiteSpace(model.NewPassword) || model.NewPassword.Length < 6)
+            {
+                errors.Add("New password must be at least 6 characters.");
+                return (false, errors);
+            }
+
+            var user = await _userRepository.GetByPasswordResetTokenAsync(model.Token);
+            if (user == null)
+            {
+                errors.Add("Invalid or expired token.");
+                return (false, errors);
+            }
+
+            if (user.PasswordResetTokenExpiration < DateTime.UtcNow)
+            {
+                errors.Add("The token has expired.");
+                return (false, errors);
+            }
+
+            user.PasswordHash = HashPassword(model.NewPassword);
+            user.PasswordResetToken = null;
+            user.PasswordResetTokenExpiration = null;
+
+            await _userRepository.UpdateUserAsync(user);
+            _logger.LogToFile($"[PasswordReset] Password reset for user {user.Id}");
+
+            return (true, errors);
+        }
+
+        private string HashPassword(string password)
+        {
+            using var sha256 = SHA256.Create();
+            var bytes = Encoding.UTF8.GetBytes(password);
+            var hash = sha256.ComputeHash(bytes);
+            return Convert.ToBase64String(hash);
         }
     }
 }

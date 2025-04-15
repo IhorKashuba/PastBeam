@@ -37,5 +37,7 @@ public class User
     public ICollection<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
     public ICollection<Folder> Folders { get; set; } = new List<Folder>();
     public ICollection<FavoriteArticle> FavoriteArticles { get; set; } = new List<FavoriteArticle>();
+    public string? PasswordResetToken { get; set; }
+    public DateTime? PasswordResetTokenExpiration { get; set; }
 
 }
