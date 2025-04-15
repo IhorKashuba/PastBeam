@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PastBeam.Core.Library.Entities;
 
-[Index(nameof(UserId), nameof(ArticleId), IsUnique = true)] // 👈 Додає унікальне обмеження
+[Microsoft.EntityFrameworkCore.Index(nameof(UserId), nameof(ArticleId), IsUnique = true)] // 👈 Додає унікальне обмеження
 public class FavoriteArticle
 {
     [Key]
