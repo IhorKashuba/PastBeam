@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PastBeam.Core.Library.Entities;
 
 namespace PastBeam.Infrastructure.DataBase
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
@@ -21,6 +22,8 @@ namespace PastBeam.Infrastructure.DataBase
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<UserCourse>()
                 .HasKey(uc => new { uc.UserId, uc.CourseId });
 
@@ -32,8 +35,6 @@ namespace PastBeam.Infrastructure.DataBase
 
             modelBuilder.Entity<Favorite>()
                 .HasKey(f => new { f.UserId, f.ArticleId }); // Adding a connection between the user and the article
-
-            base.OnModelCreating(modelBuilder);
         }
     }
 }
