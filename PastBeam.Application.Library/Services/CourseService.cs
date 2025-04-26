@@ -16,7 +16,7 @@ namespace PastBeam.Application.Library.Services
             _logger = logger;
         }
 
-        public async Task<float?> GetCourseProgressAsync(int userId, int courseId)
+        public async Task<float?> GetCourseProgressAsync(string userId, int courseId)
         {
             _logger.LogToFile($"Attempting to get progress for user {userId} on course {courseId}.");
             try
@@ -49,7 +49,7 @@ namespace PastBeam.Application.Library.Services
             return await _courseRepository.GetByIdAsync(id);
         }
 
-        public async Task<bool> EnrollUserInCourseAsync(int userId, int courseId)
+        public async Task<bool> EnrollUserInCourseAsync(string userId, int courseId)
         {
             try
             {

@@ -10,15 +10,15 @@ namespace PastBeam.Core.Library.Interfaces
     public interface IUserRepository
     {
         // User related methods
-        Task<User?> GetByIdAsync(int userId);
+        Task<User?> GetByIdAsync(string userId);
 
         Task<IEnumerable<User>> GetAllAsync();
 
-        Task DeleteAsync(int userId);
+        Task DeleteAsync(string userId);
 
 
         // Folder related methods
-        Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId);
+        Task<IEnumerable<Folder>> GetUserFoldersAsync(string userId);
 
         Task<Folder?> DeleteFolderAsync(int folderId);
 
@@ -26,12 +26,12 @@ namespace PastBeam.Core.Library.Interfaces
 
         Folder? GetFolderById(int folderId);
 
-        Task SuspendUserAsync(int userId, bool isSuspended);
+        Task SuspendUserAsync(string userId, bool isSuspended);
       
-        Task<User?> GetUserByIdAsync(int userId);
+        Task<User?> GetUserByIdAsync(string userId);
 
         Task<bool> UpdateUserProfileAsync(User user);
 
-        Task DeleteUserAsync(int userId);
+        Task DeleteUserAsync(string userId);
     }
 }

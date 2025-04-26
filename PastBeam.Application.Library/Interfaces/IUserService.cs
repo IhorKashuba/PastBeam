@@ -11,25 +11,25 @@ namespace PastBeam.Application.Library.Interfaces
     public interface IUserService
     {
         Task<IEnumerable<UserListItemDto>> GetAllUsersAsync();
-        Task DeleteUserAsync(int userId);
+        Task DeleteUserAsync(string userId);
 
-        Task<Folder?> CreateFolderAsync(int userId, string name);
+        Task<Folder?> CreateFolderAsync(string userId, string name);
 
         //temporary userId because user will be saved in session
-        Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId);
+        Task<IEnumerable<Folder>> GetUserFoldersAsync(string userId);
 
         Task<Folder?> DeleteFolderAsync(int folderId);
 
-        Task SuspendUserAsync(int userId, bool isSuspended);
+        Task SuspendUserAsync(string userId, bool isSuspended);
         
-        Task<UpdateUserDto?> GetUserForUpdateAsync(int userId); // For loading edit form
+        Task<UpdateUserDto?> GetUserForUpdateAsync(string userId); // For loading edit form
         
         Task<bool> UpdateUserAsync(UpdateUserDto userDto);
 
-        Task<User?> UpdateUserProfileAsync(int userId, string? username = null, string? email = null, string? passwordHash = null);
+        Task<User?> UpdateUserProfileAsync(string userId, string? username = null, string? email = null, string? passwordHash = null);
 
-        Task<bool> AssignUserRole(int userId, string userRole);
+        Task<bool> AssignUserRole(string userId, string userRole);
 
-        Task<bool> DeleteUserAccountAsync(int userId);
+        Task<bool> DeleteUserAccountAsync(string userId);
     }
 }

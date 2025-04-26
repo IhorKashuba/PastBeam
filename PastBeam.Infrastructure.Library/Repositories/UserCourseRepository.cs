@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Infrastructure.DataBase;
-using System;
-using System.Threading.Tasks;
 
 namespace PastBeam.Infrastructure.Library.Repositories
 {
@@ -15,7 +13,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
-        public async Task DeleteUserCoursesByUserAsync(int userId)
+        public async Task DeleteUserCoursesByUserAsync(string userId)
         {
             var userCourses = await _context.UserCourses
                 .Where(uc => uc.UserId == userId)

@@ -6,7 +6,7 @@ namespace PastBeam.Application.Library.Dtos
     public class UpdateUserDto
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 3)]

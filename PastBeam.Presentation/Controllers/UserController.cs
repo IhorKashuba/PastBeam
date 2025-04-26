@@ -18,7 +18,7 @@ namespace PastBeam.Presentation.Controllers
         [HttpDelete("delete/{userId}")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteUser(int userId)
+        public async Task<IActionResult> DeleteUser(string userId)
         {
             try
             {
@@ -57,20 +57,20 @@ namespace PastBeam.Presentation.Controllers
         }
 
         [HttpPut("suspend/{userId}")]
-        public async Task<IActionResult> SuspendUser(int userId, bool isSuspended)
+        public async Task<IActionResult> SuspendUser(string userId, bool isSuspended)
         {
             await _userService.SuspendUserAsync(userId, isSuspended);
             return RedirectToAction("UserList");
         }
 
-        [HttpGet("{id:int}/edit")]
+        [HttpGet("{userId}/edit")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> EditUser(int id)
+        public async Task<IActionResult> EditUser(string userId)
         {
-            var userDto = await _userService.GetUserForUpdateAsync(id);
+            var userDto = await _userService.GetUserForUpdateAsync(userId);
             if (userDto == null)
             {
-                TempData["ErrorMessage"] = $"User with ID {id} not found.";
+                TempData["ErrorMessage"] = $"User with ID {userId} not found.";
                 return NotFound();
             }
             return View(userDto);
@@ -108,16 +108,16 @@ namespace PastBeam.Presentation.Controllers
         }
 
         [HttpPut("assign/{userId}/{userRole}")]
-        public async Task AssignUserRole(int userId, string userRole)
+        public async Task AssignUserRole(string userId, string userRole)
         {
             bool result = await _userService.AssignUserRole(userId, userRole);
 
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount(int id)
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> DeleteAccount(string userId)
         {
-            var result = await _userService.DeleteUserAccountAsync(id);
+            var result = await _userService.DeleteUserAccountAsync(userId);
             return result ? Ok("Account deleted.") : NotFound();
         }
     }

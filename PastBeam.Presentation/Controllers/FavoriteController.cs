@@ -17,7 +17,7 @@ namespace PastBeam.Controllers
         }
 
         [HttpPost("add/{articleId}")]
-        public async Task<IActionResult> AddToFavorites(int userId, int articleId)
+        public async Task<IActionResult> AddToFavorites(string userId, int articleId)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace PastBeam.Controllers
 
         // Видалити статтю з уподобаних
         [HttpPost("remove/{articleId}")]
-        public async Task<IActionResult> RemoveFromFavorites(int userId, int articleId)
+        public async Task<IActionResult> RemoveFromFavorites(string userId, int articleId)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace PastBeam.Controllers
 
         // Отримати всі уподобані статті
         [HttpGet("all")]
-        public async Task<IActionResult> GetFavorites(int userId)
+        public async Task<IActionResult> GetFavorites(string userId)
         {
             try
             {

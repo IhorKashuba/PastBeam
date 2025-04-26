@@ -14,7 +14,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
-        public async Task<User?> GetByIdAsync(int userId)
+        public async Task<User?> GetByIdAsync(string userId)
         {
             return await _context.Users.FindAsync(userId);
         }
@@ -25,7 +25,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
                                  .ToListAsync();
         }
 
-        public async Task DeleteAsync(int userId)
+        public async Task DeleteAsync(string userId)
         {
             var userToDelete = await _context.Users.FindAsync(userId);
             if (userToDelete != null)
@@ -35,7 +35,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             }
         }
 
-        public async Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId)
+        public async Task<IEnumerable<Folder>> GetUserFoldersAsync(string userId)
         {
             return await _context.Folders.Where(f => f.UserId == userId).ToListAsync();
         }
@@ -86,7 +86,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
         }
 
 
-        public async Task SuspendUserAsync(int userId, bool isSuspended)
+        public async Task SuspendUserAsync(string userId, bool isSuspended)
         {
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
@@ -98,7 +98,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<User?> GetUserByIdAsync(int userId)
+        public async Task<User?> GetUserByIdAsync(string userId)
         {
             return await _context.Users.FindAsync(userId);
         }
@@ -118,7 +118,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             return true; // Оновлення успішне
         }
 
-        public async Task DeleteUserAsync(int userId)
+        public async Task DeleteUserAsync(string userId)
         {
             var user = await _context.Users.FindAsync(userId);
             if (user != null)

@@ -19,7 +19,7 @@ public class FavoriteServiceTests
     public async Task AddFavoriteAsync_ShouldCallAddFavorite_WhenArticleIsNotFavorite()
     {
         // Arrange
-        int userId = 1;
+        string userId = "testid";
         int articleId = 100;
         _mockRepo.Setup(r => r.IsArticleFavoriteAsync(userId, articleId)).ReturnsAsync(false);
 
@@ -34,7 +34,7 @@ public class FavoriteServiceTests
     public async Task AddFavoriteAsync_ShouldNotCallAddFavorite_WhenArticleIsAlreadyFavorite()
     {
         // Arrange
-        int userId = 1;
+        string userId = "testid";
         int articleId = 100;
         _mockRepo.Setup(r => r.IsArticleFavoriteAsync(userId, articleId)).ReturnsAsync(true);
 
@@ -42,6 +42,6 @@ public class FavoriteServiceTests
         await _service.AddFavoriteAsync(userId, articleId);
 
         // Assert
-        _mockRepo.Verify(r => r.AddFavoriteAsync(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+        _mockRepo.Verify(r => r.AddFavoriteAsync(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
     }
 }

@@ -30,7 +30,7 @@ namespace PastBeam.Presentation.Controllers
         }
 
         [HttpPost("enroll")]
-        public async Task<IActionResult> Enroll(int userId, int courseId)
+        public async Task<IActionResult> Enroll(string userId, int courseId)
         {
             bool enrolled = await _courseService.EnrollUserInCourseAsync(userId, courseId);
             if (!enrolled) return BadRequest("User is already enrolled.");
@@ -40,11 +40,11 @@ namespace PastBeam.Presentation.Controllers
         [HttpGet("{courseId:int}/progress")]
         public async Task<IActionResult> GetProgress(int courseId)
         {
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
-            {
-                return Unauthorized("User ID claim not found or invalid.");
-            }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //if (string.IsNullOrEmpty(userIdString) || !string.TryParse(userIdString, out var userId))
+            //{
+            //    return Unauthorized("User ID claim not found or invalid.");
+            //}
 
             try
             {

@@ -24,7 +24,7 @@ public class CourseServiceTests
     public async Task GetCourseProgressAsync_UserEnrolled_ReturnsProgress()
     {
         // Arrange
-        var userId = 1;
+        var userId = "testid";
         var courseId = 10;
         var expectedProgress = 0.75f; // 75%
         var userCourseDetails = new UserCourse { UserId = userId, CourseId = courseId, Progress = expectedProgress };
@@ -49,7 +49,7 @@ public class CourseServiceTests
     public async Task GetCourseProgressAsync_UserNotEnrolled_ReturnsNull()
     {
         // Arrange
-        var userId = 1;
+        var userId = "testid";
         var courseId = 10;
 
         _mockCourseRepository.Setup(repo => repo.GetUserCourseDetailsAsync(userId, courseId))
@@ -71,7 +71,7 @@ public class CourseServiceTests
     public async Task GetCourseProgressAsync_RepositoryThrowsException_RethrowsAndLogsError()
     {
         // Arrange
-        var userId = 1;
+        var userId = "testid";
         var courseId = 10;
         var repositoryException = new InvalidOperationException("Database connection failed");
 

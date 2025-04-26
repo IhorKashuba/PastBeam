@@ -42,7 +42,7 @@ namespace PastBeam.Tests.Services
         [Fact]
         public async Task CreateFolderAsync_ShouldCreateFolder()
         {
-            var userId = 1;
+            var userId = "testid";
             var folderName = "New Folder";
             var expectedFolder = new Folder
             {
@@ -64,10 +64,10 @@ namespace PastBeam.Tests.Services
         [Fact]
         public async Task GetUserFoldersAsync_WhenFoldersExist()
         {
-            List<Folder> folders = new List<Folder> { new Folder { Id = 1, Name = "folder1", UserId = 1 } };
-            userRepositoryMock.Setup(repo => repo.GetUserFoldersAsync(1)).ReturnsAsync(folders);
+            List<Folder> folders = new List<Folder> { new Folder { Id = 1, Name = "folder1", UserId = "test_id_1" } };
+            userRepositoryMock.Setup(repo => repo.GetUserFoldersAsync("test_id_1")).ReturnsAsync(folders);
 
-            var result = await userService.GetUserFoldersAsync(1);
+            var result = await userService.GetUserFoldersAsync("test_id_1");
             List<Folder> resultList = result.ToList();
 
             Assert.NotNull(result);
@@ -79,7 +79,7 @@ namespace PastBeam.Tests.Services
         public async Task DeleteFolderAsync_ShouldReturnFolder_WhenFolderExists()
         {
             var folderId = 1;
-            var folder = new Folder { Id = folderId, Name = "Folder 1", UserId = 1 };
+            var folder = new Folder { Id = folderId, Name = "Folder 1", UserId = "test_id_1" };
 
             userRepositoryMock.Setup(repo => repo.DeleteFolderAsync(folderId)).ReturnsAsync(folder);
 

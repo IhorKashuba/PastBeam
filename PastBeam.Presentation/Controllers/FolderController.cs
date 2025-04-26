@@ -14,7 +14,7 @@ namespace PastBeam.Presentation.Controllers
         }
 
         [HttpPost("create/{folderName}")]
-        public async Task CreateFolder(int userId, string folderName)
+        public async Task CreateFolder(string userId, string folderName)
         {
             await _userService.CreateFolderAsync(userId, folderName);
         }
@@ -26,7 +26,7 @@ namespace PastBeam.Presentation.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetUserFolders(int userId)
+        public async Task<IActionResult> GetUserFolders(string userId)
         {
             var folders = await _userService.GetUserFoldersAsync(userId);
             return View("FolderList", folders);

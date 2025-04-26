@@ -7,7 +7,7 @@ public class UserCourse
 {
     [ForeignKey("User")]
     [Column("user_id")]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     [ForeignKey("Course")]
     [Column("course_id")]

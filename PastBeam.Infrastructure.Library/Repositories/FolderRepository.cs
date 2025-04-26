@@ -16,7 +16,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
-        public async Task DeleteFoldersByUserAsync(int userId)
+        public async Task DeleteFoldersByUserAsync(string userId)
         {
             var folders = await _context.Folders
                 .Where(f => f.UserId == userId)

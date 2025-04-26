@@ -26,7 +26,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             return await _context.Courses.FindAsync(id);
         }
 
-        public async Task AddUserToCourseAsync(int userId, int courseId)
+        public async Task AddUserToCourseAsync(string userId, int courseId)
         {
             var isEnrolled = await IsUserEnrolledAsync(userId, courseId);
             if (!isEnrolled)
@@ -37,12 +37,12 @@ namespace PastBeam.Infrastructure.Library.Repositories
             }
         }
 
-        public async Task<bool> IsUserEnrolledAsync(int userId, int courseId)
+        public async Task<bool> IsUserEnrolledAsync(string userId, int courseId)
         {
             return await _context.UserCourses.AnyAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
         }
 
-        public async Task<UserCourse?> GetUserCourseDetailsAsync(int userId, int courseId)
+        public async Task<UserCourse?> GetUserCourseDetailsAsync(string userId, int courseId)
         {
             return await _context.UserCourses
                                  .FirstOrDefaultAsync(uc => uc.UserId == userId && uc.CourseId == courseId);

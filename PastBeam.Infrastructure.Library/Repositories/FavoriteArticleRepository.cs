@@ -20,48 +20,48 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
-        public async Task<bool> IsArticleFavoriteAsync(int userId, int articleId)
+        public async Task<bool> IsArticleFavoriteAsync(string userId, int articleId)
         {
-            return await _context.Favorites
+            return await _context.FavoriteArticles
                 .AnyAsync(f => f.UserId == userId && f.ArticleId == articleId);
         }
 
-        public async Task AddFavoriteAsync(int userId, int articleId)
+        public async Task AddFavoriteAsync(string userId, int articleId)
         {
-            var favorite = new Favorite
+            var favorite = new FavoriteArticle
             {
                 UserId = userId,
                 ArticleId = articleId
             };
 
-            await _context.Favorites.AddAsync(favorite);
+            await _context.FavoriteArticles.AddAsync(favorite);
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveFavoriteAsync(int userId, int articleId)
+        public async Task RemoveFavoriteAsync(string userId, int articleId)
         {
-            var favorite = await _context.Favorites
+            var favorite = await _context.FavoriteArticles
                 .FirstOrDefaultAsync(f => f.UserId == userId && f.ArticleId == articleId);
 
             if (favorite != null)
             {
-                _context.Favorites.Remove(favorite);
+                _context.FavoriteArticles.Remove(favorite);
                 await _context.SaveChangesAsync();
             }
         }
 
-        public async Task<List<Article>> GetFavoritesByUserAsync(int userId)
+        public async Task<List<Article>> GetFavoritesByUserAsync(string userId)
         {
-            return await _context.Favorites
+            return await _context.FavoriteArticles
                 .Where(f => f.UserId == userId)
                 .Select(f => f.Article)
                 .ToListAsync();
         }
 
-        public async Task DeleteFavoritesByUserAsync(int userId)
+        public async Task DeleteFavoritesByUserAsync(string userId)
         {
-            var favorites = _context.Favorites.Where(f => f.UserId == userId);
-            _context.Favorites.RemoveRange(favorites);
+            var favorites = _context.FavoriteArticles.Where(f => f.UserId == userId);
+            _context.FavoriteArticles.RemoveRange(favorites);
             await _context.SaveChangesAsync();
         }
     }
