@@ -12,7 +12,7 @@ namespace PastBeam.Infrastructure.DataBase
         public DbSet<User> Users { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
-        public DbSet<Favorite> Favorites { get; set; }  // Added to save favorite articles
+        public DbSet<FavoriteArticle> FavoriteArticles { get; set; }  // Added to save favorite articles
         public DbSet<Folder> Folders { get; set; }
         public DbSet<FolderArticle> FolderArticles { get; set; }
         public DbSet<Tag> Tags { get; set; }
@@ -33,7 +33,7 @@ namespace PastBeam.Infrastructure.DataBase
             modelBuilder.Entity<FolderArticle>()
                 .HasKey(fa => new { fa.FolderId, fa.ArticleId });
 
-            modelBuilder.Entity<Favorite>()
+            modelBuilder.Entity<FavoriteArticle>()
                 .HasKey(f => new { f.UserId, f.ArticleId }); // Adding a connection between the user and the article
         }
     }
