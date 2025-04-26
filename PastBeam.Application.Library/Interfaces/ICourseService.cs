@@ -8,8 +8,8 @@ namespace PastBeam.Application.Library.Interfaces
     {
         Task<IEnumerable<Course>> GetAllCoursesAsync();
         Task<Course?> GetCourseByIdAsync(int id);
-        Task<bool> EnrollUserInCourseAsync(int userId, int courseId);
-        Task<float?> GetCourseProgressAsync(int userId, int courseId);
+        Task<bool> EnrollUserInCourseAsync(string userId, int courseId);
+        Task<float?> GetCourseProgressAsync(string userId, int courseId);
         Task<Course?> UpdateCourseAsync(int id, string? title = null, string? description = null);
         Task<bool> CreateCourseAsync(Course course);
     }

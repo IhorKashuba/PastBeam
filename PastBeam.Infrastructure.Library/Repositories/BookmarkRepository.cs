@@ -16,7 +16,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
-        public async Task DeleteBookmarksByUserAsync(int userId)
+        public async Task DeleteBookmarksByUserAsync(string userId)
         {
             var bookmarks = await _context.Bookmarks
                 .Where(b => b.UserId == userId)

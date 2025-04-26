@@ -12,7 +12,7 @@ public class Bookmark
 
     [ForeignKey("User")]
     [Column("user_id")]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     [ForeignKey("Article")]
     [Column("article_id")]

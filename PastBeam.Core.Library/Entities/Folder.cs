@@ -12,7 +12,7 @@ public class Folder
 
     [ForeignKey("User")]
     [Column("user_id")]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     [Required]
     [Column("name")]

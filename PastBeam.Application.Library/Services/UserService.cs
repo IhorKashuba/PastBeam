@@ -56,7 +56,7 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task DeleteUserAsync(int userId)
+        public async Task DeleteUserAsync(string userId)
         {
             _logger.LogToFile($"Attempting to delete user with ID: {userId}");
 
@@ -79,7 +79,7 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task<Folder?> CreateFolderAsync(int userId, string folderName)
+        public async Task<Folder?> CreateFolderAsync(string userId, string folderName)
         {
             Folder folder = new Folder
             {
@@ -92,7 +92,7 @@ namespace PastBeam.Application.Library.Services
             return folder;
         }
 
-        public async Task<IEnumerable<Folder>> GetUserFoldersAsync(int userId)
+        public async Task<IEnumerable<Folder>> GetUserFoldersAsync(string userId)
         {
             return await _userRepository.GetUserFoldersAsync(userId);
         }
@@ -102,14 +102,14 @@ namespace PastBeam.Application.Library.Services
             return _userRepository.DeleteFolderAsync(folderId);
         }
 
-        public async Task SuspendUserAsync(int userId, bool isSuspended)
+        public async Task SuspendUserAsync(string userId, bool isSuspended)
         {
             await _userRepository.SuspendUserAsync(userId, isSuspended);
             string status = isSuspended ? "suspended" : "unsuspended";
             _logger.LogToFile($"User {userId} has been {status}.");
         }
 
-        public async Task<UpdateUserDto?> GetUserForUpdateAsync(int userId)
+        public async Task<UpdateUserDto?> GetUserForUpdateAsync(string userId)
         {
             _logger.LogToFile($"Attempting to get user data for update, ID: {userId}");
             var user = await _userRepository.GetByIdAsync(userId);
@@ -167,7 +167,7 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task<User?> UpdateUserProfileAsync(int userId, string? username = null, string? email = null, string? passwordHash = null)
+        public async Task<User?> UpdateUserProfileAsync(string userId, string? username = null, string? email = null, string? passwordHash = null)
         {
             var user = await _userRepository.GetUserByIdAsync(userId);
 
@@ -190,14 +190,14 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task<bool> AssignUserRole(int userId, string userRole)
+        public async Task<bool> AssignUserRole(string userId, string userRole)
         {
             var user = await _userRepository.GetUserByIdAsync(userId);
             user.Role = userRole;
             return await _userRepository.UpdateUserProfileAsync(user);
         }
 
-        public async Task<bool> DeleteUserAccountAsync(int userId)
+        public async Task<bool> DeleteUserAccountAsync(string userId)
         {
             var user = await _userRepository.GetUserByIdAsync(userId);
             if (user == null)

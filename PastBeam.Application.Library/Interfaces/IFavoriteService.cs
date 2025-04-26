@@ -7,9 +7,9 @@ namespace PastBeam.Core.Library.Interfaces
 {
     public interface IFavoriteService
     {
-        Task AddFavoriteAsync(int userId, int articleId);
-        Task RemoveFavoriteAsync(int userId, int articleId);
-        Task<bool> IsArticleFavoriteAsync(int userId, int articleId);
-        Task<List<Article>> GetFavoritesByUserAsync(int userId);
+        Task AddFavoriteAsync(string userId, int articleId);
+        Task RemoveFavoriteAsync(string userId, int articleId);
+        Task<bool> IsArticleFavoriteAsync(string userId, int articleId);
+        Task<List<Article>> GetFavoritesByUserAsync(string userId);
     }
 }

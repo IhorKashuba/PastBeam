@@ -4,12 +4,12 @@ using PastBeam.Core.Library.Entities;
 
 namespace PastBeam.Infrastructure.DataBase
 {
-    public class ApplicationDbContext : IdentityDbContext<AppUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<FavoriteArticle> FavoriteArticles { get; set; }  // Added to save favorite articles

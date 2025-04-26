@@ -14,7 +14,7 @@ public class FavoriteArticle
 
     [Required]
     [Column("user_id")]
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     [Required]
     [Column("article_id")]

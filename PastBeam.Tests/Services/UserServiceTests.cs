@@ -42,8 +42,8 @@ public class UserServiceTests
         // Arrange
         var usersFromRepo = new List<User>
         {
-            new User { Id = 1, Username = "AdminUser", Email = "admin@test.com", Role = "Admin", CreatedAt = DateTime.UtcNow.AddDays(-10) },
-            new User { Id = 2, Username = "RegularUser", Email = "user@test.com", Role = "User", CreatedAt = DateTime.UtcNow.AddDays(-5) }
+            new User { Id = "test_id_1", Username = "AdminUser", Email = "admin@test.com", Role = "Admin", CreatedAt = DateTime.UtcNow.AddDays(-10) },
+            new User { Id = "test_id_2", Username = "RegularUser", Email = "user@test.com", Role = "User", CreatedAt = DateTime.UtcNow.AddDays(-5) }
         };
         _mockUserRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(usersFromRepo);
 
@@ -114,7 +114,7 @@ public class UserServiceTests
     public async Task DeleteUserAsync_UserExists_CallsRepositoryDeleteAsync()
     {
         // Arrange
-        var userId = 1;
+        var userId = "testid";
         var userToDelete = new User { Id = userId, Username = "TestUser" };
         _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId))
                            .ReturnsAsync(userToDelete);
@@ -137,7 +137,7 @@ public class UserServiceTests
     public async Task DeleteUserAsync_UserNotFound_ThrowsKeyNotFoundException()
     {
         // Arrange
-        var userId = 1;
+        var userId = "testid";
         _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId))
                            .ReturnsAsync((User?)null);
 
@@ -145,7 +145,7 @@ public class UserServiceTests
         await Assert.ThrowsAsync<KeyNotFoundException>(() => _userService.DeleteUserAsync(userId));
 
         _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
-        _mockUserRepository.Verify(repo => repo.DeleteAsync(It.IsAny<int>()), Times.Never);
+        _mockUserRepository.Verify(repo => repo.DeleteAsync(It.IsAny<string>()), Times.Never);
         _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Attempting to delete"))), Times.Once);
         _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Warning: User with ID"))), Times.Once);
         _mockLogger.Verify(log => log.LogToFile(It.Is<string>(s => s.Contains("Successfully initiated deletion"))), Times.Never);
@@ -156,7 +156,7 @@ public class UserServiceTests
     public async Task DeleteUserAsync_RepositoryThrowsException_RethrowsAndLogsError()
     {
         // Arrange
-        var userId = 1;
+        var userId = "testid";
         var userToDelete = new User { Id = userId, Username = "TestUser" };
         var repositoryException = new InvalidOperationException("Database error");
 
@@ -180,7 +180,7 @@ public class UserServiceTests
     [Fact]
     public async Task GetUserForUpdateAsync_UserExists_ReturnsCorrectDto()
     {
-        var userId = 5;
+        string userId = "testid";
         var userEntity = new User { Id = userId, Username = "ExistingUser", Email = "exist@test.com", Role = "User" };
         _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync(userEntity);
 
@@ -199,7 +199,7 @@ public class UserServiceTests
     [Fact]
     public async Task GetUserForUpdateAsync_UserNotFound_ReturnsNull()
     {
-        var userId = 99;
+        string userId = "testid";
         _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync((User?)null);
 
         var resultDto = await _userService.GetUserForUpdateAsync(userId);
@@ -212,7 +212,7 @@ public class UserServiceTests
     [Fact]
     public async Task UpdateUserAsync_UserExists_UpdatesPropertiesAndCallsRepository_ReturnsTrue()
     {
-        var userId = 7;
+        string userId = "testid";
         var updateUserDto = new UpdateUserDto { Id = userId, Username = "UpdatedName", Email = "updated@test.com", Role = "Admin" };
         var existingUserEntity = new User { Id = userId, Username = "OldName", Email = "old@test.com", Role = "User" };
 
@@ -240,7 +240,7 @@ public class UserServiceTests
     [Fact]
     public async Task UpdateUserAsync_UserNotFound_ReturnsFalse()
     {
-        var userId = 99;
+        string userId = "testid";
         var updateUserDto = new UpdateUserDto { Id = userId, Username = "NonExistent", Email = "a@b.com", Role = "User" };
         _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync((User?)null);
 
@@ -255,7 +255,7 @@ public class UserServiceTests
     [Fact]
     public async Task UpdateUserAsync_RepositoryUpdateFails_ReturnsFalse()
     {
-        var userId = 8;
+        string userId = "testid";
         var updateUserDto = new UpdateUserDto { Id = userId, Username = "UpdateFail", Email = "fail@test.com", Role = "User" };
         var existingUserEntity = new User { Id = userId, Username = "Original", Email = "orig@test.com", Role = "User" };
 
@@ -274,7 +274,7 @@ public class UserServiceTests
     [Fact]
     public async Task UpdateUserAsync_RepositoryThrowsException_RethrowsAndLogsError()
     {
-        var userId = 9;
+        string userId = "testid";
         var updateUserDto = new UpdateUserDto { Id = userId, Username = "ExceptionUser", Email = "ex@test.com", Role = "User" };
         var existingUserEntity = new User { Id = userId, Username = "OrigEx", Email = "origex@test.com", Role = "User" };
         var repositoryException = new Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException("Concurrency conflict"); // Use specific exception if known
@@ -294,7 +294,7 @@ public class UserServiceTests
     [Fact]
     public async Task AssignUserRole_ShouldUpdateUserRole_WhenUserExists()
     {
-        int userId = 1;
+        string userId = "testid";
         string newRole = "Admin";
         var user = new User { Id = userId, Role = "User" };
 
@@ -315,20 +315,20 @@ public class UserServiceTests
         {
             // Arrange
             var mockRepo = new Mock<IUserRepository>();
-            mockRepo.Setup(r => r.GetUserByIdAsync(It.IsAny<int>()))
-                    .ReturnsAsync(new User { Id = 1 });
+            mockRepo.Setup(r => r.GetUserByIdAsync(It.IsAny<string>()))
+                    .ReturnsAsync(new User { Id = "test_id_1" });
 
-            mockRepo.Setup(r => r.DeleteUserAsync(It.IsAny<int>()))
+            mockRepo.Setup(r => r.DeleteUserAsync(It.IsAny<string>()))
                     .Returns(Task.CompletedTask);
 
             var service = new UserService(mockRepo.Object, _favoriteRepositoryMock.Object, _bookmarkRepositoryMock.Object, _folderRepositoryMock.Object, _userCourseRepositoryMock.Object, _mockLogger.Object);
 
             // Act
-            var result = await service.DeleteUserAccountAsync(1);
+            var result = await service.DeleteUserAccountAsync("test_id_1");
 
             // Assert
             Assert.True(result);
-            mockRepo.Verify(r => r.DeleteUserAsync(1), Times.Once);
+            mockRepo.Verify(r => r.DeleteUserAsync("test_id_1"), Times.Once);
         }
 
 }

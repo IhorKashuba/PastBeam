@@ -1,39 +1,34 @@
 ﻿
-using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PastBeam.Core.Library.Entities;
 
-[Table("user")]
-public class User
+public class User : IdentityUser
 {
-    [Key]
-    [Column("id")]
-    public int Id { get; set; }
+    //[Key]
+    //[Column("id")]
+    //public int Id { get; set; }
 
     [Required]
     [Column("username")]
     public string Username { get; set; } = string.Empty;
 
-    [Required, EmailAddress]
-    [Column("email")]
-    public string Email { get; set; } = string.Empty;
+    //[Required, EmailAddress]
+    //[Column("email")]
+    //public string Email { get; set; } = string.Empty;
 
-    [Required]
-    [Column("password")]
-    public string PasswordHash { get; set; } = string.Empty;
+    //[Required]
+    //[Column("password")]
+    //public string PasswordHash { get; set; } = string.Empty;
 
-    [Required]
-    [Column("status")]
     public string Role { get; set; } = "User"; // Guest, User, Admin
 
-    [Column("is_suspended")]
+    [Column("IsSuspended")]
     public bool IsSuspended;
 
-    [Column("created_at")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
 
     public ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
     public ICollection<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();

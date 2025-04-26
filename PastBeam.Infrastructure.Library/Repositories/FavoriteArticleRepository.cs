@@ -20,13 +20,13 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context = context;
         }
 
-        public async Task<bool> IsArticleFavoriteAsync(int userId, int articleId)
+        public async Task<bool> IsArticleFavoriteAsync(string userId, int articleId)
         {
             return await _context.FavoriteArticles
                 .AnyAsync(f => f.UserId == userId && f.ArticleId == articleId);
         }
 
-        public async Task AddFavoriteAsync(int userId, int articleId)
+        public async Task AddFavoriteAsync(string userId, int articleId)
         {
             var favorite = new FavoriteArticle
             {
@@ -38,7 +38,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveFavoriteAsync(int userId, int articleId)
+        public async Task RemoveFavoriteAsync(string userId, int articleId)
         {
             var favorite = await _context.FavoriteArticles
                 .FirstOrDefaultAsync(f => f.UserId == userId && f.ArticleId == articleId);
@@ -50,7 +50,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
             }
         }
 
-        public async Task<List<Article>> GetFavoritesByUserAsync(int userId)
+        public async Task<List<Article>> GetFavoritesByUserAsync(string userId)
         {
             return await _context.FavoriteArticles
                 .Where(f => f.UserId == userId)
@@ -58,7 +58,7 @@ namespace PastBeam.Infrastructure.Library.Repositories
                 .ToListAsync();
         }
 
-        public async Task DeleteFavoritesByUserAsync(int userId)
+        public async Task DeleteFavoritesByUserAsync(string userId)
         {
             var favorites = _context.FavoriteArticles.Where(f => f.UserId == userId);
             _context.FavoriteArticles.RemoveRange(favorites);

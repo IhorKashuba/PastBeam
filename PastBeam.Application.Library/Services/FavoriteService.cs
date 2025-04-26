@@ -15,7 +15,7 @@ namespace PastBeam.Application.Library.Services
             _favoriteRepository = favoriteRepository;
         }
 
-        public async Task AddFavoriteAsync(int userId, int articleId)
+        public async Task AddFavoriteAsync(string userId, int articleId)
         {
             if (!await _favoriteRepository.IsArticleFavoriteAsync(userId, articleId))
             {
@@ -23,7 +23,7 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task RemoveFavoriteAsync(int userId, int articleId)
+        public async Task RemoveFavoriteAsync(string userId, int articleId)
         {
             if (await _favoriteRepository.IsArticleFavoriteAsync(userId, articleId))
             {
@@ -31,12 +31,12 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task<bool> IsArticleFavoriteAsync(int userId, int articleId)
+        public async Task<bool> IsArticleFavoriteAsync(string userId, int articleId)
         {
             return await _favoriteRepository.IsArticleFavoriteAsync(userId, articleId);
         }
 
-        public async Task<List<Article>> GetFavoritesByUserAsync(int userId)
+        public async Task<List<Article>> GetFavoritesByUserAsync(string userId)
         {
             return await _favoriteRepository.GetFavoritesByUserAsync(userId);
         }
