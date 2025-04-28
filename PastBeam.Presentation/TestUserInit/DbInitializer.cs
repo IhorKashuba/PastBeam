@@ -6,7 +6,7 @@ public static class DbInitializer
 {
     public static async Task SeedTestUserAsync(IServiceProvider serviceProvider)
     {
-        var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+        var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
         string testEmail = "testuser@example.com";
         string testPassword = "Test1234!";
@@ -14,7 +14,7 @@ public static class DbInitializer
         var existingUser = await userManager.FindByEmailAsync(testEmail);
         if (existingUser == null)
         {
-            var testUser = new AppUser
+            var testUser = new User
             {
                 UserName = testEmail,
                 Email = testEmail,

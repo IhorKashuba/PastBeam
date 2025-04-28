@@ -7,11 +7,11 @@ namespace PastBeam.Presentation.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly SignInManager<User> _signInManager;
         // Якщо потрібен UserManager можна додати його теж:
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager )
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager )
         {
             _signInManager = signInManager;
             _userManager = userManager;
