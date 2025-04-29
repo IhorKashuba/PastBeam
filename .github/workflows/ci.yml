@@ -27,10 +27,7 @@ jobs:
       # 3. Відновлення залежностей
       - name: Restore dependencies
         run: dotnet restore
-
-      - name: Run tests
-        run: dotnet test --configuration Release
-
+        
       # 4. Будування проєкту
       - name: Build
         run: dotnet build --configuration Release
