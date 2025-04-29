@@ -13,9 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2  # Клонуємо репозиторій
 
-      - name: Set up Azure CLI
-        uses: azure/azure-cli-action@v1  # Використовуємо Azure CLI
-
       - name: Login to Azure
         uses: azure/login@v1  # Логін до Azure через Service Principal
         with:
