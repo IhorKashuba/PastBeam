@@ -2,6 +2,8 @@
 using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Application.Library.Dtos;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace PastBeam.Application.Library.Services
 {
@@ -13,6 +15,7 @@ namespace PastBeam.Application.Library.Services
         private readonly IFolderRepository _folderRepository;
         private readonly IUserCourseRepository _userCourseRepository;
         private readonly Infrastructure.Library.Logger.ILogger _logger;
+        
 
         public UserService(
             IUserRepository userRepository,
@@ -212,5 +215,38 @@ namespace PastBeam.Application.Library.Services
             _logger.LogToFile($"User {userId} has deleted their account.");
             return true;
         }
+
+        public async Task<IdentityResult> RegisterUserAsync(RegisterUserDto model)
+        {
+            var existingUser = await _userRepository.GetByEmailAsync(model.Email);
+            if (existingUser != null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Користувач з такою поштою вже існує." });
+            }
+
+            var user = new User
+            {
+                Username = model.Username,
+                Email = model.Email,
+                PasswordHash = model.Password // (або хешуй тут, якщо треба)
+            };
+
+            try
+            {
+                // Викликаємо метод для створення користувача
+                await _userRepository.CreateAsync(user);
+
+                // Якщо не виникло помилок, повертаємо успішний результат
+                return IdentityResult.Success;
+            }
+            catch (Exception ex)
+            {
+                // Якщо виникла помилка, повертаємо провал з повідомленням
+                return IdentityResult.Failed(new IdentityError { Description = "Не вдалося створити користувача." });
+            }
+        }
+
+
+
     }
 }

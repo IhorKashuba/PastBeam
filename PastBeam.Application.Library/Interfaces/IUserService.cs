@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace PastBeam.Application.Library.Interfaces
 {
@@ -17,6 +19,10 @@ namespace PastBeam.Application.Library.Interfaces
 
         //temporary userId because user will be saved in session
         Task<IEnumerable<Folder>> GetUserFoldersAsync(string userId);
+
+        Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
+
+
 
         Task<Folder?> DeleteFolderAsync(int folderId);
 
@@ -31,5 +37,7 @@ namespace PastBeam.Application.Library.Interfaces
         Task<bool> AssignUserRole(string userId, string userRole);
 
         Task<bool> DeleteUserAccountAsync(string userId);
+
+        
     }
 }

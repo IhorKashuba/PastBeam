@@ -1,18 +1,29 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PastBeam.Application.Library.Dtos;
 using PastBeam.Application.Library.Interfaces;
+using PastBeam.Core.Library.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace PastBeam.Presentation.Controllers
 {
     [Route("users")]
     public class UserController : Controller
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userService = userService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpDelete("delete/{userId}")]
@@ -50,9 +61,7 @@ namespace PastBeam.Presentation.Controllers
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "An error occurred while retrieving the user list.";
-                // Return the view without data, or redirect to an error page
-                return View(new List<PastBeam.Application.Library.Dtos.UserListItemDto>()); // Return empty list to avoid View error
-                // Or return View("Error", new ErrorViewModel { /* ... */ });
+                return View(new List<UserListItemDto>()); // Return empty list to avoid View error
             }
         }
 
@@ -108,10 +117,10 @@ namespace PastBeam.Presentation.Controllers
         }
 
         [HttpPut("assign/{userId}/{userRole}")]
-        public async Task AssignUserRole(string userId, string userRole)
+        public async Task<IActionResult> AssignUserRole(string userId, string userRole)
         {
             bool result = await _userService.AssignUserRole(userId, userRole);
-
+            return result ? Ok() : NotFound();
         }
 
         [HttpDelete("{userId}")]
@@ -120,5 +129,36 @@ namespace PastBeam.Presentation.Controllers
             var result = await _userService.DeleteUserAccountAsync(userId);
             return result ? Ok("Account deleted.") : NotFound();
         }
+
+        // POST: /users/register
+        [HttpPost("register")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterUser(RegisterUserDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userService.RegisterUserAsync(model);
+
+                if (result.Succeeded)
+                {
+                    var user = await _userManager.FindByEmailAsync(model.Email); // або model.Username, залежно від реєстрації
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+
+                // Якщо реєстрація не вдалася, додаємо помилки до моделі
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            // Якщо модель не валідна або є помилки, повертаємо на форму з помилками
+            return View(model);
+        }
+
+
     }
 }
+
