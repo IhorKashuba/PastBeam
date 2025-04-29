@@ -85,36 +85,40 @@ namespace PastBeam.Presentation.Controllers
             return View(userDto);
         }
 
-        [HttpPost("edit")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> EditUser(UpdateUserDto userDto)
+
+        [HttpGet("register")]
+        [AllowAnonymous]
+        public IActionResult RegisterUserGet()
         {
-            if (!ModelState.IsValid)
+            return View();
+        }
+
+
+        [HttpPost("register")]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegisterUserPost(RegisterUserDto model)
+        {
+            if (ModelState.IsValid)
             {
-                return View(userDto);
+                var result = await _userService.RegisterUserAsync(model);
+
+                if (result.Succeeded)
+                {
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
 
-            try
-            {
-                bool success = await _userService.UpdateUserAsync(userDto);
-                if (success)
-                {
-                    TempData["SuccessMessage"] = $"User '{userDto.Username}' (ID: {userDto.Id}) updated successfully.";
-                    return RedirectToAction(nameof(UserList));
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = $"Could not update user with ID {userDto.Id}. User might not exist anymore.";
-                    return View(userDto);
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "An error occurred while updating the user.";
-                return View(userDto);
-            }
+            return View("RegisterUserGet", model); // Назва View має збігатися з GET методом
         }
+
 
         [HttpPut("assign/{userId}/{userRole}")]
         public async Task<IActionResult> AssignUserRole(string userId, string userRole)
@@ -158,13 +162,13 @@ namespace PastBeam.Presentation.Controllers
             return View(model);
         }
 
-        // GET: /users/register
-        [HttpGet("register")]
+        [HttpGet("/register")]
         [AllowAnonymous]
         public IActionResult RegisterUser()
         {
-            return View();
+            return View("RegisterUser");
         }
+
 
 
     }
