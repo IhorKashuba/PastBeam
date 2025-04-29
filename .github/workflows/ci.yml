@@ -1,0 +1,36 @@
+name: CI Pipeline
+
+# Тригер для виконання pipeline
+on:
+  push:
+    branches:
+      - main   # виконувати при пушах на main
+  pull_request:
+    branches:
+      - main   # виконувати при пулл-реквестах на main
+
+jobs:
+  build:
+    runs-on: windows-latest  # Виконувати на останній версії Ubuntu
+
+    steps:
+      # 1. Клонування репозиторію
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 2. Налаштування .NET SDK
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0'  # версія .NET, яку ви використовуєте
+
+      # 3. Відновлення залежностей
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run tests
+        run: dotnet test --configuration Release
+
+      # 4. Будування проєкту
+      - name: Build
+        run: dotnet build --configuration Release
