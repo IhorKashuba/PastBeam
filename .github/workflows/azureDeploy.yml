@@ -1,0 +1,28 @@
+name: Deploy to Azure Web App
+
+on:
+  push:
+    branches:
+      - main  # Запускається при пушах в гілку main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Клонуємо репозиторій
+
+      - name: Set up Azure CLI
+        uses: azure/azure-cli-action@v1  # Використовуємо Azure CLI
+
+      - name: Login to Azure
+        uses: azure/login@v1  # Логін до Azure через Service Principal
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Deploy to Azure Web App
+        run: |
+          az webapp up --name PastBeamPresentation20250429150142 --resource-group PastBeam --plan PastBeamPresentation20250429150142Plan --sku F1
