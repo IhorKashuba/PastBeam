@@ -158,6 +158,14 @@ namespace PastBeam.Presentation.Controllers
             return View(model);
         }
 
+        // GET: /users/register
+        [HttpGet("register")]
+        [AllowAnonymous]
+        public IActionResult RegisterUser()
+        {
+            return View();
+        }
+
 
     }
 }
