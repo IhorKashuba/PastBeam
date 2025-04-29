@@ -86,18 +86,19 @@ namespace PastBeam.Presentation.Controllers
         }
 
 
-        [HttpGet("register")]
         [AllowAnonymous]
-        public IActionResult RegisterUserGet()
+        [HttpGet]
+        [Route("register")]
+        public IActionResult RegisterUser()
         {
-            return View();
+            return View("RegisterUser");
         }
 
-
-        [HttpPost("register")]
-        [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterUserPost(RegisterUserDto model)
+        [HttpPost]
+        [Route("register")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterUser(RegisterUserDto model)
         {
             if (ModelState.IsValid)
             {
@@ -116,8 +117,9 @@ namespace PastBeam.Presentation.Controllers
                 }
             }
 
-            return View("RegisterUserGet", model); // Назва View має збігатися з GET методом
+            return View("RegisterUser", model);
         }
+
 
 
         [HttpPut("assign/{userId}/{userRole}")]
@@ -134,43 +136,7 @@ namespace PastBeam.Presentation.Controllers
             return result ? Ok("Account deleted.") : NotFound();
         }
 
-        // POST: /users/register
-        [HttpPost("register")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterUser(RegisterUserDto model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _userService.RegisterUserAsync(model);
-
-                if (result.Succeeded)
-                {
-                    var user = await _userManager.FindByEmailAsync(model.Email); // або model.Username, залежно від реєстрації
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-
-
-                // Якщо реєстрація не вдалася, додаємо помилки до моделі
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-
-            // Якщо модель не валідна або є помилки, повертаємо на форму з помилками
-            return View(model);
-        }
-
-        [HttpGet("/register")]
-        [AllowAnonymous]
-        public IActionResult RegisterUser()
-        {
-            return View("RegisterUser");
-        }
-
-
-
+                
     }
 }
 
