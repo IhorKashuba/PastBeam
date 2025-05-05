@@ -27,6 +27,9 @@ jobs:
       # 3. Відновлення залежностей
       - name: Restore dependencies
         run: dotnet restore
+
+      - name: Run tests
+        run: dotnet test PastBeam.Tests/PastBeam.Tests.csproj --no-build --verbosity normal
         
       # 4. Будування проєкту
       - name: Build
