@@ -29,8 +29,8 @@ jobs:
         run: dotnet restore
 
       - name: Run tests
-        run: dotnet test --configuration Release
-
+        run: dotnet test PastBeam.Tests/PastBeam.Tests.csproj --no-build --verbosity normal
+        
       # 4. Будування проєкту
       - name: Build
         run: dotnet build --configuration Release
