@@ -43,9 +43,4 @@ jobs:
         run: Compress-Archive -Path publish\* -DestinationPath app.zip
       
       - name: Deploy to Azure Web App
-        run: |
-          az webapp deploy \
-            --resource-group PastBeam \
-            --name PastBeamPresentation20250429150142 \
-            --src-path app.zip \
-            --type zip
+        run: az webapp deploy --resource-group PastBeam --name PastBeamPresentation20250429150142 --src-path app.zip --type zip
