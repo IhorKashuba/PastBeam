@@ -29,8 +29,17 @@ jobs:
         run: dotnet restore
 
       - name: Run tests
-        run: dotnet test PastBeam.Tests/PastBeam.Tests.csproj --no-build --verbosity normal
+        run: dotnet test PastBeam.Tests/PastBeam.Tests.csproj --verbosity normal
         
       # 4. Будування проєкту
       - name: Build
         run: dotnet build --configuration Release
+
+      - name: Login to Azure
+        uses: azure/login@v1  # Логін до Azure через Service Principal
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure Web App
+        run: |
+          az webapp up --name PastBeamPresentation20250429150142 --resource-group PastBeam --plan PastBeamPresentation20250429150142Plan --sku F1
