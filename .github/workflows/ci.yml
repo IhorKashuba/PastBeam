@@ -39,8 +39,9 @@ jobs:
       - name: Publish app
         run: dotnet publish PastBeam.Presentation/PastBeam.Presentation.csproj -c Release -o publish
       
-      - name: Zip published app
-        run: Compress-Archive -Path publish\* -DestinationPath app.zip
-      
       - name: Deploy to Azure Web App
-        run: az webapp deploy --resource-group PastBeam --name PastBeamPresentation20250429150142 --src-path app.zip --type zip
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: PastBeamPresentation20250429150142
+          slot-name: production
+          package: ./publish
