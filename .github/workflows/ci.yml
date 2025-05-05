@@ -40,9 +40,7 @@ jobs:
         run: dotnet publish PastBeam.Presentation/PastBeam.Presentation.csproj -c Release -o publish
       
       - name: Zip published app
-        run: |
-          cd publish
-          zip -r ../app.zip .
+        run: Compress-Archive -Path publish\* -DestinationPath app.zip
       
       - name: Deploy to Azure Web App
         run: |
