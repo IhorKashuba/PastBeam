@@ -14,32 +14,40 @@ jobs:
     runs-on: windows-latest  # Виконувати на останній версії Ubuntu
 
     steps:
-      # 1. Клонування репозиторію
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # 2. Налаштування .NET SDK
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '8.0'  # версія .NET, яку ви використовуєте
 
-      # 3. Відновлення залежностей
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Run tests
-        run: dotnet test PastBeam.Tests/PastBeam.Tests.csproj --verbosity normal
-        
-      # 4. Будування проєкту
       - name: Build
         run: dotnet build --configuration Release
+
+      - name: Run tests
+        run: dotnet test PastBeam.Tests/PastBeam.Tests.csproj --no-build --verbosity normal
 
       - name: Login to Azure
         uses: azure/login@v1  # Логін до Azure через Service Principal
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Publish app
+        run: dotnet publish PastBeam.Presentation/PastBeam.Presentation.csproj -c Release -o publish
+      
+      - name: Zip published app
+        run: |
+          cd publish
+          zip -r ../app.zip .
+      
       - name: Deploy to Azure Web App
         run: |
-          az webapp up --name PastBeamPresentation20250429150142 --resource-group PastBeam --plan PastBeamPresentation20250429150142Plan --sku F1
+          az webapp deploy \
+            --resource-group PastBeam \
+            --name PastBeamPresentation20250429150142 \
+            --src-path app.zip \
+            --type zip
