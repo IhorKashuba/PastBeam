@@ -136,7 +136,99 @@ namespace PastBeam.Presentation.Controllers
             return result ? Ok("Account deleted.") : NotFound();
         }
 
-                
+        // GET: /Account/ForgotPassword
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("forgot-password")]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // POST: /Account/ForgotPassword
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("forgot-password")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    // Якщо користувача немає або його email не підтверджений
+                    return RedirectToAction("ForgotPasswordConfirmation");
+                }
+
+                // Створення токена для відновлення пароля
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                // Створити посилання для відновлення паролю (токен в URL)
+                var callbackUrl = Url.Action(
+                    "ResetPassword",
+                    "Account",
+                    new { token = token, email = model.Email },
+                    protocol: Request.Scheme);
+
+                // Надіслати посилання на електронну пошту
+                await _emailSender.SendEmailAsync(model.Email, "Відновлення паролю",
+                    $"Щоб відновити ваш пароль, перейдіть за <a href='{callbackUrl}'>посиланням</a>.");
+
+                return RedirectToAction("ForgotPasswordConfirmation");
+            }
+
+            return View(model);
+        }
+
+        // GET: /Account/ResetPassword
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("reset-password")]
+        public IActionResult ResetPassword(string token = null, string email = null)
+        {
+            return token == null || email == null ?
+                View("Error") :
+                View(new ResetPasswordDto { Token = token, Email = email });
+        }
+
+        // POST: /Account/ResetPassword
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("reset-password")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    return RedirectToAction("ResetPasswordConfirmation");
+                }
+
+                var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ResetPasswordConfirmation");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(model);
+        }
+
+        // GET: /Account/ResetPasswordConfirmation
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
     }
 }
 
