@@ -43,5 +43,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: PastBeamPresentation20250429150142
-          slot-name: production
           package: ./publish
