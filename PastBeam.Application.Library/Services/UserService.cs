@@ -109,7 +109,7 @@ namespace PastBeam.Application.Library.Services
             _logger.LogToFile($"User {userId} has been {status}.");
         }
 
-        public async Task<UpdateUserDto?> GetUserForUpdateAsync(string userId)
+        public async Task<UserListItemDto?> GetUserAsync(string userId)
         {
             _logger.LogToFile($"Attempting to get user data for update, ID: {userId}");
             var user = await _userRepository.GetByIdAsync(userId);
@@ -120,7 +120,7 @@ namespace PastBeam.Application.Library.Services
                 return null;
             }
 
-            var userDto = new UpdateUserDto
+            var userDto = new UserListItemDto
             {
                 Id = user.Id,
                 Username = user.Username,

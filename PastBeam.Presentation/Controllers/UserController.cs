@@ -63,11 +63,23 @@ namespace PastBeam.Presentation.Controllers
             return RedirectToAction("UserList");
         }
 
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUser(string userId)
+        {
+            var userDto = await _userService.GetUserAsync(userId);
+            if (userDto == null)
+            {
+                TempData["ErrorMessage"] = $"User with ID {userId} not found.";
+                return NotFound();
+            }
+            return View("UserPage" ,userDto);
+        }
+
         [HttpGet("{userId}/edit")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUser(string userId)
         {
-            var userDto = await _userService.GetUserForUpdateAsync(userId);
+            var userDto = await _userService.GetUserAsync(userId);
             if (userDto == null)
             {
                 TempData["ErrorMessage"] = $"User with ID {userId} not found.";

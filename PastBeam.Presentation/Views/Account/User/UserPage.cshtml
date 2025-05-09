@@ -1,0 +1,41 @@
+﻿@page
+@model PastBeam.Application.Library.Dtos.UserListItemDto
+
+<ul class="nav-tabs">
+    <li><a onclick="showTab('tab1')"> Details </a></li>
+    <li><a onclick="showTab('tab2')"> Change Credentials </a></li>
+</ul>
+
+<div id="tab1" class="tab-content">
+    <p class="name"> @Model.Username  </p>
+    <p class="email"> @Model.Email </p>
+    <p class="creation-date"> @Model.CreatedAt.ToShortTimeString() </p>
+</div>
+
+<div id="tab2" class="tab-content" style="display:none;">
+    <button class="change-email-button" > Edit Email </button>
+    <button class="change-password-button" > Edit Password </button>
+</div>
+
+<style>
+    .nav-tabs {
+        list-style: none;
+        padding: 0;
+    }
+
+    .nav-tabs li {
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .tab-content {
+        margin-top: 20px;
+    }
+</style>
+
+<script>
+    function showTab(id) {
+        document.querySelectorAll('.tab-content').forEach(div => div.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+</script>

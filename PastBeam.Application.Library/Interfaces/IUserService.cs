@@ -22,7 +22,7 @@ namespace PastBeam.Application.Library.Interfaces
 
         Task SuspendUserAsync(string userId, bool isSuspended);
         
-        Task<UpdateUserDto?> GetUserForUpdateAsync(string userId); // For loading edit form
+        Task<UpdateUserDto?> GetUserAsync(string userId); // For loading edit form
         
         Task<bool> UpdateUserAsync(UpdateUserDto userDto);
 
