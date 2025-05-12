@@ -184,7 +184,7 @@ public class UserServiceTests
         var userEntity = new User { Id = userId, Username = "ExistingUser", Email = "exist@test.com", Role = "User" };
         _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync(userEntity);
 
-        var resultDto = await _userService.GetUserForUpdateAsync(userId);
+        var resultDto = await _userService.GetUserAsync(userId);
 
         Assert.NotNull(resultDto);
         Assert.Equal(userEntity.Id, resultDto.Id);
@@ -202,7 +202,7 @@ public class UserServiceTests
         string userId = "testid";
         _mockUserRepository.Setup(repo => repo.GetByIdAsync(userId)).ReturnsAsync((User?)null);
 
-        var resultDto = await _userService.GetUserForUpdateAsync(userId);
+        var resultDto = await _userService.GetUserAsync(userId);
 
         Assert.Null(resultDto);
         _mockUserRepository.Verify(repo => repo.GetByIdAsync(userId), Times.Once);

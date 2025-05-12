@@ -60,8 +60,16 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
-                    <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                    <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="#" asp-action="#">Register</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <text>Logged in as: @User.Identity.Name</text>
+                        <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="User" asp-action="ShowProfile">Profile</a>
+                    }
+                    else
+                    {
+                        <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    }
                 </div>
 
             </div>

@@ -1,10 +1,5 @@
 ﻿using PastBeam.Core.Library.Entities;
 using PastBeam.Application.Library.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PastBeam.Application.Library.Interfaces
 {
@@ -22,11 +17,11 @@ namespace PastBeam.Application.Library.Interfaces
 
         Task SuspendUserAsync(string userId, bool isSuspended);
         
-        Task<UpdateUserDto?> GetUserForUpdateAsync(string userId); // For loading edit form
+        Task<UserListItemDto?> GetUserAsync(string userId); // For loading edit form
         
         Task<bool> UpdateUserAsync(UpdateUserDto userDto);
 
-        Task<User?> UpdateUserProfileAsync(string userId, string? username = null, string? email = null, string? passwordHash = null);
+        Task<bool?> UpdateUserProfileAsync(string userId, string? username = null, string? email = null, string? passwordHash = null);
 
         Task<bool> AssignUserRole(string userId, string userRole);
 
