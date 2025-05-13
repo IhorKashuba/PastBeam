@@ -5,6 +5,8 @@ using PastBeam.Application.Library.Dtos;
 using PastBeam.Application.Library.Interfaces;
 using PastBeam.Core.Library.Entities;
 using System.Security.Claims;
+using PastBeam.Presentation.Models;
+
 
 namespace PastBeam.Presentation.Controllers
 {
@@ -196,5 +198,100 @@ namespace PastBeam.Presentation.Controllers
             var result = await _userService.DeleteUserAccountAsync(userId);
             return result ? Ok("Account deleted.") : NotFound();
         }
+
+        // GET: /user/forgot-password
+        [HttpGet("forgot-password")]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // POST: /user/forgot-password
+        [HttpPost("forgot-password")]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                // Не показуємо, що користувача немає
+                return RedirectToAction("ForgotPasswordConfirmation");
+            }
+
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = Url.Action("ResetPassword", "User", new { code, email = model.Email }, protocol: Request.Scheme);
+
+            // TODO: Надіслати email
+            Console.WriteLine($"Send this reset link via email: {callbackUrl}");
+
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
+        // GET: /user/forgot-password-confirmation
+        [HttpGet("forgot-password-confirmation")]
+        [AllowAnonymous]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        // GET: /user/reset-password
+        [HttpGet("reset-password")]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string code = null, string email = null)
+        {
+            if (code == null || email == null)
+            {
+                return BadRequest("A code and email must be supplied.");
+            }
+            return View(new ResetPasswordViewModel { Code = code, Email = email });
+        }
+
+        // POST: /user/reset-password
+        [HttpPost("reset-password")]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return RedirectToAction("ResetPasswordConfirmation");
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(model);
+        }
+
+        // GET: /user/reset-password-confirmation
+        [HttpGet("reset-password-confirmation")]
+        [AllowAnonymous]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
     }
 }
