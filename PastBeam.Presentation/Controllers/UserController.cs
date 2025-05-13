@@ -13,11 +13,13 @@ namespace PastBeam.Presentation.Controllers
     {
         private IUserService _userService;
         private readonly UserManager<User> _userManager;
+        private SignInManager<User> _signInManager;
 
-        public UserController(IUserService userService, UserManager<User> userManager)
+        public UserController(IUserService userService, UserManager<User> userManager, SignInManager<User> singInManager)
         {
             _userService = userService;
             _userManager = userManager;
+            _signInManager = singInManager;
         }
 
         [HttpDelete("delete/{userId}")]
@@ -81,7 +83,6 @@ namespace PastBeam.Presentation.Controllers
             }
 
             var userDto = await _userService.GetUserAsync(userId);
-            Console.WriteLine(userDto.Username);
             if (userDto == null)
             {
                 TempData["ErrorMessage"] = $"User with ID {userId} not found.";
@@ -175,9 +176,11 @@ namespace PastBeam.Presentation.Controllers
 
             if (!result.Succeeded)
             {
-                TempData["Error"] = "Failed to update password.";
+                TempData["Error"] = string.Join("; ", result.Errors.Select(e => e.Description));
+                return RedirectToAction("ShowProfile");
             }
 
+            await _signInManager.RefreshSignInAsync(user);
             return RedirectToAction("ShowProfile");
         }
 

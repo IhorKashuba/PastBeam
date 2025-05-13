@@ -7,6 +7,9 @@ namespace PastBeam.Core.Library.Interfaces
     public interface IFolderRepository
     {
         Task DeleteFoldersByUserAsync(string userId);
-        // Додай інші методи, якщо потрібно: CreateFolder, GetFoldersByUser, тощо
+
+        Task<List<Article>?> GetFolderArticleAsync(int folderId);
+
+        Task<Folder?> GetFolderAsync(int folderId);
     }
 }

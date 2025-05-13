@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using PastBeam.Core.Library.Entities;
+using PastBeam.Infrastructure.DataBase;
 
 public static class DbInitializer
 {

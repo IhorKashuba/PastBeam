@@ -26,5 +26,9 @@ namespace PastBeam.Application.Library.Interfaces
         Task<bool> AssignUserRole(string userId, string userRole);
 
         Task<bool> DeleteUserAccountAsync(string userId);
+
+        Task<List<Article>?> GetFolderArticle(int folderId);
+
+        Task<Folder?> GetFolderAsync(int folderId);
     }
 }

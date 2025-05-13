@@ -23,7 +23,9 @@
     </div>
 
     <div class="logout-container">
-        <button class="logout-button"> Logout </button>
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
     </div>
 </div>
 
