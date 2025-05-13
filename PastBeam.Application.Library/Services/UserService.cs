@@ -98,10 +98,20 @@ namespace PastBeam.Application.Library.Services
             return await _userRepository.GetUserFoldersAsync(userId);
         }
 
-        public Task<Folder?> DeleteFolderAsync(int folderId)
+        public async Task<Folder?> DeleteFolderAsync(int folderId)
         {
-            return _userRepository.DeleteFolderAsync(folderId);
+            return await _userRepository.DeleteFolderAsync(folderId);
         }
+
+        public async Task<List<Article>?> GetFolderArticle(int folderId)
+        {
+            return await _folderRepository.GetFolderArticleAsync(folderId);
+        }
+
+        public async Task<Folder?> GetFolderAsync(int folderId)
+        {
+            return await _folderRepository.GetFolderAsync(folderId);
+        } 
 
         public async Task SuspendUserAsync(string userId, bool isSuspended)
         {

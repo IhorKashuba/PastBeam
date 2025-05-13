@@ -25,5 +25,18 @@ namespace PastBeam.Infrastructure.Library.Repositories
             _context.Folders.RemoveRange(folders);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Article>?> GetFolderArticleAsync(int folderId)
+        {
+            return await _context.FolderArticles
+                                 .Where(fa => fa.FolderId == folderId)
+                                 .Select(fa => fa.Article)
+                                 .ToListAsync();
+        }
+
+        public async Task<Folder?> GetFolderAsync(int folderId)
+        {
+            return await _context.Folders.FindAsync(folderId);
+        }
     }
 }
