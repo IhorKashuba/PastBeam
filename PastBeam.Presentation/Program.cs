@@ -92,11 +92,11 @@ app.MapControllerRoute(
 //temp user
 //delete when registration done
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-//    await DbInitializer.SeedTestUserAsync(services);
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await DbInitializer.SeedTestUserAsync(services);
+}
 
 using (var scope = app.Services.CreateScope())
 {
