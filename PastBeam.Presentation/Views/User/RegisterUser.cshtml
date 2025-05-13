@@ -1,35 +1,53 @@
 ﻿@model PastBeam.Application.Library.Dtos.RegisterUserDto
-
 @{
-    ViewData["Title"] = "Реєстрація";
+    ViewData["Title"] = "Create your account";
+    Layout = "_AuthLayout";
 }
 
-<h2>Реєстрація</h2>
+<div class="auth-container">
+    <div class="auth-form-wrapper">
+        <h1 class="auth-title">@ViewData["Title"]</h1>
 
-<form asp-action="RegisterUser" asp-controller="User" method="post">
+        <form asp-action="RegisterUser" asp-controller="User" method="post">
+            @Html.AntiForgeryToken()
 
-    @Html.AntiForgeryToken()
+            @* Поля First Name та Last Name (потрібно додати до DTO) *@
+             <div class="auth-form-group">
+            <input type="text" class="auth-input" placeholder="First name" />
+            </div>
+            <div class="auth-form-group">
+            <input type="text" class="auth-input" placeholder="Last name" />
+            </div> 
 
-    <div class="form-group">
-        <label asp-for="Username"></label>
-        <input asp-for="Username" class="form-control" />
-        <span asp-validation-for="Username" class="text-danger"></span>
+            <div class="auth-form-group">
+                @* <label asp-for="Username" class="auth-label"></label> - мітку можна приховати, якщо є placeholder *@
+                <input asp-for="Username" class="auth-input" placeholder="Username" />
+                <span asp-validation-for="Username" class="text-danger auth-validation-message"></span>
+            </div>
+
+            <div class="auth-form-group">
+                <input asp-for="Email" class="auth-input" placeholder="Email Address" />
+                <span asp-validation-for="Email" class="text-danger auth-validation-message"></span>
+            </div>
+
+            <div class="auth-form-group">
+                <input asp-for="Password" type="password" class="auth-input" placeholder="Password" />
+                <span asp-validation-for="Password" class="text-danger auth-validation-message"></span>
+            </div>
+
+            <div class="auth-form-group terms-group">
+                <input type="checkbox" id="acceptTerms" name="acceptTerms" class="auth-checkbox" /> @* Додати властивість до DTO *@
+                <label for="acceptTerms" class="auth-checkbox-label">Accept our terms and conditions</label>
+            </div>
+
+            <button type="submit" class="auth-button">Sign up</button>
+
+            <div class="auth-alternative-action">
+                Already have an account? <a asp-controller="Account" asp-action="Login" class="auth-link">Login here</a>
+            </div>
+        </form>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Зареєструватися</button>
-</form>
+</div>
 
 @section Scripts {
     @{

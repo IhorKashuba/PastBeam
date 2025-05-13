@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PastBeam</title>
+
+    @* Стандартні стилі Bootstrap, якщо вони потрібні для якихось базових речей,
+    але будь обережний, щоб вони не конфліктували з твоїми auth.css *@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    @* Твої глобальні стилі сайту. Переконайся, що правила для html/body звідси
+    не перекривають ті, що в auth.css для сторінок автентифікації,
+    або що auth.css має вищий пріоритет (наприклад, підключається пізніше або використовує !important). *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" /> @* Якщо використовується *@
+
+    @* Спеціальні стилі для сторінок автентифікації *@
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+
+    @* Підключення шрифтів (приклад з Google Fonts) *@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+    @* Клас auth-body для застосування стилів з auth.css *@
+
+    @RenderBody() @* Сюди буде вставлено вміст твоєї сторінки (наприклад, RegisterUser.cshtml),
+    який має починатися з <div class="auth-container"> *@
+
+    @* Стандартні скрипти *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* Секція для скриптів, специфічних для конкретної сторінки (наприклад, _ValidationScriptsPartial) *@
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,123 @@
+﻿/* auth.css */
+html, body.auth-body {
+    height: 100%; /* Гарантує, що html і body займають всю доступну висоту */
+    margin: 0;
+    padding: 0;
+    background-color: #f0ebe5 !important; /* Встановлюємо наш бежевий фон. 
+                                             !important тут для тесту, щоб спробувати 
+                                             перекрити інші стилі. Якщо це спрацює, 
+                                             потім бажано знайти конфліктуючий стиль 
+                                             і виправити без !important. */
+    font-family: 'Open Sans', sans-serif; /* Як і раніше, для основного тексту */
+}
+
+body.auth-body {
+    display: flex;
+    justify-content: center; /* Горизонтальне центрування */
+    align-items: center; /* Вертикальне центрування */
+    /*min-height: 100vh; теж хороший варіант, якщо height: 100% на html/body не спрацює як очікується */
+}
+
+/* Це контейнер з RegisterUser.cshtml */
+.auth-container {
+    width: 100%;
+    max-width: 420px; /* Максимальна ширина блоку форми */
+    /* padding: 20px; - можна прибрати, якщо .auth-form-wrapper вже має свої відступи */
+    /* background-color: #f0ebe5; - Не потрібен тут, якщо body вже має цей фон */
+}
+
+.auth-form-wrapper {
+    background-color: #f0ebe5; /* Фон самої обгортки форми - має співпадати з фоном body */
+    padding: 30px;
+    /* border-radius: 8px; - якщо хочеш закруглені кути для блоку форми */
+    /* box-shadow: 0 4px 15px rgba(0,0,0,0.05); - якщо потрібна легка тінь для блоку */
+}
+
+.auth-title {
+    font-family: 'Lora', serif; /* Шрифт для заголовка */
+    font-size: 28px;
+    font-weight: 700;
+    color: #333; /* Колір заголовка */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-form-group {
+    margin-bottom: 20px;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #d1c9c0; /* Колір рамки полів */
+    background-color: #fff; /* Фон полів */
+    border-radius: 4px; /* Закруглення кутів полів */
+    font-size: 16px;
+    box-sizing: border-box; /* Важливо для правильного розрахунку ширини */
+}
+
+    .auth-input::placeholder {
+        color: #aaa;
+    }
+
+    .auth-input:focus {
+        outline: none;
+        border-color: #a0917d; /* Колір рамки при фокусі */
+        box-shadow: 0 0 0 0.2rem rgba(160, 145, 125, 0.25); /* Тінь при фокусі, схожа на Bootstrap */
+    }
+
+.auth-checkbox {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.auth-checkbox-label {
+    font-size: 14px;
+    color: #555;
+    vertical-align: middle;
+}
+
+.terms-group {
+    text-align: left; /* Вирівнювання тексту чекбокса */
+    margin-bottom: 25px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #b0a18f; /* Колір кнопки з мокапу */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    .auth-button:hover {
+        background-color: #a0917d; /* Колір кнопки при наведенні */
+    }
+
+.auth-alternative-action {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #555;
+}
+
+.auth-link {
+    color: #8c7b6a; /* Колір посилання */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    .auth-link:hover {
+        text-decoration: underline;
+    }
+
+.auth-validation-message {
+    font-size: 0.875em; /* Розмір тексту валідаційних повідомлень */
+    display: block; /* Щоб повідомлення було під полем */
+    margin-top: .25rem;
+}

@@ -136,7 +136,34 @@ namespace PastBeam.Presentation.Controllers
             return result ? Ok("Account deleted.") : NotFound();
         }
 
-                
+        // GET: /User/ForgotPassword
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // POST: /User/ForgotPassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            // Тут має бути логіка пошуку користувача і надсилання email з посиланням на скидання паролю
+
+            // Поки що просто показуємо підтвердження
+            return RedirectToAction("ForgotPasswordConfirmation");
+        }
+
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+
+
     }
 }
 

@@ -1,31 +1,57 @@
 ﻿@model PastBeam.Presentation.Models.LoginViewModel
-
 @{
     ViewData["Title"] = "Login";
+    Layout = "_AuthLayout"; // Важливо: використовуємо наш кастомний макет
 }
 
-<h2>Login</h2>
+<div class="auth-container">
+    @* Головний контейнер для центрування *@
+    <div class="auth-form-wrapper">
+        @* Обгортка для самої форми *@
+        <h1 class="auth-title">@ViewData["Title"]</h1>
 
-<form asp-action="Login" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+        <form asp-action="Login" method="post">
+            @* Переконайся, що asp-action та asp-controller правильні, якщо твій метод входу називається інакше або в іншому контролері *@
+            <div asp-validation-summary="ModelOnly" class="text-danger auth-validation-summary"></div>
+
+            <div class="auth-form-group">
+                @* На мокапі немає явного лейбла, але є placeholder.
+                Ім'я поля в LoginViewModel може бути Email або UserName, або одне поле для обох.
+                Для мокапу "Email Address or Username" це може бути одне поле.
+                Якщо твоя LoginViewModel має окремі поля, адаптуй або об'єднай.
+                Припустимо, твоя ViewModel має поле EmailOrUsername для цього.
+                Якщо ні, використовуй asp-for="Email" або asp-for="UserName" *@
+                <input asp-for="Email" class="auth-input" placeholder="Email Address or Username" />
+                <span asp-validation-for="Email" class="text-danger auth-validation-message"></span>
+            </div>
+
+            <div class="auth-form-group">
+                <input asp-for="Password" type="password" class="auth-input" placeholder="Password" />
+                <span asp-validation-for="Password" class="text-danger auth-validation-message"></span>
+            </div>
+
+            <div class="auth-form-group d-flex justify-content-between align-items-center login-options">
+                @* Додатковий клас для стилізації *@
+                <div class="form-check auth-form-check">
+                    @* Обгортка для чекбокса *@
+                    <input asp-for="RememberMe" class="auth-checkbox form-check-input" />
+                    <label asp-for="RememberMe" class="auth-checkbox-label form-check-label">Keep me logged in</label>
+                </div>
+                @* Посилання "Forgot your password?". Потрібно буде додати asp-controller та asp-action, якщо є сторінка відновлення пароля *@
+                <a asp-action="ForgotPassword" asp-controller="User" class="auth-link small-text">Forgot your password?</a>
+            </div>
+
+            <button type="submit" class="auth-button">Login</button>
+
+            <div class="auth-alternative-action">
+                Don't have an account?
+                @* Посилання на сторінку реєстрації. Переконайся, що asp-controller та asp-action правильні *@
+                <a asp-controller="User" asp-action="RegisterUser" class="auth-link">Sign up here</a>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="form-group form-check">
-        <input asp-for="RememberMe" class="form-check-input" />
-        <label asp-for="RememberMe" class="form-check-label"></label>
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
