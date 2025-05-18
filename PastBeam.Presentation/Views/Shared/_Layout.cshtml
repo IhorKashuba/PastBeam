@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <div id="sidebar" class="sidebar">
+   @* <div id="sidebar" class="sidebar">
 
         <div class="p-3 d-flex align-items-center justify-content-between border-bottom">
             <button id="menu-close" aria-label="Закрити меню" class="btn btn-light text-primary fs-4 p-0">☰</button>
@@ -26,47 +26,49 @@
             </ul>
         </div>
 
-    </div>
+    </div> *@
 
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
-                
-                <div class="d-flex flex-row align-items-center gap-3">
-                    <button id="menu-toggle" aria-label="Відкрити меню">☰</button>
+    <header class="main-header">
+        @* Це новий початок хедера *@
+        <div class="container-fluid d-flex justify-content-between align-items-center">
 
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PastBeam</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div class="search-bar d-flex align-items-center mx-4 flex-grow-1" style="max-width: 500px;">
-                    <input type="text" class="form-control me-2" placeholder="Пошук..." />
-                    <button class="btn btn-outline-primary" type="button">Search</button>
-                </div>
-
-                <div class="d-flex align-items-center gap-3">
-                    <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                    <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="User" asp-action="RegisterUser">Register</a>
-                </div>
-
+            @* Ліва частина хедера *@
+            <div class="header-left d-flex align-items-center">
+                @* Виріши, чи потрібна кнопка для бічної панелі. Якщо ні - цей <button> можна видалити.
+                Якщо так - залиш, але на мокапі "Menu page" її не видно.
+                <button id="menu-toggle" aria-label="Відкрити меню">☰</button>
+                *@
+                <a class="navbar-brand header-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    PastBeam @* Поки що без іконки *@
+                </a>
             </div>
-        </nav>
-    </header>
+
+            @* Центральна частина хедера *@
+            <div class="header-center">
+                <span class="header-title">Menu panel</span>
+            </div>
+
+            @* Права частина хедера *@
+            <div class="header-right d-flex align-items-center">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    // Якщо користувач залогінений - показуємо поки що просто текст або посилання на профіль
+                    <a asp-controller="Account" asp-action="Manage" title="Manage" class="nav-link text-dark">
+                        Профіль @* Замість іконки поки текст *@
+                    </a>
+                    <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post" style="margin-left: 10px;">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                    </form>
+                }
+                else
+                {
+                    // Якщо користувач не залогінений - показуємо посилання Login/Register
+                    <a class="nav-link text-dark text-decoration-none header-auth-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    <a class="nav-link text-dark text-decoration-none header-auth-link" style="margin-left: 10px;" asp-area="" asp-controller="User" asp-action="RegisterUser">Register</a>
+                }
+            </div>
+        </div>
+    </header> @* Це кінець нового хедера *@
     <div class="main-container">
 
         <main role="main">

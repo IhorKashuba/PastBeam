@@ -1,3 +1,5 @@
+/* Видали цей рядок, якщо він ще є: @import url('site.css'); */
+
 html {
     font-size: 14px;
 }
@@ -17,19 +19,26 @@ html {
     min-height: 100%;
 }
 
-body:not(.auth-body) {
-    background: linear-gradient(-10deg, white, #7bbaff);
+
+body {
+    background-color: #f0ebe5; /* Встановлюємо бажаний фон для всіх сторінок */
+    /* Тут можуть бути інші глобальні стилі для body, якщо потрібні, наприклад, font-family */
 }
 
+/* Цей .navbar { display: block; } може бути не потрібним або конфліктувати з новим хедером, 
+   який використовує flex. Подивимося, як буде без нього, або закоментуй його, якщо виникнуть проблеми з navbar.
 .navbar {
-    display: block;
+    display: block; 
 }
+*/
 
 footer {
     height: 10vh;
     background-color: white;
 }
 
+/* Стилі для sidebar, якщо ти вирішив його повністю прибрати з _Layout.cshtml, 
+   то ці стилі можуть стати непотрібними. Якщо залишаєш для інших сторінок - нехай будуть. */
 .sidebar {
     position: fixed;
     top: 0;
@@ -45,10 +54,11 @@ footer {
     border-right: 1px solid #dee2e6;
 }
 
-.sidebar.open {
-    left: 0;
-}
+    .sidebar.open {
+        left: 0;
+    }
 
+/* #menu-toggle - якщо ти прибрав кнопку з хедера, цей стиль не потрібен.
 #menu-toggle {
     background: none;
     border: none;
@@ -56,9 +66,10 @@ footer {
     color: #0d6efd;
     margin-right: 10px;
 }
+*/
 
 .main-container {
-    height: 80vh;
+    height: 80vh; /* Цей стиль може потребувати коригування залежно від висоти нового хедера та футера */
     min-height: 80%;
 }
 
@@ -66,6 +77,7 @@ footer {
     margin-right: 8px;
 }
 
+/* #menu-toggle, #menu-close - якщо кнопки прибрані, ці стилі не потрібні.
 #menu-toggle,
 #menu-close {
     border: none;
@@ -79,6 +91,7 @@ footer {
     box-shadow: none;
     text-decoration: none;
 }
+*/
 
 .article-item-container, .article-details-container {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -92,12 +105,12 @@ footer {
     width: 100%;
 }
 
-.article-list ul {
-    align-self: center;
-    list-style-type: none; /* Видаляє маркери для списку */
-    margin: 0px 15px 0px 15px;
-    padding: 0;
-}
+    .article-list ul {
+        align-self: center;
+        list-style-type: none; /* Видаляє маркери для списку */
+        margin: 0px 15px 0px 15px;
+        padding: 0;
+    }
 
 .article-item {
     margin-bottom: 10px; /* Додає відступ між елементами списку */
@@ -118,3 +131,67 @@ footer {
 main {
     height: 100%;
 }
+
+
+/* ----------------------------------------- */
+/* Стилі для нового хедера (ДОДАНО НОВІ СТИЛІ) */
+/* ----------------------------------------- */
+
+.main-header {
+    background-color: #f0ebe5; /* Світло-бежевий фон. Адаптуй колір до мокапу. */
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0d9cf; /* Тонка лінія знизу, опціонально */
+}
+
+/* .main-header .container-fluid вже має d-flex justify-content-between align-items-center з HTML */
+
+/* Ліва частина хедера (лого) */
+.header-left .header-logo {
+    font-family: 'Lora', serif; /* Або твій брендовий шрифт */
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+/* Центральна частина хедера (заголовок "Menu panel") */
+.header-center .header-title {
+    font-family: 'Open Sans', sans-serif; /* Або твій основний шрифт */
+    font-size: 18px;
+    color: #555;
+    font-weight: 600;
+}
+
+/* Права частина хедера (іконка користувача / посилання Login/Register) */
+.header-right .user-icon-link .user-avatar { /* Для аватара користувача */
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.header-right .header-auth-link,
+.header-right .nav-link.text-dark { /* Для посилань Login/Register та Профіль/Logout */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: #333 !important; /* Будь обережним з !important */
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    .header-right .header-auth-link:hover,
+    .header-right .nav-link.text-dark:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        text-decoration: none;
+    }
+
+.header-right form.form-inline .btn-link { /* Для кнопки Logout */
+    padding-top: 5px;
+    padding-bottom: 5px;
+    line-height: normal; /* Щоб текст був по центру кнопки */
+}
+
+/* --------------------------------------------- */
+/* Кінець стилів для нового хедера         */
+/* --------------------------------------------- */
