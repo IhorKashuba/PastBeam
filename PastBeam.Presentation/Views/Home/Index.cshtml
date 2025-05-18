@@ -1,7 +1,52 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Menu Page"; // Можна змінити заголовок сторінки
 }
 
-<div class="text-center">
-    <a asp-controller="Article" asp-action="GetAllArticles">Articles test</a>
+<div class="menu-page-container">
+    @* Головний контейнер для сторінки меню *@
+
+    @* Секція блоків категорій *@
+    <section class="category-blocks-section">
+        <div class="category-block">
+            <a asp-controller="Articles" asp-action="Index" class="category-link">Articles</a> @* Зміни asp-controller/action на реальні *@
+        </div>
+        <div class="category-block alt-bg">
+            @* Клас для чергування фону *@
+            <a asp-controller="Persons" asp-action="Index" class="category-link">Persons</a>
+        </div>
+        <div class="category-block">
+            <a asp-controller="Education" asp-action="Index" class="category-link">Education</a>
+        </div>
+        <div class="category-block alt-bg">
+            <a asp-controller="Maps" asp-action="Index" class="category-link">Maps</a>
+        </div>
+        <div class="category-block">
+            <a asp-controller="Artifacts" asp-action="Index" class="category-link">Artifacts</a>
+        </div>
+    </section>
+
+    @* Секція карток контенту *@
+    <section class="content-cards-section">
+        <button class="nav-arrow prev-arrow" aria-label="Previous">&lt;</button> @* Або іконка стрілки *@
+
+        <div class="cards-wrapper">
+            @* Приклад трьох карток. Пізніше їх можна буде генерувати в циклі. *@
+            <div class="content-card">
+                <div class="card-image-placeholder">Image</div> @* Місце для зображення *@
+                <button class="favorite-icon" aria-label="Add to favorites">&#9734;</button> @* Іконка зірочки (пуста) *@
+            </div>
+            <div class="content-card alt-bg">
+                @* Клас для чергування фону, якщо потрібно, як на мокапі *@
+                <div class="card-image-placeholder">Image</div>
+                <button class="favorite-icon" aria-label="Add to favorites">&#9734;</button>
+            </div>
+            <div class="content-card">
+                <div class="card-image-placeholder">Image</div>
+                <button class="favorite-icon" aria-label="Add to favorites">&#9734;</button>
+            </div>
+        </div>
+
+        <button class="nav-arrow next-arrow" aria-label="Next">&gt;</button> @* Або іконка стрілки *@
+    </section>
+
 </div>
