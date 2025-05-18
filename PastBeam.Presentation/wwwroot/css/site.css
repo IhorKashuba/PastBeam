@@ -17,7 +17,7 @@ html {
     min-height: 100%;
 }
 
-body {
+body:not(.auth-body) {
     background: linear-gradient(-10deg, white, #7bbaff);
 }
 
