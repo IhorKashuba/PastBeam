@@ -195,3 +195,201 @@ main {
 /* --------------------------------------------- */
 /* Кінець стилів для нового хедера         */
 /* --------------------------------------------- */
+
+
+/* ---------------------------------------------------- */
+/* Стилі для головної сторінки (Menu Page)             */
+/* ---------------------------------------------------- */
+
+.menu-page-container {
+    padding-top: 20px; /* Відступ від хедера */
+    padding-bottom: 20px;
+    /* Якщо фон сторінки вже #f0ebe5, то тут фон не потрібен.
+       Якщо ні, то: background-color: #f0ebe5; */
+}
+
+/* Секція блоків категорій */
+.category-blocks-section {
+    display: flex; /* Розташовуємо блоки в ряд */
+    justify-content: center; /* Центруємо блоки по горизонталі */
+    align-items: stretch; /* Розтягуємо блоки по висоті, щоб були однакові */
+    flex-wrap: wrap; /* Дозволяємо переносити на новий рядок, якщо не вміщаються */
+    gap: 0; /* Прибираємо проміжки, якщо блоки мають стикатися */
+    margin-bottom: 30px; /* Відступ до секції з картками */
+    /* Можливо, знадобиться max-width та margin: auto для центрування всієї групи блоків,
+       якщо вони не займають всю ширину. На мокапі вони виглядають на всю ширину. */
+}
+
+.category-block {
+    flex-grow: 1; /* Дозволяємо блокам рости, щоб зайняти доступний простір */
+    flex-basis: 0; /* Базова ширина, щоб flex-grow працював коректно */
+    min-width: 150px; /* Мінімальна ширина блоку, щоб не були занадто вузькими */
+    padding: 40px 20px; /* Внутрішні відступи (великі зверху/знизу для тексту по центру) */
+    text-align: center;
+    background-color: #FAF0E6; /* Основний світлий фон для блоків */
+    /* border-left: 1px solid #e0d9cf; /* Розділювачі, якщо потрібні. Першому можна прибрати */
+    /* border-right: 1px solid #e0d9cf; */
+    box-sizing: border-box;
+    display: flex; /* Для центрування тексту всередині */
+    justify-content: center;
+    align-items: center;
+}
+
+    .category-block.alt-bg {
+        background-color: #b0a18f; /* Темніший фон для чергування, як на мокапі */
+    }
+
+    /* Опціонально: прибрати лівий бордер у першого і правий у останнього, якщо використовуються бордери
+.category-block:first-child {
+    border-left: none;
+}
+.category-block:last-child {
+    border-right: none;
+}
+*/
+
+    .category-block .category-link {
+        font-family: 'Open Sans', sans-serif; /* Або твій основний шрифт */
+        font-size: 20px; /* Розмір тексту категорії */
+        font-weight: 600;
+        color: #333; /* Колір тексту */
+        text-decoration: none;
+        display: block; /* Щоб посилання займало весь блок */
+    }
+
+/* Секція карток контенту */
+.content-cards-section {
+    display: flex;
+    align-items: center; /* Вертикальне вирівнювання стрілок та карток */
+    justify-content: center; /* Центрування вмісту, якщо карток менше */
+    padding: 0 20px; /* Відступи з боків для всієї секції */
+    gap: 20px; /* Проміжок між стрілками та обгорткою карток */
+}
+
+.nav-arrow {
+    background-color: transparent;
+    border: none;
+    font-size: 30px; /* Розмір стрілок */
+    color: #8c7b6a; /* Колір стрілок (коричневий, як посилання в auth) */
+    cursor: pointer;
+    padding: 10px;
+    line-height: 1;
+}
+
+    .nav-arrow:hover {
+        color: #333; /* Колір стрілок при наведенні */
+    }
+
+.cards-wrapper {
+    display: flex;
+    justify-content: center; /* Або space-around / space-between, якщо потрібно */
+    flex-wrap: wrap; /* Дозволяє карткам переноситися */
+    gap: 20px; /* Проміжки між картками */
+    flex-grow: 1; /* Дозволяє обгортці карток зайняти доступний простір між стрілками */
+    /* Можливо, max-width для обгортки, якщо є фіксована кількість карток в ряд */
+}
+
+.content-card {
+    background-color: #ccb79d; /* Фон картки */
+    border: 1px solid #e0d9cf; /* Рамка картки, якщо потрібна */
+    border-radius: 4px; /* Закруглення кутів */
+    width: calc(33.333% - 20px); /* Приблизно для трьох карток в ряд з урахуванням gap. Адаптуй! */
+    /* Або використовуй flex-basis: 300px; flex-grow: 1; для адаптивної ширини */
+    min-width: 250px; /* Мінімальна ширина картки */
+    aspect-ratio: 4 / 3; /* Співвідношення сторін для картки, щоб були однакові по висоті відносно ширини (опціонально) */
+    display: flex;
+    flex-direction: column; /* Якщо буде текст під зображенням */
+    justify-content: center; /* Центрування вмісту, якщо тільки зображення */
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+    position: relative; /* Для позиціонування іконки "в обране" */
+}
+
+    .content-card.alt-bg {
+        background-color: #b0a18f; /* Темніший фон для чергування, якщо потрібно */
+    }
+
+.card-image-placeholder {
+    /* Це тимчасовий плейсхолдер. Коли буде зображення, воно замінить цей div. */
+    width: 80%; /* Або 100% */
+    height: 70%; /* Або 100%, якщо картка - це тільки зображення */
+    background-color: #ddd; /* Колір плейсхолдера */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+    font-size: 16px;
+    border-radius: 3px; /* Якщо зображення має мати закруглені кути всередині картки */
+}
+
+.favorite-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px; /* Розмір зірочки */
+    color: #8c7b6a; /* Колір зірочки */
+    cursor: pointer;
+}
+
+    .favorite-icon:hover {
+        color: #b0a18f; /* Колір при наведенні */
+    }
+
+
+/* Адаптивність (приклади) */
+@media (max-width: 992px) { /* Для планшетів */
+    .category-block {
+        min-width: calc(33.333% - 0px); /* По 3 блоки в ряд */
+        /* border-bottom: 1px solid #e0d9cf; /* Можливо, додати нижній бордер */
+    }
+
+    .content-card {
+        width: calc(50% - 15px); /* По 2 картки в ряд */
+    }
+}
+
+@media (max-width: 768px) { /* Для мобільних */
+    .category-blocks-section {
+        flex-direction: column; /* Блоки категорій один під одним */
+        margin-bottom: 20px;
+    }
+
+    .category-block {
+        width: 100%; /* На всю ширину */
+        margin-bottom: 10px; /* Відступ між блоками */
+        padding: 20px; /* Зменшити відступи */
+        /* border-left: none;
+        border-right: none; */
+    }
+
+        .category-block:last-child {
+            margin-bottom: 0;
+        }
+
+    .content-cards-section {
+        padding: 0 10px; /* Зменшити бічні відступи */
+        gap: 10px;
+    }
+
+    .cards-wrapper {
+        gap: 10px;
+    }
+
+    .content-card {
+        width: 100%; /* Одна картка в ряд */
+        aspect-ratio: 16 / 9; /* Можна змінити співвідношення для мобільних */
+    }
+
+    .nav-arrow {
+        font-size: 24px;
+        padding: 5px;
+    }
+}
+
+
+/* ---------------------------------------------------- */
+/* Кінець стилів для головної сторінки (Menu Page)     */
+/* ---------------------------------------------------- */
