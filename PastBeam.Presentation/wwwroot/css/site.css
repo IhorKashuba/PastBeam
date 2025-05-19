@@ -393,3 +393,201 @@ main {
 /* ---------------------------------------------------- */
 /* Кінець стилів для головної сторінки (Menu Page)     */
 /* ---------------------------------------------------- */
+
+
+
+/* ---------------------------------------------------- */
+/* Стилі для сторінки Persons (ОНОВЛЕНА СЕКЦІЯ КАРТОК) */
+/* ---------------------------------------------------- */
+
+/* ... (стилі для .persons-page-container, .search-panel-section і т.д. залишаються як раніше) ... */
+/* В твоєму site.css або main.css, всередині секції стилів для сторінки Persons */
+
+.persons-page-container {
+    padding: 20px;
+    padding-bottom: 100px; /* Збільшили для прикладу, щоб точно вистачило місця для футера */
+}
+/* <--- Закриваємо правило для .persons-page-container */
+
+/* Окреме правило для панелі пошуку */
+.search-panel-section {
+    margin-bottom: 40px;
+    max-width: 700px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-form {
+    display: flex;
+    width: 100%; /* Форма займає всю ширину .search-panel-section */
+    border: 1px solid #ccb79d;
+    border-radius: 6px; /* Можна трохи збільшити радіус для відповідності карткам */
+    overflow: hidden;
+    background-color: #fff; /* Додамо фон, якщо його немає */
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    padding: 12px 18px; /* Трохи збільшимо відступи для "солідності" */
+    font-size: 16px;
+    outline: none;
+    color: #333; /* Колір тексту вводу */
+}
+
+    .search-input::placeholder { /* Стилізація плейсхолдера */
+        color: #999;
+    }
+
+.search-button {
+    background-color: #ccb79d;
+    color: white;
+    border: none;
+    padding: 12px 18px; /* Зробимо однакові відступи з полем вводу */
+    cursor: pointer;
+    font-size: 16px; /* Для тексту або іконки */
+    /* Якщо там тільки іконка, і вона мала, кнопка може бути вузькою.
+       Можна додати min-width або фіксовану width, якщо потрібно.
+       Наприклад: min-width: 50px; text-align: center; */
+    display: flex; /* Для центрування іконки, якщо вона є */
+    align-items: center;
+    justify-content: center;
+}
+
+    .search-button:hover {
+        background-color: #b0a18f;
+    }
+
+    .search-button .fa-search { /* Якщо використовуєш FontAwesome */
+        /* Можливо, потрібно задати розмір для самої іконки */
+        font-size: 1em; /* Або конкретне значення */
+    }
+
+.persons-grid-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    }
+
+.person-card {
+    background-color: #FAF0E6;
+    border: 1px solid #dcd0c0;
+    border-radius: 8px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.07);
+    flex-basis: calc(33.333% - 20px);
+    max-width: 350px; /* Можна трохи погратися з цим значенням, наприклад 340-360px */
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden; /* Важливо, щоб зображення не вилазило за радіус */
+}
+
+    .person-card .favorite-icon {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #8c7b6a;
+        cursor: pointer;
+        z-index: 2; /* Щоб точно було поверх зображення */
+    }
+
+        .person-card .favorite-icon:hover {
+            color: #b0a18f;
+        }
+
+.person-image-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 3.75; /* Зробимо трохи менш високим, ніж 3/4, щоб дати більше місця тексту, але все ще портрет */
+    /* Якщо зображення все одно "їдуть", спробуй фіксовану висоту, наприклад: */
+    /* height: 280px; */
+    /* і прибрати aspect-ratio */
+    overflow: hidden;
+    position: relative; /* Для можливого позиціонування псевдоелементів, якщо знадобиться */
+}
+
+.person-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Це має добре працювати */
+    object-position: center center; /* Можна спробувати top center, якщо обличчя обрізаються */
+    display: block;
+}
+
+.person-info {
+    padding: 15px;
+    text-align: left;
+    flex-grow: 1; /* Дозволяє цьому блоку зайняти доступний простір */
+    display: flex; /* Додаємо flex для кращого контролю вмісту */
+    flex-direction: column; /* Ім'я та опис один під одним */
+    justify-content: space-between; /* Розподіляє простір, якщо опис короткий */
+}
+
+.person-name {
+    font-family: 'Lora', serif;
+    font-size: 19px; /* Трохи менше, якщо 20px завеликий */
+    font-weight: bold;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 10px; /* Трохи менший відступ */
+    text-align: center;
+}
+
+.person-description {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.55; /* Трохи підкоригуємо */
+    margin-bottom: 0;  /* Прибираємо нижній відступ, якщо він не потрібен */
+    overflow: hidden; /* Обрізаємо текст, що не вміщується */
+    /* Спроба обмежити текст N рядками (не завжди ідеально) */
+    /* Якщо flex-grow: 1 для .person-info, то висота опису буде адаптивною.
+       Якщо потрібне жорстке обмеження рядків, тоді краще працювати з фіксованою висотою картки
+       або цього блоку, що складніше зробити повністю адаптивним. */
+    /* Можна спробувати так для обмеження, якщо картка має достатньо висоти: */
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Спробуємо 4 рядки */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    /* min-height: calc(1.55em * 4); /* Забезпечити мінімальну висоту для 4 рядків */
+}
+
+/* Адаптивність для карток (можна залишити як було, або підкоригувати breakpoints) */
+@media (max-width: 1024px) {
+    .person-card {
+        flex-basis: calc(50% - 15px);
+        max-width: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-panel-section {
+        max-width: 100%;
+    }
+
+    .person-card {
+        flex-basis: 100%;
+        max-width: none;
+    }
+
+    .person-name {
+        font-size: 18px;
+    }
+
+    .person-description {
+        /* -webkit-line-clamp: 3; /* 3 рядки для мобільних */
+        /* min-height: calc(1.55em * 3); */
+    }
+}
+
+/* ---------------------------------------------------- */
+/* Кінець стилів для сторінки Persons                   */
+/* ---------------------------------------------------- */

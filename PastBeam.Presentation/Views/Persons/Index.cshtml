@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Historical Persons"; // Заголовок сторінки
+    Layout = "_Layout"; // Використовуємо твій основний макет _Layout.cshtml
+}
+
+<div class="persons-page-container">
+    @* Головний контейнер для цієї сторінки *@
+
+    @* Секція панелі пошуку *@
+    <section class="search-panel-section">
+        <form asp-controller="Persons" asp-action="Search" method="get" class="search-form">
+            @* Переконайся, що asp-action веде на правильну дію пошуку, коли вона буде реалізована *@
+            <input type="text" name="query" class="search-input" placeholder="Search persons..." />
+            <button type="submit" class="search-button" aria-label="Search">
+                <i class="fas fa-search"></i> @* Іконка лупи. Якщо не використовуєш FontAwesome, заміни на SVG або текстову кнопку "Search" *@
+            </button>
+        </form>
+    </section>
+
+    @* Секція для відображення карток персон *@
+    <section class="persons-grid-section">
+        @* Це приклади статичних карток. Пізніше ти зможеш генерувати їх динамічно з моделі. *@
+
+        <div class="person-card">
+            <button class="favorite-icon" aria-label="Add to favorites">&#9734;</button> @* Іконка-зірочка *@
+            <div class="person-image-wrapper">
+                @* Заміни шлях на реальний шлях до твоїх зображень.
+                Наприклад, якщо зображення в wwwroot/images/persons/ *@
+                <img src="~/images/persons/mykhailo_hrushevskyi.jpg" alt="Mykhailo Hrushevskyi" class="person-image" />
+            </div>
+            <div class="person-info">
+                <h3 class="person-name">Mykhailo Hrushevskyi</h3>
+                <p class="person-description">Sit amet nulla facilisi morbi tempus. Nulla facilisi cras fermentum odio eu. Etiam erat velit scelerisque in dictum non consectetur a erat. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere.</p>
+            </div>
+        </div>
+
+        <div class="person-card">
+            <button class="favorite-icon" aria-label="Add to favorites">&#9734;</button>
+            <div class="person-image-wrapper">
+                <img src="~/images/persons/napoleon_bonaparte.jpg" alt="Napoleon Bonaparte" class="person-image" />
+            </div>
+            <div class="person-info">
+                <h3 class="person-name">Napoleon Bonaparte</h3>
+                <p class="person-description">Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper. Neque convallis a cras semper auctor. Libero id faucibus nisi tincidunt eget.</p>
+            </div>
+        </div>
+
+        <div class="person-card">
+            <button class="favorite-icon" aria-label="Add to favorites">&#9734;</button>
+            <div class="person-image-wrapper">
+                <img src="~/images/persons/euclid.jpg" alt="Euclid" class="person-image" />
+            </div>
+            <div class="person-info">
+                <h3 class="person-name">Euclid</h3>
+                <p class="person-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non.</p>
+            </div>
+        </div>
+
+        @* Ти можеш додати ще кілька таких блоків .person-card для тестування сітки *@
+
+    </section>
+
+</div>
