@@ -1,17 +1,26 @@
 ﻿using PastBeam.Core.Library.Entities;
 using PastBeam.Application.Library.Dtos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace PastBeam.Application.Library.Interfaces
 {
     public interface IUserService
     {
         Task<IEnumerable<UserListItemDto>> GetAllUsersAsync();
+      
         Task DeleteUserAsync(string userId);
 
         Task<Folder?> CreateFolderAsync(string userId, string name);
 
         //temporary userId because user will be saved in session
         Task<IEnumerable<Folder>> GetUserFoldersAsync(string userId);
+
+        Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
 
         Task<Folder?> DeleteFolderAsync(int folderId);
 
@@ -30,5 +39,6 @@ namespace PastBeam.Application.Library.Interfaces
         Task<List<Article>?> GetFolderArticle(int folderId);
 
         Task<Folder?> GetFolderAsync(int folderId);
+
     }
 }

@@ -33,5 +33,11 @@ namespace PastBeam.Core.Library.Interfaces
         Task<bool> UpdateUserProfileAsync(User user);
 
         Task DeleteUserAsync(string userId);
+
+        Task<User?> GetByEmailAsync(string email);
+
+        Task CreateAsync(User user);
+
+
     }
 }

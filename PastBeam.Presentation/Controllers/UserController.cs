@@ -4,6 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using PastBeam.Application.Library.Dtos;
 using PastBeam.Application.Library.Interfaces;
 using PastBeam.Core.Library.Entities;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using System.Security.Claims;
 
 namespace PastBeam.Presentation.Controllers
@@ -11,15 +16,15 @@ namespace PastBeam.Presentation.Controllers
     [Route("user")]
     public class UserController : Controller
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
-        private SignInManager<User> _signInManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserController(IUserService userService, UserManager<User> userManager, SignInManager<User> singInManager)
+        public UserController(IUserService userService, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userService = userService;
             _userManager = userManager;
-            _signInManager = singInManager;
+            _signInManager = signInManager;
         }
 
         [HttpDelete("delete/{userId}")]
@@ -57,9 +62,7 @@ namespace PastBeam.Presentation.Controllers
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "An error occurred while retrieving the user list.";
-                // Return the view without data, or redirect to an error page
-                return View(new List<PastBeam.Application.Library.Dtos.UserListItemDto>()); // Return empty list to avoid View error
-                // Or return View("Error", new ErrorViewModel { /* ... */ });
+                return View(new List<UserListItemDto>()); // Return empty list to avoid View error
             }
         }
 
@@ -107,34 +110,63 @@ namespace PastBeam.Presentation.Controllers
             return View(userDto);
         }
 
-        [HttpPost("edit")]
+        // transfer to account controller
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("register")]
+        public IActionResult RegisterUser()
+        {
+            return View("RegisterUser");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("register")]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterUser(RegisterUserDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userService.RegisterUserAsync(model);
+            }
+                
+            if (result.Succeeded)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            
+            return View("RegisterUser", model);
+        }
+         
         public async Task<IActionResult> EditUserAdmin(UpdateUserDto userDto)
         {
             if (!ModelState.IsValid){
                 return View(userDto);
             }
 
-            try
-            {
-                bool success = await _userService.UpdateUserAsync(userDto);
-                if (success)
+                if (result.Succeeded)
                 {
-                    TempData["SuccessMessage"] = $"User '{userDto.Username}' (ID: {userDto.Id}) updated successfully.";
-                    return RedirectToAction(nameof(UserList));
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
                 }
-                else
+
+                foreach (var error in result.Errors)
                 {
-                    TempData["ErrorMessage"] = $"Could not update user with ID {userDto.Id}. User might not exist anymore.";
-                    return View(userDto);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "An error occurred while updating the user.";
-                return View(userDto);
-            }
+
+            return View("RegisterUser", model);
         }
+
 
         [HttpPost("/edit/username")]
         public async Task<IActionResult> UpdateUsername(string NewUsername)
@@ -190,7 +222,7 @@ namespace PastBeam.Presentation.Controllers
         public async Task AssignUserRole(string userId, string userRole)
         {
             bool result = await _userService.AssignUserRole(userId, userRole);
-
+            return result ? Ok() : NotFound();
         }
 
         [HttpDelete("{userId}")]
@@ -199,5 +231,8 @@ namespace PastBeam.Presentation.Controllers
             var result = await _userService.DeleteUserAccountAsync(userId);
             return result ? Ok("Account deleted.") : NotFound();
         }
+
+                
     }
 }
+
