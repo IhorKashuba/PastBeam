@@ -36,3 +36,10 @@
 /PastBeam.Tests/TestResults
 /build.log
 /PastBeam.Infrastructure.Library/Migrations
+/PastBeam.Application.Library/bin/Release/net8.0
+/PastBeam.Core.Library/bin/Release/net8.0
+/PastBeam.Infrastructure.Library/bin/Release/net8.0
+/PastBeam.Presentation/bin/Release/net8.0
+/PastBeam.Presentation/Properties
+/publish
+/publish

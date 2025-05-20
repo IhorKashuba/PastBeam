@@ -19,10 +19,26 @@
 
         <div class="p-3">
             <ul class="list-unstyled">
-                <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2 text-decoration-none">Main Page</a></li>
-                <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2 text-decoration-none">Your Folders</a></li>
-                <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2 text-decoration-none">Favorite</a></li>
-                <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2 text-decoration-none">Courses</a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2 text-decoration-none">Main Page</a></li>
+                    <li class="mb-3"><a class="d-flex align-items-center text-primary gap-2 text-decoration-none" asp-controller="Folder" asp-action="GetUserFolders">Your Folders</a></li>
+                    <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2 text-decoration-none">Favorite</a></li>
+                    <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2 text-decoration-none">Courses</a></li>
+                    <li class="mb-3">
+                        <form asp-controller="Account" asp-action="Logout" method="post" style="margin: 0;">
+                            <button type="submit" class="btn btn-link d-flex align-items-center text-primary gap-2 text-decoration-none p-0 m-0">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="mb-3"><a href="#" class="d-flex align-items-center text-primary gap-2 text-decoration-none">Main Page</a></li>
+                    <li class="mb-3"><a class="d-flex align-items-center text-primary gap-2 text-decoration-none" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                    <li class="mb-3"><a class="d-flex align-items-center text-primary gap-2 text-decoration-none" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                }
             </ul>
         </div>
 
@@ -60,8 +76,16 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
-                    <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                    <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="User" asp-action="RegisterUser">Register</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <text>Logged in as: @User.Identity.Name</text>
+                        <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="User" asp-action="ShowProfile">Profile</a>
+                    }
+                    else
+                    {
+                        <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                        <a class="nav-link text-dark text-decoration-none" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    }
                 </div>
 
             </div>

@@ -7,9 +7,11 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="5.1.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
@@ -43,7 +45,5 @@
     <ProjectReference Include="..\PastBeam.Application.Library\PastBeam.Application.Library.csproj" />
     <ProjectReference Include="..\PastBeam.Core.Library\PastBeam.Core.Library.csproj" />
   </ItemGroup>
-
-  
 
 </Project>

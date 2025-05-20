@@ -3,6 +3,7 @@ using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Application.Library.Dtos;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace PastBeam.Application.Library.Services
@@ -100,10 +101,20 @@ namespace PastBeam.Application.Library.Services
             return await _userRepository.GetUserFoldersAsync(userId);
         }
 
-        public Task<Folder?> DeleteFolderAsync(int folderId)
+        public async Task<Folder?> DeleteFolderAsync(int folderId)
         {
-            return _userRepository.DeleteFolderAsync(folderId);
+            return await _userRepository.DeleteFolderAsync(folderId);
         }
+
+        public async Task<List<Article>?> GetFolderArticle(int folderId)
+        {
+            return await _folderRepository.GetFolderArticleAsync(folderId);
+        }
+
+        public async Task<Folder?> GetFolderAsync(int folderId)
+        {
+            return await _folderRepository.GetFolderAsync(folderId);
+        } 
 
         public async Task SuspendUserAsync(string userId, bool isSuspended)
         {
@@ -112,7 +123,7 @@ namespace PastBeam.Application.Library.Services
             _logger.LogToFile($"User {userId} has been {status}.");
         }
 
-        public async Task<UpdateUserDto?> GetUserForUpdateAsync(string userId)
+        public async Task<UserListItemDto?> GetUserAsync(string userId)
         {
             _logger.LogToFile($"Attempting to get user data for update, ID: {userId}");
             var user = await _userRepository.GetByIdAsync(userId);
@@ -122,13 +133,15 @@ namespace PastBeam.Application.Library.Services
                 _logger.LogToFile($"User not found for update, ID: {userId}");
                 return null;
             }
+            Console.WriteLine(user.UserName);
 
-            var userDto = new UpdateUserDto
+            var userDto = new UserListItemDto
             {
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-                Role = user.Role
+                Role = user.Role,
+                CreatedAt = user.CreatedAt
             };
 
             _logger.LogToFile($"Successfully retrieved user data for update, ID: {userId}");
@@ -170,7 +183,7 @@ namespace PastBeam.Application.Library.Services
             }
         }
 
-        public async Task<User?> UpdateUserProfileAsync(string userId, string? username = null, string? email = null, string? passwordHash = null)
+        public async Task<bool?> UpdateUserProfileAsync(string userId, string? username = null, string? email = null, string? passwordHash = null)
         {
             var user = await _userRepository.GetUserByIdAsync(userId);
 
@@ -184,7 +197,7 @@ namespace PastBeam.Application.Library.Services
             try
             {
                 await _userRepository.UpdateUserProfileAsync(user);
-                return user;
+                return true;
             }
             catch (Exception ex)
             {
@@ -216,6 +229,8 @@ namespace PastBeam.Application.Library.Services
             return true;
         }
 
+  
+        // test password hashing
         public async Task<IdentityResult> RegisterUserAsync(RegisterUserDto model)
         {
             var existingUser = await _userRepository.GetByEmailAsync(model.Email);
