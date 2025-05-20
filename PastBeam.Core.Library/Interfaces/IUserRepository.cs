@@ -1,9 +1,6 @@
-﻿using PastBeam.Core.Library.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using PastBeam.Core.Library.Entities;
+
 
 namespace PastBeam.Core.Library.Interfaces
 {
@@ -35,9 +32,6 @@ namespace PastBeam.Core.Library.Interfaces
         Task DeleteUserAsync(string userId);
 
         Task<User?> GetByEmailAsync(string email);
-
-        Task CreateAsync(User user);
-
 
     }
 }

@@ -16,7 +16,7 @@ namespace PastBeam.Application.Library.Services
         private readonly IFolderRepository _folderRepository;
         private readonly IUserCourseRepository _userCourseRepository;
         private readonly Infrastructure.Library.Logger.ILogger _logger;
-        
+        private readonly UserManager<User> _userManager;
 
         public UserService(
             IUserRepository userRepository,
@@ -24,7 +24,8 @@ namespace PastBeam.Application.Library.Services
             IBookmarkRepository bookmarkRepository,
             IFolderRepository folderRepository,
             IUserCourseRepository userCourseRepository,
-            Infrastructure.Library.Logger.ILogger logger)
+            Infrastructure.Library.Logger.ILogger logger,
+            UserManager<User> userManager)
         {
             _userRepository = userRepository;
             _favoriteRepository = favoriteRepository;
@@ -32,6 +33,7 @@ namespace PastBeam.Application.Library.Services
             _folderRepository = folderRepository;
             _userCourseRepository = userCourseRepository;
             _logger = logger;
+            _userManager = userManager;
         }
 
         public async Task<IEnumerable<UserListItemDto>> GetAllUsersAsync()
@@ -229,36 +231,28 @@ namespace PastBeam.Application.Library.Services
             return true;
         }
 
-  
+
         // test password hashing
         public async Task<IdentityResult> RegisterUserAsync(RegisterUserDto model)
         {
-            var existingUser = await _userRepository.GetByEmailAsync(model.Email);
+            var existingUser = await _userManager.FindByEmailAsync(model.Email);
             if (existingUser != null)
             {
-                return IdentityResult.Failed(new IdentityError { Description = "Користувач з такою поштою вже існує." });
+                return IdentityResult.Failed(new IdentityError
+                {
+                    Description = "Користувач з такою поштою вже існує."
+                });
             }
 
             var user = new User
             {
-                Username = model.Username,
-                Email = model.Email,
-                PasswordHash = model.Password // (або хешуй тут, якщо треба)
+                UserName = model.Username, // або model.Email, якщо логін за email
+                Email = model.Email
             };
 
-            try
-            {
-                // Викликаємо метод для створення користувача
-                await _userRepository.CreateAsync(user);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
-                // Якщо не виникло помилок, повертаємо успішний результат
-                return IdentityResult.Success;
-            }
-            catch (Exception ex)
-            {
-                // Якщо виникла помилка, повертаємо провал з повідомленням
-                return IdentityResult.Failed(new IdentityError { Description = "Не вдалося створити користувача." });
-            }
+            return result;
         }
 
     }

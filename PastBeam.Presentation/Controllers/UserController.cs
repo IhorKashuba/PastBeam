@@ -110,63 +110,35 @@ namespace PastBeam.Presentation.Controllers
             return View(userDto);
         }
 
-        // transfer to account controller
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("register")]
-        public IActionResult RegisterUser()
-        {
-            return View("RegisterUser");
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("register")]
+        [HttpPost("edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterUser(RegisterUserDto model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _userService.RegisterUserAsync(model);
-            }
-                
-            if (result.Succeeded)
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Home");
-            }
-
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-            
-            return View("RegisterUser", model);
-        }
-         
         public async Task<IActionResult> EditUserAdmin(UpdateUserDto userDto)
         {
-            if (!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return View(userDto);
             }
 
-                if (result.Succeeded)
+            try
+            {
+                bool success = await _userService.UpdateUserAsync(userDto);
+                if (success)
                 {
-                    var user = await _userManager.FindByEmailAsync(model.Email);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    TempData["SuccessMessage"] = $"User '{userDto.Username}' (ID: {userDto.Id}) updated successfully.";
+                    return RedirectToAction(nameof(UserList));
                 }
-
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    TempData["ErrorMessage"] = $"Could not update user with ID {userDto.Id}. User might not exist anymore.";
+                    return View(userDto);
                 }
             }
-
-            return View("RegisterUser", model);
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "An error occurred while updating the user.";
+                return View(userDto);
+            }
         }
-
 
         [HttpPost("/edit/username")]
         public async Task<IActionResult> UpdateUsername(string NewUsername)
@@ -216,13 +188,11 @@ namespace PastBeam.Presentation.Controllers
             return RedirectToAction("ShowProfile");
         }
 
-
         [HttpPut("assign/{userId}/{userRole}")]
         [Authorize(Roles = "Admin")]
         public async Task AssignUserRole(string userId, string userRole)
         {
             bool result = await _userService.AssignUserRole(userId, userRole);
-            return result ? Ok() : NotFound();
         }
 
         [HttpDelete("{userId}")]

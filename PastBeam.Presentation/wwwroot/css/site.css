@@ -89,7 +89,9 @@ footer {
 
 .article-list {
     justify-content: center;
-    width: 100%;
+    width: 98%;
+    margin-left:1%;
+    margin-right:1%;
 }
 
 .article-list ul {

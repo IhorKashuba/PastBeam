@@ -98,23 +98,22 @@ using (var scope = app.Services.CreateScope())
     await DbInitializer.SeedTestUserAsync(services);
 }
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ApplicationDbContext>();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var context = services.GetRequiredService<ApplicationDbContext>();
 
-    // Створення тестової статті
-    var testArticle = new Article
-    {
-        Title = "Test Article",
-        Content = "This is a test article content.",
-        CreatedAt = DateTime.UtcNow,
-        UpdatedAt = DateTime.UtcNow
-    };
-
-    context.Articles.Add(testArticle);
-    await context.SaveChangesAsync();
-}
+//    // Створення тестової статті
+//    var testArticle = new Article
+//    {
+//        Title = "Test Article",
+//        Content = "This is a test article content.",
+//        CreatedAt = DateTime.UtcNow,
+//        UpdatedAt = DateTime.UtcNow
+//    };
+//    context.Articles.Add(testArticle);
+//    await context.SaveChangesAsync();
+//}
 
 //temp user
 //delete when registration done
