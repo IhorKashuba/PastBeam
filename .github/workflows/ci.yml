@@ -28,8 +28,8 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
 
-      # - name: Run tests
-        # run: dotnet test PastBeam.Tests/PastBeam.Tests.csproj --verbosity normal
+      - name: Run tests
+        run: dotnet test PastBeam.Tests/PastBeam.Tests.csproj --verbosity normal
 
       - name: Login to Azure
         uses: azure/login@v1  # Логін до Azure через Service Principal
