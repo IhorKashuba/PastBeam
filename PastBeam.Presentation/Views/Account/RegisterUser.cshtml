@@ -1,0 +1,53 @@
+﻿@model PastBeam.Application.Library.Dtos.RegisterUserDto
+
+@{
+    ViewData["Title"] = "Реєстрація";
+}
+<div class="register-container">
+    <h2>Реєстрація</h2>
+
+    <form asp-action="RegisterUser" asp-controller="Account" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Зареєструватися</button>
+    </form>
+</div>
+
+<style>
+    h2, .form-group {
+        padding-bottom: 10px;
+    }
+
+    .register-container {
+        height: 80%;
+        padding: 1%;
+        margin: 0.5%;
+        background: white;
+        border-radius: 5px;
+    }
+</style>
+    
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

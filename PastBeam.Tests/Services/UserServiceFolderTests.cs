@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.AspNetCore.Identity;
 using Moq;
 using PastBeam.Application.Library.Interfaces;
 using PastBeam.Application.Library.Services;
@@ -20,6 +21,7 @@ namespace PastBeam.Tests.Services
         private readonly Mock<IUserCourseRepository> userCourseRepositoryMock;
         private readonly UserService userService;
         private readonly Mock<ILogger> loggerMock;
+        private readonly Mock<UserManager<User>> userManagerMock;
 
         public UserServiceFolderTests()
         {
@@ -29,14 +31,16 @@ namespace PastBeam.Tests.Services
             bookmarkRepositoryMock = new Mock<IBookmarkRepository>();
             folderRepositoryMock = new Mock<IFolderRepository>();
             userCourseRepositoryMock = new Mock<IUserCourseRepository>();
+            userManagerMock = new Mock<UserManager<User>>();
 
             userService = new UserService(
                 userRepositoryMock.Object,
                 favoriteRepositoryMock.Object,
-                bookmarkRepositoryMock.Object, 
+                bookmarkRepositoryMock.Object,
                 folderRepositoryMock.Object,
-                userCourseRepositoryMock.Object, 
-                loggerMock.Object);
+                userCourseRepositoryMock.Object,
+                loggerMock.Object,
+                userManagerMock.Object);
         }
 
         [Fact]

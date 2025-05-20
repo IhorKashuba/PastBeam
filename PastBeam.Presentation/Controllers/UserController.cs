@@ -4,6 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using PastBeam.Application.Library.Dtos;
 using PastBeam.Application.Library.Interfaces;
 using PastBeam.Core.Library.Entities;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using System.Security.Claims;
 using PastBeam.Presentation.Models;
 
@@ -13,13 +18,15 @@ namespace PastBeam.Presentation.Controllers
     [Route("user")]
     public class UserController : Controller
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserController(IUserService userService, UserManager<User> userManager)
+        public UserController(IUserService userService, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userService = userService;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpDelete("delete/{userId}")]
@@ -57,9 +64,7 @@ namespace PastBeam.Presentation.Controllers
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "An error occurred while retrieving the user list.";
-                // Return the view without data, or redirect to an error page
-                return View(new List<PastBeam.Application.Library.Dtos.UserListItemDto>()); // Return empty list to avoid View error
-                // Or return View("Error", new ErrorViewModel { /* ... */ });
+                return View(new List<UserListItemDto>()); // Return empty list to avoid View error
             }
         }
 
@@ -83,7 +88,6 @@ namespace PastBeam.Presentation.Controllers
             }
 
             var userDto = await _userService.GetUserAsync(userId);
-            Console.WriteLine(userDto.Username);
             if (userDto == null)
             {
                 TempData["ErrorMessage"] = $"User with ID {userId} not found.";
@@ -112,7 +116,8 @@ namespace PastBeam.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUserAdmin(UpdateUserDto userDto)
         {
-            if (!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return View(userDto);
             }
 
@@ -177,19 +182,19 @@ namespace PastBeam.Presentation.Controllers
 
             if (!result.Succeeded)
             {
-                TempData["Error"] = "Failed to update password.";
+                TempData["Error"] = string.Join("; ", result.Errors.Select(e => e.Description));
+                return RedirectToAction("ShowProfile");
             }
 
+            await _signInManager.RefreshSignInAsync(user);
             return RedirectToAction("ShowProfile");
         }
-
 
         [HttpPut("assign/{userId}/{userRole}")]
         [Authorize(Roles = "Admin")]
         public async Task AssignUserRole(string userId, string userRole)
         {
             bool result = await _userService.AssignUserRole(userId, userRole);
-
         }
 
         [HttpDelete("{userId}")]

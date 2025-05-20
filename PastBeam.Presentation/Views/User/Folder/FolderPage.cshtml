@@ -1,0 +1,54 @@
+﻿@model List<PastBeam.Core.Library.Entities.Article>
+
+<h3 class="folder-list-text">Articles in @ViewBag.folder.Name</h3>
+
+@if (Model != null && Model.Any())
+{
+    <div class="article-list">
+        <ul>
+            @foreach (var article in Model)
+            {
+                <li class="folder-item">
+                    <div class="d-flex flex-row justify-content-between align-items-center article-item-container p-2 flex-grow-1 text-center">
+                        <h4>@article.Title</h4>
+                        <div><strong>Published:</strong> @article.CreatedAt.ToShortDateString()</div>
+                        <div><strong>Updated At:</strong> @article.UpdatedAt.ToShortDateString()</div>
+                        <a class="text-center" asp-action="GetArticleDetails" asp-route-id="@article.Id">Read More</a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+}
+else
+{
+    <div class="article-list">
+        <p>No articles available.</p>
+    </div>
+}
+
+<style>
+
+    .article-list {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .article-list ul {
+        align-self: center;
+        list-style-type: none; /* Видаляє маркери для списку */
+        margin: 0px 15px 0px 15px;
+        padding: 0;
+    }
+
+    .folder-item {
+        margin-bottom: 10px; /* Додає відступ між елементами списку */
+        padding: 0;
+    }
+
+    .folder-list-text {
+        padding-left: 15px;
+        padding-bottom: 10px
+    }
+</style>
