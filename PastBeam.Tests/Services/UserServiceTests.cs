@@ -28,7 +28,7 @@ public class UserServiceTests
         _bookmarkRepositoryMock = new Mock<IBookmarkRepository>();
         _folderRepositoryMock = new Mock<IFolderRepository>();
         _userCourseRepositoryMock = new Mock<IUserCourseRepository>();
-        _userManagerMock = new Mock<UserManager<User>>();
+        _userManagerMock = GetMockUserManager();
 
         _userService = new UserService(
             _mockUserRepository.Object,
@@ -39,6 +39,15 @@ public class UserServiceTests
             _mockLogger.Object,
             _userManagerMock.Object);
     }
+
+    private Mock<UserManager<User>> GetMockUserManager()
+    {
+        var store = new Mock<IUserStore<User>>();
+        return new Mock<UserManager<User>>(
+            store.Object,
+            null, null, null, null, null, null, null, null);
+    }
+
 
     [Fact]
     public async Task GetAllUsersAsync_ReturnsMappedDtos()

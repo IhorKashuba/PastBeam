@@ -23,6 +23,15 @@ namespace PastBeam.Tests.Services
         private readonly Mock<ILogger> loggerMock;
         private readonly Mock<UserManager<User>> userManagerMock;
 
+
+        private Mock<UserManager<User>> GetMockUserManager()
+        {
+            var store = new Mock<IUserStore<User>>();
+            return new Mock<UserManager<User>>(
+                store.Object,
+                null, null, null, null, null, null, null, null);
+        }
+
         public UserServiceFolderTests()
         {
             loggerMock = new Mock<ILogger>();
@@ -31,7 +40,7 @@ namespace PastBeam.Tests.Services
             bookmarkRepositoryMock = new Mock<IBookmarkRepository>();
             folderRepositoryMock = new Mock<IFolderRepository>();
             userCourseRepositoryMock = new Mock<IUserCourseRepository>();
-            userManagerMock = new Mock<UserManager<User>>();
+            userManagerMock = GetMockUserManager();
 
             userService = new UserService(
                 userRepositoryMock.Object,
