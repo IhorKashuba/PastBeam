@@ -3,7 +3,6 @@ using PastBeam.Core.Library.Entities;
 using PastBeam.Core.Library.Interfaces;
 using PastBeam.Application.Library.Dtos;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 
 namespace PastBeam.Application.Library.Services
