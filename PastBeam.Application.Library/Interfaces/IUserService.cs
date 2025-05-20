@@ -17,7 +17,6 @@ namespace PastBeam.Application.Library.Interfaces
 
         Task<Folder?> CreateFolderAsync(string userId, string name);
 
-        //temporary userId because user will be saved in session
         Task<IEnumerable<Folder>> GetUserFoldersAsync(string userId);
 
         Task<IdentityResult> RegisterUserAsync(RegisterUserDto model);
