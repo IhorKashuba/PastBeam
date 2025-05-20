@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Identity;
+using Moq;
 using PastBeam.Application.Library.Dtos;
 using PastBeam.Application.Library.Interfaces;
 using PastBeam.Application.Library.Services;
@@ -17,6 +18,7 @@ public class UserServiceTests
     private readonly Mock<IUserCourseRepository> _userCourseRepositoryMock;
     private readonly Mock<ILogger> _mockLogger;
     private readonly UserService _userService;
+    private readonly Mock<UserManager<User>> _userManagerMock;
 
     public UserServiceTests()
     {
@@ -26,6 +28,7 @@ public class UserServiceTests
         _bookmarkRepositoryMock = new Mock<IBookmarkRepository>();
         _folderRepositoryMock = new Mock<IFolderRepository>();
         _userCourseRepositoryMock = new Mock<IUserCourseRepository>();
+        _userManagerMock = new Mock<UserManager<User>>();
 
         _userService = new UserService(
             _mockUserRepository.Object,
@@ -33,7 +36,8 @@ public class UserServiceTests
             _bookmarkRepositoryMock.Object,
             _folderRepositoryMock.Object,
             _userCourseRepositoryMock.Object,
-            _mockLogger.Object);
+            _mockLogger.Object,
+            _userManagerMock.Object);
     }
 
     [Fact]
@@ -321,7 +325,7 @@ public class UserServiceTests
             mockRepo.Setup(r => r.DeleteUserAsync(It.IsAny<string>()))
                     .Returns(Task.CompletedTask);
 
-            var service = new UserService(mockRepo.Object, _favoriteRepositoryMock.Object, _bookmarkRepositoryMock.Object, _folderRepositoryMock.Object, _userCourseRepositoryMock.Object, _mockLogger.Object);
+            var service = new UserService(mockRepo.Object, _favoriteRepositoryMock.Object, _bookmarkRepositoryMock.Object, _folderRepositoryMock.Object, _userCourseRepositoryMock.Object, _mockLogger.Object, _userManagerMock.Object);
 
             // Act
             var result = await service.DeleteUserAccountAsync("test_id_1");
